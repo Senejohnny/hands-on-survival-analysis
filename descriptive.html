@@ -64,7 +64,7 @@
     <link rel="index" title="Index" href="genindex.html" />
     <link rel="search" title="Search" href="search.html" />
     <link rel="next" title="Predictive Analytics" href="predictive.html" />
-    <link rel="prev" title="Tutorial Outline" href="intro.html" />
+    <link rel="prev" title="Outline" href="outline.html" />
   <meta name="viewport" content="width=device-width, initial-scale=1"/>
   <meta name="docsearch:language" content="en"/>
   </head>
@@ -172,11 +172,12 @@
         <ul class="nav bd-sidenav bd-sidenav__home-link">
             <li class="toctree-l1">
                 <a class="reference internal" href="intro.html">
-                    Tutorial Outline
+                    Introduction
                 </a>
             </li>
         </ul>
         <ul class="current nav bd-sidenav">
+<li class="toctree-l1"><a class="reference internal" href="outline.html">Outline</a></li>
 <li class="toctree-l1 current active"><a class="current reference internal" href="#">Descriptive Analytics</a></li>
 
 
@@ -189,6 +190,7 @@
 
 <li class="toctree-l1"><a class="reference internal" href="predictive.html">Predictive Analytics</a></li>
 <li class="toctree-l1"><a class="reference internal" href="markdown.html">Markdown Files</a></li>
+<li class="toctree-l1"><a class="reference internal" href="markdown-notebooks.html">Notebooks with MyST Markdown</a></li>
 </ul>
 
     </div>
@@ -392,6 +394,8 @@ document.write(`
 <li class="toc-h2 nav-item toc-entry"><a class="reference internal nav-link" href="#example-1-km-curve-with-no-censoring">Example 1: KM curve with no censoring</a></li>
 <li class="toc-h2 nav-item toc-entry"><a class="reference internal nav-link" href="#example-2-km-curve-with-censoring">Example 2: KM curve with censoring</a></li>
 <li class="toc-h2 nav-item toc-entry"><a class="reference internal nav-link" href="#example-3-comparing-survival-curves">Example 3: Comparing Survival Curves:</a><ul class="nav section-nav flex-column">
+<li class="toc-h3 nav-item toc-entry"><a class="reference internal nav-link" href="#data-criminals-return-to-prison">Data: Criminals return to prison</a></li>
+<li class="toc-h3 nav-item toc-entry"><a class="reference internal nav-link" href="#statistical-significance">Statistical Significance</a></li>
 <li class="toc-h3 nav-item toc-entry"><a class="reference internal nav-link" href="#example-3-identifying-data-drift">Example 3: Identifying Data Drift</a></li>
 </ul>
 </li>
@@ -403,7 +407,10 @@ document.write(`
 <li class="toc-h1 nav-item toc-entry"><a class="reference internal nav-link" href="#best-practices-for-visualising-kaplan-meier-plots">Best practices for visualising Kaplan-Meier plots</a></li>
 <li class="toc-h1 nav-item toc-entry"><a class="reference internal nav-link" href="#challenging-scenarios">Challenging Scenarios</a></li>
 <li class="toc-h1 nav-item toc-entry"><a class="reference internal nav-link" href="#summary-take-aways">Summary &amp; Take Aways</a></li>
-<li class="toc-h1 nav-item toc-entry"><a class="reference internal nav-link" href="#advanced-topics">Advanced Topics</a></li>
+<li class="toc-h1 nav-item toc-entry"><a class="reference internal nav-link" href="#advanced-topics">Advanced Topics</a><ul class="visible nav section-nav flex-column">
+<li class="toc-h2 nav-item toc-entry"><a class="reference internal nav-link" href="#example-6-correcting-for-covariates">Example 6: Correcting for covariates</a></li>
+</ul>
+</li>
 </ul>
 
             </nav>
@@ -466,7 +473,11 @@ where \)</span>T$ is the time at which the event occurs.</p>
 <p><strong>Censoring</strong>: In presence of censoring, Kaplan and Meier (1958) proposed a nonparametric estimate of the survival function, which is the generalization of the empirical estimator for censored data</p>
 <div class="math notranslate nohighlight">
 \[
-\hat S(t) = \prod_{t_i&lt;t} (1 - \frac{d_i}{n_i} )
+\hat S(t) = \prod_{t_i&lt;t} \hat S_i(t) 
+\]</div>
+<div class="math notranslate nohighlight">
+\[
+\hat S_i(t) = 1 - \frac{d_i}{n_i} 
 \]</div>
 <p>Where <span class="math notranslate nohighlight">\(t_i\)</span> is the observed event times, <span class="math notranslate nohighlight">\(d_i\)</span> and <span class="math notranslate nohighlight">\(n_i\)</span> are the number of events and subjects at risk at time <span class="math notranslate nohighlight">\(t_i\)</span>.</p>
 </section>
@@ -858,13 +869,64 @@ where \)</span>T$ is the time at which the event occurs.</p>
 </section>
 <section id="example-3-comparing-survival-curves">
 <h2>Example 3: Comparing Survival Curves:<a class="headerlink" href="#example-3-comparing-survival-curves" title="Link to this heading">#</a></h2>
-<p>Are these two curves statistivally equivalent. For answering it, we can use the log-rank test (Mantel 1966; Peto and Peto 1972). This is the most well-known and widely used method to test the null hypothesis of no difference in survival between two or more independent groups.</p>
+<section id="data-criminals-return-to-prison">
+<h3>Data: Criminals return to prison<a class="headerlink" href="#data-criminals-return-to-prison" title="Link to this heading">#</a></h3>
+<p>The <a class="reference external" href="https://gwern.net/doc/sociology/1980-rossi-moneyworkandcrime.pdf">study data</a> involved 432 Maryland convicts released in the 1970s, tracked for one year post-release. The experiment was designed to test the impact of financial assistance on post-release outcomes, with subjects randomly divided into two equal groups</p>
+<div class="cell docutils container">
+<div class="cell_input docutils container">
+<div class="highlight-ipython3 notranslate"><div class="highlight"><pre><span></span><span class="kn">from</span><span class="w"> </span><span class="nn">lifelines.datasets</span><span class="w"> </span><span class="kn">import</span> <span class="n">load_rossi</span>
+<span class="kn">import</span><span class="w"> </span><span class="nn">numpy</span><span class="w"> </span><span class="k">as</span><span class="w"> </span><span class="nn">np</span>
+
+<span class="c1"># loading data </span>
+<span class="n">data</span> <span class="o">=</span> <span class="n">load_rossi</span><span class="p">()</span>
+<span class="n">treat</span> <span class="o">=</span> <span class="n">data</span><span class="o">.</span><span class="n">query</span><span class="p">(</span><span class="s2">&quot;fin == 1&quot;</span><span class="p">)</span> 
+<span class="n">ctrl</span> <span class="o">=</span> <span class="n">data</span><span class="o">.</span><span class="n">query</span><span class="p">(</span><span class="s2">&quot;fin == 0&quot;</span><span class="p">)</span>
+
+<span class="c1"># init &amp; Fitting KM curves </span>
+<span class="n">ax</span> <span class="o">=</span> <span class="n">plt</span><span class="o">.</span><span class="n">subplot</span><span class="p">(</span><span class="mi">111</span><span class="p">)</span>
+<span class="n">t</span> <span class="o">=</span> <span class="n">np</span><span class="o">.</span><span class="n">linspace</span><span class="p">(</span><span class="mi">0</span><span class="p">,</span> <span class="mi">55</span><span class="p">,</span> <span class="mi">55</span><span class="p">)</span>
+<span class="n">kmf1</span> <span class="o">=</span> <span class="n">KaplanMeierFitter</span><span class="p">()</span>
+<span class="n">kmf2</span> <span class="o">=</span> <span class="n">KaplanMeierFitter</span><span class="p">()</span>
+<span class="n">kmf1</span><span class="o">.</span><span class="n">fit</span><span class="p">(</span><span class="n">treat</span><span class="p">[</span><span class="s1">&#39;week&#39;</span><span class="p">],</span> <span class="n">event_observed</span><span class="o">=</span><span class="n">treat</span><span class="p">[</span><span class="s1">&#39;arrest&#39;</span><span class="p">],</span> <span class="n">timeline</span><span class="o">=</span><span class="n">t</span><span class="p">,</span> <span class="n">label</span><span class="o">=</span><span class="s2">&quot;fin. aid Yes&quot;</span><span class="p">)</span>
+<span class="n">kmf2</span><span class="o">.</span><span class="n">fit</span><span class="p">(</span><span class="n">ctrl</span><span class="p">[</span><span class="s1">&#39;week&#39;</span><span class="p">],</span> <span class="n">event_observed</span><span class="o">=</span><span class="n">ctrl</span><span class="p">[</span><span class="s1">&#39;arrest&#39;</span><span class="p">],</span> <span class="n">timeline</span><span class="o">=</span><span class="n">t</span><span class="p">,</span> <span class="n">label</span><span class="o">=</span><span class="s2">&quot;fin. aid No&quot;</span><span class="p">)</span>
+
+<span class="c1"># plotting the KM curves</span>
+<span class="n">kmf1</span><span class="o">.</span><span class="n">plot</span><span class="p">(</span><span class="n">ax</span><span class="o">=</span><span class="n">ax</span><span class="p">),</span> <span class="n">kmf2</span><span class="o">.</span><span class="n">plot</span><span class="p">(</span><span class="n">ax</span><span class="o">=</span><span class="n">ax</span><span class="p">)</span>
+<span class="n">ax</span><span class="o">.</span><span class="n">set_title</span><span class="p">(</span><span class="s2">&quot;Criminal Recidivism in 52-week After Release&quot;</span><span class="p">);</span>
+<span class="n">ax</span><span class="o">.</span><span class="n">set_ylabel</span><span class="p">(</span><span class="s2">&quot;P(surviving from getting rearrested)&quot;</span><span class="p">);</span>
+<span class="c1"># ax.set_ylabel(&quot;Prob. of getting rearrested&quot;);</span>
+<span class="n">ax</span><span class="o">.</span><span class="n">set_xlabel</span><span class="p">(</span><span class="s2">&quot;time (week)&quot;</span><span class="p">);</span>
+</pre></div>
+</div>
+</div>
+<div class="cell_output docutils container">
+<img alt="_images/a9e7f2a574830ac17242664e278ae12c49392294a941d6d9990efc82f90c61a9.png" src="_images/a9e7f2a574830ac17242664e278ae12c49392294a941d6d9990efc82f90c61a9.png" />
+</div>
+</div>
+</section>
+<section id="statistical-significance">
+<h3>Statistical Significance<a class="headerlink" href="#statistical-significance" title="Link to this heading">#</a></h3>
+<p>Are these two curves statistically equivalent? To answer this question, we can use the log-rank test (Mantel 1966; Peto and Peto 1972). This is the most well-known and widely used method to test the null hypothesis of no difference in survival between two or more independent groups.</p>
+<div class="cell docutils container">
+<div class="cell_input docutils container">
+<div class="highlight-ipython3 notranslate"><div class="highlight"><pre><span></span><span class="kn">from</span><span class="w"> </span><span class="nn">lifelines.statistics</span><span class="w"> </span><span class="kn">import</span> <span class="n">logrank_test</span>
+<span class="n">log_rank_test_result</span> <span class="o">=</span> <span class="n">logrank_test</span><span class="p">(</span><span class="n">treat</span><span class="p">[</span><span class="s1">&#39;week&#39;</span><span class="p">],</span> <span class="n">ctrl</span><span class="p">[</span><span class="s1">&#39;week&#39;</span><span class="p">],</span> <span class="n">event_observed_A</span><span class="o">=</span><span class="n">treat</span><span class="p">[</span><span class="s1">&#39;arrest&#39;</span><span class="p">],</span> <span class="n">event_observed_B</span><span class="o">=</span><span class="n">ctrl</span><span class="p">[</span><span class="s1">&#39;arrest&#39;</span><span class="p">])</span>
+<span class="nb">print</span><span class="p">(</span><span class="sa">f</span><span class="s1">&#39;p-value: </span><span class="si">{</span><span class="n">log_rank_test_result</span><span class="o">.</span><span class="n">p_value</span><span class="si">:</span><span class="s1">.4f</span><span class="si">}</span><span class="s1">&#39;</span><span class="p">)</span>
+</pre></div>
+</div>
+</div>
+<div class="cell_output docutils container">
+<div class="output stream highlight-myst-ansi notranslate"><div class="highlight"><pre><span></span>p-value: 0.0501
+</pre></div>
+</div>
+</div>
+</div>
+<p>Remarks:</p>
 <ul class="simple">
-<li><p>One can compare 2 groups or more than 2 group of samples</p></li>
-<li><p>One can give different weight to early vs late failures</p></li>
-<li></li>
+<li><p>While <code class="docutils literal notranslate"><span class="pre">logrank_test</span></code> function is used for two KM curves, <code class="docutils literal notranslate"><span class="pre">multivariate_logrank_test</span></code> can be used for more than 2 KM curves.</p></li>
+<li><p>These methods provide weightings for hypothesis testing early vs late difference</p></li>
 </ul>
-<p>Methods to</p>
+</section>
 <section id="example-3-identifying-data-drift">
 <h3>Example 3: Identifying Data Drift<a class="headerlink" href="#example-3-identifying-data-drift" title="Link to this heading">#</a></h3>
 </section>
@@ -913,6 +975,9 @@ where \)</span>T$ is the time at which the event occurs.</p>
 <ul class="simple">
 <li><p>How to handle time-series data?</p></li>
 </ul>
+<section id="example-6-correcting-for-covariates">
+<h2>Example 6: Correcting for covariates<a class="headerlink" href="#example-6-correcting-for-covariates" title="Link to this heading">#</a></h2>
+</section>
 </section>
 
     <script type="text/x-thebe-config">
@@ -946,12 +1011,12 @@ where \)</span>T$ is the time at which the event occurs.</p>
                   
 <div class="prev-next-area">
     <a class="left-prev"
-       href="intro.html"
+       href="outline.html"
        title="previous page">
       <i class="fa-solid fa-angle-left"></i>
       <div class="prev-next-info">
         <p class="prev-next-subtitle">previous</p>
-        <p class="prev-next-title">Tutorial Outline</p>
+        <p class="prev-next-title">Outline</p>
       </div>
     </a>
     <a class="right-next"
@@ -987,6 +1052,8 @@ where \)</span>T$ is the time at which the event occurs.</p>
 <li class="toc-h2 nav-item toc-entry"><a class="reference internal nav-link" href="#example-1-km-curve-with-no-censoring">Example 1: KM curve with no censoring</a></li>
 <li class="toc-h2 nav-item toc-entry"><a class="reference internal nav-link" href="#example-2-km-curve-with-censoring">Example 2: KM curve with censoring</a></li>
 <li class="toc-h2 nav-item toc-entry"><a class="reference internal nav-link" href="#example-3-comparing-survival-curves">Example 3: Comparing Survival Curves:</a><ul class="nav section-nav flex-column">
+<li class="toc-h3 nav-item toc-entry"><a class="reference internal nav-link" href="#data-criminals-return-to-prison">Data: Criminals return to prison</a></li>
+<li class="toc-h3 nav-item toc-entry"><a class="reference internal nav-link" href="#statistical-significance">Statistical Significance</a></li>
 <li class="toc-h3 nav-item toc-entry"><a class="reference internal nav-link" href="#example-3-identifying-data-drift">Example 3: Identifying Data Drift</a></li>
 </ul>
 </li>
@@ -998,7 +1065,10 @@ where \)</span>T$ is the time at which the event occurs.</p>
 <li class="toc-h1 nav-item toc-entry"><a class="reference internal nav-link" href="#best-practices-for-visualising-kaplan-meier-plots">Best practices for visualising Kaplan-Meier plots</a></li>
 <li class="toc-h1 nav-item toc-entry"><a class="reference internal nav-link" href="#challenging-scenarios">Challenging Scenarios</a></li>
 <li class="toc-h1 nav-item toc-entry"><a class="reference internal nav-link" href="#summary-take-aways">Summary &amp; Take Aways</a></li>
-<li class="toc-h1 nav-item toc-entry"><a class="reference internal nav-link" href="#advanced-topics">Advanced Topics</a></li>
+<li class="toc-h1 nav-item toc-entry"><a class="reference internal nav-link" href="#advanced-topics">Advanced Topics</a><ul class="visible nav section-nav flex-column">
+<li class="toc-h2 nav-item toc-entry"><a class="reference internal nav-link" href="#example-6-correcting-for-covariates">Example 6: Correcting for covariates</a></li>
+</ul>
+</li>
 </ul>
 
   </nav></div>
