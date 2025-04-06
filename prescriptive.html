@@ -8,7 +8,7 @@
     <meta charset="utf-8" />
     <meta name="viewport" content="width=device-width, initial-scale=1.0" /><meta name="viewport" content="width=device-width, initial-scale=1" />
 
-    <title>Outline &#8212; Hands-on Survival Analysis</title>
+    <title>Prescriptive Survival Analytics &#8212; Hands-on Survival Analysis</title>
   
   
   
@@ -57,12 +57,12 @@
     <script async="async" src="_static/sphinx-thebe.js?v=c100c467"></script>
     <script>var togglebuttonSelector = '.toggle, .admonition.dropdown';</script>
     <script>const THEBE_JS_URL = "https://unpkg.com/thebe@0.8.2/lib/index.js"; const thebe_selector = ".thebe,.cell"; const thebe_selector_input = "pre"; const thebe_selector_output = ".output, .cell_output"</script>
-    <script>DOCUMENTATION_OPTIONS.pagename = 'outline';</script>
+    <script>DOCUMENTATION_OPTIONS.pagename = 'prescriptive';</script>
     <link rel="icon" href="_static/danial-avetar.ico"/>
     <link rel="index" title="Index" href="genindex.html" />
     <link rel="search" title="Search" href="search.html" />
-    <link rel="next" title="Descriptive Analytics" href="descriptive.html" />
-    <link rel="prev" title="Introduction" href="intro.html" />
+    <link rel="next" title="Reference &amp; Further reading" href="biblio.html" />
+    <link rel="prev" title="Predictive Analytics" href="predictive.html" />
   <meta name="viewport" content="width=device-width, initial-scale=1"/>
   <meta name="docsearch:language" content="en"/>
   </head>
@@ -175,7 +175,7 @@
             </li>
         </ul>
         <ul class="current nav bd-sidenav">
-<li class="toctree-l1 current active"><a class="current reference internal" href="#">Outline</a></li>
+<li class="toctree-l1"><a class="reference internal" href="outline.html">Outline</a></li>
 <li class="toctree-l1"><a class="reference internal" href="descriptive.html">Descriptive Analytics</a></li>
 
 
@@ -189,6 +189,8 @@
 <li class="toctree-l1"><a class="reference internal" href="predictive.html">Predictive Analytics</a></li>
 
 
+<li class="toctree-l1 current active"><a class="current reference internal" href="#">Prescriptive Survival Analytics</a></li>
+<li class="toctree-l1"><a class="reference internal" href="biblio.html">Reference &amp; Further reading</a></li>
 </ul>
 
     </div>
@@ -260,7 +262,7 @@
       
       
       
-      <li><a href="https://github.com/executablebooks/jupyter-book/issues/new?title=Issue%20on%20page%20%2Foutline.html&body=Your%20issue%20content%20here." target="_blank"
+      <li><a href="https://github.com/executablebooks/jupyter-book/issues/new?title=Issue%20on%20page%20%2Fprescriptive.html&body=Your%20issue%20content%20here." target="_blank"
    class="btn btn-sm btn-source-issues-button dropdown-item"
    title="Open an issue"
    data-bs-placement="left" data-bs-toggle="tooltip"
@@ -290,7 +292,7 @@
       
       
       
-      <li><a href="_sources/outline.md" target="_blank"
+      <li><a href="_sources/prescriptive.md" target="_blank"
    class="btn btn-sm btn-download-source-button dropdown-item"
    title="Download source file"
    data-bs-placement="left" data-bs-toggle="tooltip"
@@ -374,7 +376,7 @@ document.write(`
               
 
 <div id="jb-print-docs-body" class="onlyprint">
-    <h1>Outline</h1>
+    <h1>Prescriptive Survival Analytics</h1>
     <!-- Table of contents -->
     <div id="print-main-content">
         <div id="jb-print-toc">
@@ -384,9 +386,9 @@ document.write(`
             </div>
             <nav aria-label="Page">
                 <ul class="visible nav section-nav flex-column">
-<li class="toc-h2 nav-item toc-entry"><a class="reference internal nav-link" href="#notebook-1-descriptive-survival-analysis">Notebook 1: Descriptive Survival Analysis</a></li>
-<li class="toc-h2 nav-item toc-entry"><a class="reference internal nav-link" href="#notebook-2-predictive-survival-analysis">Notebook 2: Predictive Survival Analysis</a></li>
-<li class="toc-h2 nav-item toc-entry"><a class="reference internal nav-link" href="#prescriptive-survival-analysis-advanced-topics">Prescriptive Survival Analysis &amp; Advanced topics</a></li>
+<li class="toc-h2 nav-item toc-entry"><a class="reference internal nav-link" href="#an-example-cell">An example cell</a></li>
+<li class="toc-h2 nav-item toc-entry"><a class="reference internal nav-link" href="#create-a-notebook-with-myst-markdown">Create a notebook with MyST Markdown</a></li>
+<li class="toc-h2 nav-item toc-entry"><a class="reference internal nav-link" href="#quickly-add-yaml-metadata-for-myst-notebooks">Quickly add YAML metadata for MyST Notebooks</a></li>
 </ul>
             </nav>
         </div>
@@ -398,25 +400,50 @@ document.write(`
 <div id="searchbox"></div>
                 <article class="bd-article">
                   
-  <section class="tex2jax_ignore mathjax_ignore" id="outline">
-<h1>Outline<a class="headerlink" href="#outline" title="Link to this heading">#</a></h1>
-<section id="notebook-1-descriptive-survival-analysis">
-<h2>Notebook 1: Descriptive Survival Analysis<a class="headerlink" href="#notebook-1-descriptive-survival-analysis" title="Link to this heading">#</a></h2>
-<p><a class="reference external" href="https://colab.research.google.com/github/senejohnny/PyData_London_2025/blob/main/survival_book/descriptive.ipynb"><img alt="Open In Colab" src="https://colab.research.google.com/assets/colab-badge.svg" /></a></p>
-<p><a class="reference external" href="https://accounts.cloud.databricks.com/workspaces"><img alt="Open in Databricks" src="https://databricks.com/wp-content/uploads/2024/03/open-in-databricks.svg" /></a></p>
-<!-- [![Open In Colab](https://colab.research.google.com/assets/colab-badge.svg)](https://colab.research.google.com/github/USERNAME/REPOSITORY/blob/main/notebook.ipynb) -->
+  <section class="tex2jax_ignore mathjax_ignore" id="prescriptive-survival-analytics">
+<h1>Prescriptive Survival Analytics<a class="headerlink" href="#prescriptive-survival-analytics" title="Link to this heading">#</a></h1>
+<p>Jupyter Book also lets you write text-based notebooks using MyST Markdown.
+See <a class="reference external" href="https://jupyterbook.org/file-types/myst-notebooks.html">the Notebooks with MyST Markdown documentation</a> for more detailed instructions.
+This page shows off a notebook written in MyST Markdown.</p>
+<section id="an-example-cell">
+<h2>An example cell<a class="headerlink" href="#an-example-cell" title="Link to this heading">#</a></h2>
+<p>With MyST Markdown, you can define code cells with a directive like so:</p>
+<div class="cell docutils container">
+<div class="cell_input docutils container">
+<div class="highlight-ipython3 notranslate"><div class="highlight"><pre><span></span><span class="nb">print</span><span class="p">(</span><span class="mi">2</span> <span class="o">+</span> <span class="mi">2</span><span class="p">)</span>
+</pre></div>
+</div>
+</div>
+<div class="cell_output docutils container">
+<div class="output stream highlight-myst-ansi notranslate"><div class="highlight"><pre><span></span>4
+</pre></div>
+</div>
+</div>
+</div>
+<p>When your book is built, the contents of any <code class="docutils literal notranslate"><span class="pre">{code-cell}</span></code> blocks will be
+executed with your default Jupyter kernel, and their outputs will be displayed
+in-line with the rest of your content.</p>
+<div class="admonition seealso">
+<p class="admonition-title">See also</p>
+<p>Jupyter Book uses <a class="reference external" href="https://jupytext.readthedocs.io/en/latest/">Jupytext</a> to convert text-based files to notebooks, and can support <a class="reference external" href="https://jupyterbook.org/file-types/jupytext.html">many other text-based notebook files</a>.</p>
+</div>
 </section>
-<section id="notebook-2-predictive-survival-analysis">
-<h2>Notebook 2: Predictive Survival Analysis<a class="headerlink" href="#notebook-2-predictive-survival-analysis" title="Link to this heading">#</a></h2>
-<p><a class="reference external" href="https://colab.research.google.com/github/senejohnny/PyData_London_2025/blob/main/survival_book/descriptive.ipynb"><img alt="Open In Colab" src="https://colab.research.google.com/assets/colab-badge.svg" /></a></p>
-<p><a class="reference external" href="https://accounts.cloud.databricks.com/workspaces"><img alt="Open in Databricks" src="https://databricks.com/wp-content/uploads/2024/03/open-in-databricks.svg" /></a></p>
+<section id="create-a-notebook-with-myst-markdown">
+<h2>Create a notebook with MyST Markdown<a class="headerlink" href="#create-a-notebook-with-myst-markdown" title="Link to this heading">#</a></h2>
+<p>MyST Markdown notebooks are defined by two things:</p>
+<ol class="arabic simple">
+<li><p>YAML metadata that is needed to understand if / how it should convert text files to notebooks (including information about the kernel needed).
+See the YAML at the top of this page for example.</p></li>
+<li><p>The presence of <code class="docutils literal notranslate"><span class="pre">{code-cell}</span></code> directives, which will be executed with your book.</p></li>
+</ol>
+<p>That’s all that is needed to get started!</p>
 </section>
-<section id="prescriptive-survival-analysis-advanced-topics">
-<h2>Prescriptive Survival Analysis &amp; Advanced topics<a class="headerlink" href="#prescriptive-survival-analysis-advanced-topics" title="Link to this heading">#</a></h2>
-<ul class="simple">
-<li><p>Overview of some of the Machine Learning methods are presented in <a class="reference external" href="https://www.youtube.com/watch?v=I33h5-GmHSM">PyData Amsterdam 2023</a></p></li>
-<li></li>
-</ul>
+<section id="quickly-add-yaml-metadata-for-myst-notebooks">
+<h2>Quickly add YAML metadata for MyST Notebooks<a class="headerlink" href="#quickly-add-yaml-metadata-for-myst-notebooks" title="Link to this heading">#</a></h2>
+<p>If you have a markdown file and you’d like to quickly add YAML metadata to it, so that Jupyter Book will treat it as a MyST Markdown Notebook, run the following command:</p>
+<div class="highlight-default notranslate"><div class="highlight"><pre><span></span><span class="n">jupyter</span><span class="o">-</span><span class="n">book</span> <span class="n">myst</span> <span class="n">init</span> <span class="n">path</span><span class="o">/</span><span class="n">to</span><span class="o">/</span><span class="n">markdownfile</span><span class="o">.</span><span class="n">md</span>
+</pre></div>
+</div>
 </section>
 </section>
 
@@ -451,20 +478,20 @@ document.write(`
                   
 <div class="prev-next-area">
     <a class="left-prev"
-       href="intro.html"
+       href="predictive.html"
        title="previous page">
       <i class="fa-solid fa-angle-left"></i>
       <div class="prev-next-info">
         <p class="prev-next-subtitle">previous</p>
-        <p class="prev-next-title">Introduction</p>
+        <p class="prev-next-title">Predictive Analytics</p>
       </div>
     </a>
     <a class="right-next"
-       href="descriptive.html"
+       href="biblio.html"
        title="next page">
       <div class="prev-next-info">
         <p class="prev-next-subtitle">next</p>
-        <p class="prev-next-title">Descriptive Analytics</p>
+        <p class="prev-next-title">Reference &amp; Further reading</p>
       </div>
       <i class="fa-solid fa-angle-right"></i>
     </a>
@@ -484,9 +511,9 @@ document.write(`
   </div>
   <nav class="bd-toc-nav page-toc">
     <ul class="visible nav section-nav flex-column">
-<li class="toc-h2 nav-item toc-entry"><a class="reference internal nav-link" href="#notebook-1-descriptive-survival-analysis">Notebook 1: Descriptive Survival Analysis</a></li>
-<li class="toc-h2 nav-item toc-entry"><a class="reference internal nav-link" href="#notebook-2-predictive-survival-analysis">Notebook 2: Predictive Survival Analysis</a></li>
-<li class="toc-h2 nav-item toc-entry"><a class="reference internal nav-link" href="#prescriptive-survival-analysis-advanced-topics">Prescriptive Survival Analysis &amp; Advanced topics</a></li>
+<li class="toc-h2 nav-item toc-entry"><a class="reference internal nav-link" href="#an-example-cell">An example cell</a></li>
+<li class="toc-h2 nav-item toc-entry"><a class="reference internal nav-link" href="#create-a-notebook-with-myst-markdown">Create a notebook with MyST Markdown</a></li>
+<li class="toc-h2 nav-item toc-entry"><a class="reference internal nav-link" href="#quickly-add-yaml-metadata-for-myst-notebooks">Quickly add YAML metadata for MyST Notebooks</a></li>
 </ul>
   </nav></div>
 

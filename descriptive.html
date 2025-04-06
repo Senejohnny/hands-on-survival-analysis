@@ -189,8 +189,8 @@
 
 
 <li class="toctree-l1"><a class="reference internal" href="predictive.html">Predictive Analytics</a></li>
-<li class="toctree-l1"><a class="reference internal" href="markdown.html">Markdown Files</a></li>
-<li class="toctree-l1"><a class="reference internal" href="markdown-notebooks.html">Notebooks with MyST Markdown</a></li>
+
+
 </ul>
 
     </div>
@@ -396,11 +396,12 @@ document.write(`
 <li class="toc-h2 nav-item toc-entry"><a class="reference internal nav-link" href="#example-3-comparing-survival-curves">Example 3: Comparing Survival Curves:</a><ul class="nav section-nav flex-column">
 <li class="toc-h3 nav-item toc-entry"><a class="reference internal nav-link" href="#data-criminals-return-to-prison">Data: Criminals return to prison</a></li>
 <li class="toc-h3 nav-item toc-entry"><a class="reference internal nav-link" href="#statistical-significance">Statistical Significance</a></li>
-<li class="toc-h3 nav-item toc-entry"><a class="reference internal nav-link" href="#example-3-identifying-data-drift">Example 3: Identifying Data Drift</a></li>
 </ul>
 </li>
+<li class="toc-h2 nav-item toc-entry"><a class="reference internal nav-link" href="#example-4-identifying-data-drift">Example 4: Identifying Data Drift</a></li>
 <li class="toc-h2 nav-item toc-entry"><a class="reference internal nav-link" href="#example-4-feature-selection">Example 4: Feature Selection</a></li>
 <li class="toc-h2 nav-item toc-entry"><a class="reference internal nav-link" href="#example-5-detecting-data-bias">Example 5: Detecting Data Bias</a></li>
+<li class="toc-h2 nav-item toc-entry"><a class="reference internal nav-link" href="#example-6-hazard-function">Example 6: Hazard Function</a></li>
 </ul>
 </li>
 <li class="toc-h1 nav-item toc-entry"><a class="reference internal nav-link" href="#id1"></a></li>
@@ -887,8 +888,8 @@ where \)</span>T$ is the time at which the event occurs.</p>
 <span class="n">t</span> <span class="o">=</span> <span class="n">np</span><span class="o">.</span><span class="n">linspace</span><span class="p">(</span><span class="mi">0</span><span class="p">,</span> <span class="mi">55</span><span class="p">,</span> <span class="mi">55</span><span class="p">)</span>
 <span class="n">kmf1</span> <span class="o">=</span> <span class="n">KaplanMeierFitter</span><span class="p">()</span>
 <span class="n">kmf2</span> <span class="o">=</span> <span class="n">KaplanMeierFitter</span><span class="p">()</span>
-<span class="n">kmf1</span><span class="o">.</span><span class="n">fit</span><span class="p">(</span><span class="n">treat</span><span class="p">[</span><span class="s1">&#39;week&#39;</span><span class="p">],</span> <span class="n">event_observed</span><span class="o">=</span><span class="n">treat</span><span class="p">[</span><span class="s1">&#39;arrest&#39;</span><span class="p">],</span> <span class="n">timeline</span><span class="o">=</span><span class="n">t</span><span class="p">,</span> <span class="n">label</span><span class="o">=</span><span class="s2">&quot;fin. aid Yes&quot;</span><span class="p">)</span>
-<span class="n">kmf2</span><span class="o">.</span><span class="n">fit</span><span class="p">(</span><span class="n">ctrl</span><span class="p">[</span><span class="s1">&#39;week&#39;</span><span class="p">],</span> <span class="n">event_observed</span><span class="o">=</span><span class="n">ctrl</span><span class="p">[</span><span class="s1">&#39;arrest&#39;</span><span class="p">],</span> <span class="n">timeline</span><span class="o">=</span><span class="n">t</span><span class="p">,</span> <span class="n">label</span><span class="o">=</span><span class="s2">&quot;fin. aid No&quot;</span><span class="p">)</span>
+<span class="n">kmf1</span><span class="o">.</span><span class="n">fit</span><span class="p">(</span><span class="n">treat</span><span class="p">[</span><span class="s1">&#39;week&#39;</span><span class="p">],</span> <span class="n">treat</span><span class="p">[</span><span class="s1">&#39;arrest&#39;</span><span class="p">],</span> <span class="n">timeline</span><span class="o">=</span><span class="n">t</span><span class="p">,</span> <span class="n">label</span><span class="o">=</span><span class="s2">&quot;fin. aid Yes&quot;</span><span class="p">)</span>
+<span class="n">kmf2</span><span class="o">.</span><span class="n">fit</span><span class="p">(</span><span class="n">ctrl</span><span class="p">[</span><span class="s1">&#39;week&#39;</span><span class="p">],</span> <span class="n">ctrl</span><span class="p">[</span><span class="s1">&#39;arrest&#39;</span><span class="p">],</span> <span class="n">timeline</span><span class="o">=</span><span class="n">t</span><span class="p">,</span> <span class="n">label</span><span class="o">=</span><span class="s2">&quot;fin. aid No&quot;</span><span class="p">)</span>
 
 <span class="c1"># plotting the KM curves</span>
 <span class="n">kmf1</span><span class="o">.</span><span class="n">plot</span><span class="p">(</span><span class="n">ax</span><span class="o">=</span><span class="n">ax</span><span class="p">),</span> <span class="n">kmf2</span><span class="o">.</span><span class="n">plot</span><span class="p">(</span><span class="n">ax</span><span class="o">=</span><span class="n">ax</span><span class="p">)</span>
@@ -910,7 +911,12 @@ where \)</span>T$ is the time at which the event occurs.</p>
 <div class="cell docutils container">
 <div class="cell_input docutils container">
 <div class="highlight-ipython3 notranslate"><div class="highlight"><pre><span></span><span class="kn">from</span><span class="w"> </span><span class="nn">lifelines.statistics</span><span class="w"> </span><span class="kn">import</span> <span class="n">logrank_test</span>
-<span class="n">log_rank_test_result</span> <span class="o">=</span> <span class="n">logrank_test</span><span class="p">(</span><span class="n">treat</span><span class="p">[</span><span class="s1">&#39;week&#39;</span><span class="p">],</span> <span class="n">ctrl</span><span class="p">[</span><span class="s1">&#39;week&#39;</span><span class="p">],</span> <span class="n">event_observed_A</span><span class="o">=</span><span class="n">treat</span><span class="p">[</span><span class="s1">&#39;arrest&#39;</span><span class="p">],</span> <span class="n">event_observed_B</span><span class="o">=</span><span class="n">ctrl</span><span class="p">[</span><span class="s1">&#39;arrest&#39;</span><span class="p">])</span>
+<span class="n">log_rank_test_result</span> <span class="o">=</span> <span class="n">logrank_test</span><span class="p">(</span>
+    <span class="n">treat</span><span class="p">[</span><span class="s1">&#39;week&#39;</span><span class="p">],</span> 
+    <span class="n">ctrl</span><span class="p">[</span><span class="s1">&#39;week&#39;</span><span class="p">],</span> 
+    <span class="n">event_observed_A</span><span class="o">=</span><span class="n">treat</span><span class="p">[</span><span class="s1">&#39;arrest&#39;</span><span class="p">],</span> 
+    <span class="n">event_observed_B</span><span class="o">=</span><span class="n">ctrl</span><span class="p">[</span><span class="s1">&#39;arrest&#39;</span><span class="p">],</span>
+<span class="p">)</span>
 <span class="nb">print</span><span class="p">(</span><span class="sa">f</span><span class="s1">&#39;p-value: </span><span class="si">{</span><span class="n">log_rank_test_result</span><span class="o">.</span><span class="n">p_value</span><span class="si">:</span><span class="s1">.4f</span><span class="si">}</span><span class="s1">&#39;</span><span class="p">)</span>
 </pre></div>
 </div>
@@ -921,21 +927,367 @@ where \)</span>T$ is the time at which the event occurs.</p>
 </div>
 </div>
 </div>
-<p>Remarks:</p>
+<div class="admonition-remarks admonition">
+<p class="admonition-title">Remarks:</p>
 <ul class="simple">
 <li><p>While <code class="docutils literal notranslate"><span class="pre">logrank_test</span></code> function is used for two KM curves, <code class="docutils literal notranslate"><span class="pre">multivariate_logrank_test</span></code> can be used for more than 2 KM curves.</p></li>
 <li><p>These methods provide weightings for hypothesis testing early vs late difference</p></li>
 </ul>
+</div>
 </section>
-<section id="example-3-identifying-data-drift">
-<h3>Example 3: Identifying Data Drift<a class="headerlink" href="#example-3-identifying-data-drift" title="Link to this heading">#</a></h3>
 </section>
+<section id="example-4-identifying-data-drift">
+<h2>Example 4: Identifying Data Drift<a class="headerlink" href="#example-4-identifying-data-drift" title="Link to this heading">#</a></h2>
+<div class="cell docutils container">
+<div class="cell_input docutils container">
+<div class="highlight-ipython3 notranslate"><div class="highlight"><pre><span></span><span class="kn">import</span><span class="w"> </span><span class="nn">numpy</span><span class="w"> </span><span class="k">as</span><span class="w"> </span><span class="nn">np</span>
+<span class="kn">import</span><span class="w"> </span><span class="nn">pandas</span><span class="w"> </span><span class="k">as</span><span class="w"> </span><span class="nn">pd</span>
+<span class="kn">from</span><span class="w"> </span><span class="nn">lifelines</span><span class="w"> </span><span class="kn">import</span> <span class="n">KaplanMeierFitter</span>
+<span class="kn">import</span><span class="w"> </span><span class="nn">matplotlib.pyplot</span><span class="w"> </span><span class="k">as</span><span class="w"> </span><span class="nn">plt</span>
+<span class="kn">from</span><span class="w"> </span><span class="nn">datetime</span><span class="w"> </span><span class="kn">import</span> <span class="n">datetime</span><span class="p">,</span> <span class="n">timedelta</span>
+
+<span class="c1"># Set random seed for reproducibility</span>
+<span class="n">np</span><span class="o">.</span><span class="n">random</span><span class="o">.</span><span class="n">seed</span><span class="p">(</span><span class="mi">42</span><span class="p">)</span>
+
+<span class="c1"># Generate synthetic data</span>
+<span class="n">n_clients</span> <span class="o">=</span> <span class="mi">1500</span>  <span class="c1"># 500 clients per start year</span>
+
+<span class="c1"># Define start years and generate dates</span>
+<span class="n">start_years</span> <span class="o">=</span> <span class="p">[</span><span class="mi">2020</span><span class="p">,</span> <span class="mi">2021</span><span class="p">,</span> <span class="mi">2022</span><span class="p">]</span>
+<span class="n">clients_per_year</span> <span class="o">=</span> <span class="n">n_clients</span> <span class="o">//</span> <span class="nb">len</span><span class="p">(</span><span class="n">start_years</span><span class="p">)</span>
+
+<span class="n">start_dates</span> <span class="o">=</span> <span class="p">[]</span>
+<span class="k">for</span> <span class="n">year</span> <span class="ow">in</span> <span class="n">start_years</span><span class="p">:</span>
+    <span class="c1"># Generate random dates within each year</span>
+    <span class="n">dates</span> <span class="o">=</span> <span class="p">[</span><span class="n">datetime</span><span class="p">(</span><span class="n">year</span><span class="p">,</span> <span class="mi">1</span><span class="p">,</span> <span class="mi">1</span><span class="p">)</span> <span class="o">+</span> <span class="n">timedelta</span><span class="p">(</span><span class="n">days</span><span class="o">=</span><span class="n">np</span><span class="o">.</span><span class="n">random</span><span class="o">.</span><span class="n">randint</span><span class="p">(</span><span class="mi">0</span><span class="p">,</span> <span class="mi">365</span><span class="p">))</span> 
+            <span class="k">for</span> <span class="n">_</span> <span class="ow">in</span> <span class="nb">range</span><span class="p">(</span><span class="n">clients_per_year</span><span class="p">)]</span>
+    <span class="n">start_dates</span><span class="o">.</span><span class="n">extend</span><span class="p">(</span><span class="n">dates</span><span class="p">)</span>
+
+<span class="c1"># Convert to numpy array</span>
+<span class="n">start_dates</span> <span class="o">=</span> <span class="n">np</span><span class="o">.</span><span class="n">array</span><span class="p">(</span><span class="n">start_dates</span><span class="p">)</span>
+
+<span class="c1"># Generate time to churn (in days)</span>
+<span class="c1"># More recent clients tend to churn faster</span>
+<span class="n">base_churn_time</span> <span class="o">=</span> <span class="n">np</span><span class="o">.</span><span class="n">random</span><span class="o">.</span><span class="n">exponential</span><span class="p">(</span><span class="n">scale</span><span class="o">=</span><span class="mi">70</span><span class="p">,</span> <span class="n">size</span><span class="o">=</span><span class="nb">int</span><span class="p">(</span><span class="n">n_clients</span> <span class="o">*</span> <span class="mf">0.3</span><span class="p">)</span> <span class="p">)</span>
+<span class="n">years_active</span> <span class="o">=</span> <span class="p">(</span><span class="n">datetime</span><span class="p">(</span><span class="mi">2025</span><span class="p">,</span> <span class="mi">3</span><span class="p">,</span> <span class="mi">16</span><span class="p">)</span> <span class="o">-</span> <span class="n">start_dates</span><span class="p">)</span><span class="o">.</span><span class="n">astype</span><span class="p">(</span><span class="s1">&#39;timedelta64[D]&#39;</span><span class="p">)</span><span class="o">.</span><span class="n">astype</span><span class="p">(</span><span class="nb">int</span><span class="p">)</span>
+<span class="n">time_to_churn</span> <span class="o">=</span> <span class="n">base_churn_time</span> <span class="o">*</span> <span class="p">(</span><span class="mi">1</span> <span class="o">+</span> <span class="n">years_active</span> <span class="o">*</span> <span class="mf">0.001</span><span class="p">)</span>
+
+<span class="c1"># Generate censoring indicator (1 = churned, 0 = still active)</span>
+<span class="c1"># Older clients are more likely to be censored (survived longer)</span>
+<span class="n">censoring_prob</span> <span class="o">=</span> <span class="mf">0.4</span> <span class="o">-</span> <span class="p">(</span><span class="n">years_active</span> <span class="o">*</span> <span class="mf">0.0002</span><span class="p">)</span>
+<span class="n">censored</span> <span class="o">=</span> <span class="n">np</span><span class="o">.</span><span class="n">random</span><span class="o">.</span><span class="n">binomial</span><span class="p">(</span><span class="n">n</span><span class="o">=</span><span class="mi">1</span><span class="p">,</span> <span class="n">p</span><span class="o">=</span><span class="n">censoring_prob</span><span class="p">,</span> <span class="n">size</span><span class="o">=</span><span class="n">n_clients</span><span class="p">)</span>
+
+<span class="c1"># Create DataFrame</span>
+<span class="n">df</span> <span class="o">=</span> <span class="n">pd</span><span class="o">.</span><span class="n">DataFrame</span><span class="p">({</span>
+    <span class="s1">&#39;start_date&#39;</span><span class="p">:</span> <span class="n">start_dates</span><span class="p">,</span>
+    <span class="s1">&#39;start_year&#39;</span><span class="p">:</span> <span class="p">[</span><span class="n">d</span><span class="o">.</span><span class="n">year</span> <span class="k">for</span> <span class="n">d</span> <span class="ow">in</span> <span class="n">start_dates</span><span class="p">],</span>
+    <span class="s1">&#39;time_to_churn&#39;</span><span class="p">:</span> <span class="n">time_to_churn</span><span class="p">,</span>
+    <span class="s1">&#39;churned&#39;</span><span class="p">:</span> <span class="n">censored</span><span class="p">,</span>
+    <span class="s1">&#39;years_active&#39;</span><span class="p">:</span> <span class="n">years_active</span> <span class="o">/</span> <span class="mi">365</span>
+<span class="p">})</span>
+</pre></div>
+</div>
+</div>
+<div class="cell_output docutils container">
+<div class="output traceback highlight-ipythontb notranslate"><div class="highlight"><pre><span></span><span class="gt">---------------------------------------------------------------------------</span>
+<span class="ne">ValueError</span><span class="g g-Whitespace">                                </span>Traceback (most recent call last)
+<span class="n">Cell</span> <span class="n">In</span><span class="p">[</span><span class="mi">11</span><span class="p">],</span> <span class="n">line</span> <span class="mi">31</span>
+<span class="g g-Whitespace">     </span><span class="mi">29</span> <span class="n">base_churn_time</span> <span class="o">=</span> <span class="n">np</span><span class="o">.</span><span class="n">random</span><span class="o">.</span><span class="n">exponential</span><span class="p">(</span><span class="n">scale</span><span class="o">=</span><span class="mi">70</span><span class="p">,</span> <span class="n">size</span><span class="o">=</span><span class="nb">int</span><span class="p">(</span><span class="n">n_clients</span> <span class="o">*</span> <span class="mf">0.3</span><span class="p">)</span> <span class="p">)</span>
+<span class="g g-Whitespace">     </span><span class="mi">30</span> <span class="n">years_active</span> <span class="o">=</span> <span class="p">(</span><span class="n">datetime</span><span class="p">(</span><span class="mi">2025</span><span class="p">,</span> <span class="mi">3</span><span class="p">,</span> <span class="mi">16</span><span class="p">)</span> <span class="o">-</span> <span class="n">start_dates</span><span class="p">)</span><span class="o">.</span><span class="n">astype</span><span class="p">(</span><span class="s1">&#39;timedelta64[D]&#39;</span><span class="p">)</span><span class="o">.</span><span class="n">astype</span><span class="p">(</span><span class="nb">int</span><span class="p">)</span>
+<span class="ne">---&gt; </span><span class="mi">31</span> <span class="n">time_to_churn</span> <span class="o">=</span> <span class="n">base_churn_time</span> <span class="o">*</span> <span class="p">(</span><span class="mi">1</span> <span class="o">+</span> <span class="n">years_active</span> <span class="o">*</span> <span class="mf">0.001</span><span class="p">)</span>
+<span class="g g-Whitespace">     </span><span class="mi">33</span> <span class="c1"># Generate censoring indicator (1 = churned, 0 = still active)</span>
+<span class="g g-Whitespace">     </span><span class="mi">34</span> <span class="c1"># Older clients are more likely to be censored (survived longer)</span>
+<span class="g g-Whitespace">     </span><span class="mi">35</span> <span class="n">censoring_prob</span> <span class="o">=</span> <span class="mf">0.4</span> <span class="o">-</span> <span class="p">(</span><span class="n">years_active</span> <span class="o">*</span> <span class="mf">0.0002</span><span class="p">)</span>
+
+<span class="ne">ValueError</span>: operands could not be broadcast together with shapes (450,) (1500,) 
+</pre></div>
+</div>
+</div>
+</div>
+<div class="cell docutils container">
+<div class="cell_input docutils container">
+<div class="highlight-ipython3 notranslate"><div class="highlight"><pre><span></span><span class="n">pd</span><span class="o">.</span><span class="n">DataFrame</span><span class="p">(</span><span class="n">base_churn_time</span><span class="p">)</span><span class="o">.</span><span class="n">hist</span><span class="p">()</span>
+</pre></div>
+</div>
+</div>
+<div class="cell_output docutils container">
+<div class="output text_plain highlight-myst-ansi notranslate"><div class="highlight"><pre><span></span>array([[&lt;Axes: title={&#39;center&#39;: &#39;0&#39;}&gt;]], dtype=object)
+</pre></div>
+</div>
+<img alt="_images/4031166e7c765ff94668e15581aefdc258da8c2c11596421cb5a309459797d3a.png" src="_images/4031166e7c765ff94668e15581aefdc258da8c2c11596421cb5a309459797d3a.png" />
+</div>
+</div>
+<div class="cell docutils container">
+<div class="cell_input docutils container">
+<div class="highlight-ipython3 notranslate"><div class="highlight"><pre><span></span><span class="n">df</span><span class="o">.</span><span class="n">query</span><span class="p">(</span><span class="s2">&quot;churned == 0&quot;</span><span class="p">)</span>
+</pre></div>
+</div>
+</div>
+<div class="cell_output docutils container">
+<div class="output text_html"><div>
+<style scoped>
+    .dataframe tbody tr th:only-of-type {
+        vertical-align: middle;
+    }
+
+    .dataframe tbody tr th {
+        vertical-align: top;
+    }
+
+    .dataframe thead th {
+        text-align: right;
+    }
+</style>
+<table border="1" class="dataframe">
+  <thead>
+    <tr style="text-align: right;">
+      <th></th>
+      <th>start_date</th>
+      <th>start_year</th>
+      <th>time_to_churn</th>
+      <th>churned</th>
+      <th>years_active</th>
+    </tr>
+  </thead>
+  <tbody>
+    <tr>
+      <th>0</th>
+      <td>2020-04-12</td>
+      <td>2020</td>
+      <td>67.798735</td>
+      <td>0</td>
+      <td>4.928767</td>
+    </tr>
+    <tr>
+      <th>1</th>
+      <td>2020-12-14</td>
+      <td>2020</td>
+      <td>344.267016</td>
+      <td>0</td>
+      <td>4.254795</td>
+    </tr>
+    <tr>
+      <th>2</th>
+      <td>2020-09-27</td>
+      <td>2020</td>
+      <td>9.550877</td>
+      <td>0</td>
+      <td>4.468493</td>
+    </tr>
+    <tr>
+      <th>3</th>
+      <td>2020-04-16</td>
+      <td>2020</td>
+      <td>1.331916</td>
+      <td>0</td>
+      <td>4.917808</td>
+    </tr>
+    <tr>
+      <th>4</th>
+      <td>2020-03-12</td>
+      <td>2020</td>
+      <td>7.658317</td>
+      <td>0</td>
+      <td>5.013699</td>
+    </tr>
+    <tr>
+      <th>...</th>
+      <td>...</td>
+      <td>...</td>
+      <td>...</td>
+      <td>...</td>
+      <td>...</td>
+    </tr>
+    <tr>
+      <th>1495</th>
+      <td>2022-02-03</td>
+      <td>2022</td>
+      <td>35.150306</td>
+      <td>0</td>
+      <td>3.115068</td>
+    </tr>
+    <tr>
+      <th>1496</th>
+      <td>2022-09-08</td>
+      <td>2022</td>
+      <td>111.633717</td>
+      <td>0</td>
+      <td>2.520548</td>
+    </tr>
+    <tr>
+      <th>1497</th>
+      <td>2022-09-04</td>
+      <td>2022</td>
+      <td>2.386099</td>
+      <td>0</td>
+      <td>2.531507</td>
+    </tr>
+    <tr>
+      <th>1498</th>
+      <td>2022-09-26</td>
+      <td>2022</td>
+      <td>34.757266</td>
+      <td>0</td>
+      <td>2.471233</td>
+    </tr>
+    <tr>
+      <th>1499</th>
+      <td>2022-05-21</td>
+      <td>2022</td>
+      <td>80.852563</td>
+      <td>0</td>
+      <td>2.821918</td>
+    </tr>
+  </tbody>
+</table>
+<p>1316 rows × 5 columns</p>
+</div></div></div>
+</div>
+<div class="cell docutils container">
+<div class="cell_input docutils container">
+<div class="highlight-ipython3 notranslate"><div class="highlight"><pre><span></span><span class="n">df</span><span class="o">.</span><span class="n">groupby</span><span class="p">([</span><span class="s1">&#39;start_year&#39;</span><span class="p">])[</span><span class="s1">&#39;churned&#39;</span><span class="p">]</span><span class="o">.</span><span class="n">value_counts</span><span class="p">()</span>
+</pre></div>
+</div>
+</div>
+<div class="cell_output docutils container">
+<div class="output text_plain highlight-myst-ansi notranslate"><div class="highlight"><pre><span></span>start_year  churned
+2020        0          471
+            1           29
+2021        0          441
+            1           59
+2022        0          404
+            1           96
+Name: count, dtype: int64
+</pre></div>
+</div>
+</div>
+</div>
+<div class="cell docutils container">
+<div class="cell_input docutils container">
+<div class="highlight-ipython3 notranslate"><div class="highlight"><pre><span></span><span class="c1"># Plot Kaplan-Meier curves for different start years</span>
+
+<span class="n">kmf</span> <span class="o">=</span> <span class="n">KaplanMeierFitter</span><span class="p">()</span>
+<span class="n">plt</span><span class="o">.</span><span class="n">figure</span><span class="p">(</span><span class="n">figsize</span><span class="o">=</span><span class="p">(</span><span class="mi">8</span><span class="p">,</span> <span class="mi">6</span><span class="p">))</span>
+
+<span class="k">for</span> <span class="n">year</span> <span class="ow">in</span> <span class="n">start_years</span><span class="p">:</span>
+    <span class="n">mask</span> <span class="o">=</span> <span class="n">df</span><span class="p">[</span><span class="s1">&#39;start_year&#39;</span><span class="p">]</span> <span class="o">==</span> <span class="n">year</span>
+    <span class="n">kmf</span><span class="o">.</span><span class="n">fit</span><span class="p">(</span>
+        <span class="n">durations</span><span class="o">=</span><span class="n">df</span><span class="o">.</span><span class="n">loc</span><span class="p">[</span><span class="n">mask</span><span class="p">,</span> <span class="s1">&#39;time_to_churn&#39;</span><span class="p">],</span>
+        <span class="n">event_observed</span><span class="o">=</span><span class="n">df</span><span class="o">.</span><span class="n">loc</span><span class="p">[</span><span class="n">mask</span><span class="p">,</span> <span class="s1">&#39;churned&#39;</span><span class="p">],</span>
+        <span class="n">label</span><span class="o">=</span><span class="sa">f</span><span class="s1">&#39;Start year </span><span class="si">{</span><span class="n">year</span><span class="si">}</span><span class="s1">&#39;</span>
+    <span class="p">)</span>
+    <span class="n">kmf</span><span class="o">.</span><span class="n">plot</span><span class="p">()</span>
+
+<span class="n">plt</span><span class="o">.</span><span class="n">title</span><span class="p">(</span><span class="s1">&#39;Kaplan-Meier Survival Curves by Start Year&#39;</span><span class="p">)</span>
+<span class="n">plt</span><span class="o">.</span><span class="n">xlabel</span><span class="p">(</span><span class="s1">&#39;Time (days)&#39;</span><span class="p">)</span>
+<span class="n">plt</span><span class="o">.</span><span class="n">ylabel</span><span class="p">(</span><span class="s1">&#39;Survival probability&#39;</span><span class="p">)</span>
+<span class="n">plt</span><span class="o">.</span><span class="n">grid</span><span class="p">(</span><span class="kc">True</span><span class="p">)</span>
+<span class="n">plt</span><span class="o">.</span><span class="n">show</span><span class="p">()</span>
+</pre></div>
+</div>
+</div>
+<div class="cell_output docutils container">
+<img alt="_images/f372a8fe33abd9a80e093da5135562ed6c876ca491314f15d63eba297dbe1147.png" src="_images/f372a8fe33abd9a80e093da5135562ed6c876ca491314f15d63eba297dbe1147.png" />
+</div>
+</div>
 </section>
 <section id="example-4-feature-selection">
 <h2>Example 4: Feature Selection<a class="headerlink" href="#example-4-feature-selection" title="Link to this heading">#</a></h2>
+<ul class="simple">
+<li><p>horTh: hormonal therapy, a factor at two levels no and yes.</p></li>
+<li><p>age: of the patients in years.</p></li>
+<li><p>menostat: 0 menopausal status, a factor at two levels pre (premenopausal) and post (postmenopausal).</p></li>
+<li><p>tsize: tumor size (in mm).</p></li>
+<li><p>tgrade: tumor grade, a ordered factor at levels I &lt; II &lt; III.</p></li>
+<li><p>pnodes: number of positive nodes.</p></li>
+<li><p>progrec: progesterone receptor (in fmol).</p></li>
+<li><p>estrec: estrogen receptor (in fmol).</p></li>
+</ul>
+<p>time: recurrence free survival time (in days).</p>
+<p>cens: censoring indicator (0- censored, 1- event).</p>
+<p>Dataset from:</p>
+<p>V.J. Menon and D.C. Agrawal,  Renewal Rate of Filament Lamps:
+Theory and Experiment. Journal of Failure Analysis and Prevention.
+December 2007, p. 421, Table 2/
+DOI: 10.1007/s11668-007-9074-9</p>
+<p>Description:</p>
+<p>An assembly of 50 new Philips (India) lamps with the
+rating 40 W, 220 V (AC) was taken and installed in the horizontal
+orientation and uniformly distributed over a lab area 11 m by 7 m.</p>
+<p>The assembly was monitored at regular intervals of 12 h to
+look for failures. The instants of recorded failures were
+called t‘ and a total of 32 data points were obtained such
+that even the last bulb failed.</p>
+<p>Variables:</p>
+<p>i - observation number
+h - time in hours since experiment start
+f - number of failed lamps at particular time h
+K - number of surviving lamps  at particular time h</p>
+<div class="cell docutils container">
+<div class="cell_input docutils container">
+<div class="highlight-ipython3 notranslate"><div class="highlight"><pre><span></span><span class="kn">from</span><span class="w"> </span><span class="nn">lifelines.datasets</span><span class="w"> </span><span class="kn">import</span> <span class="n">load_kidney_transplant</span><span class="p">,</span> <span class="n">load_gbsg2</span>
+<span class="c1"># df = load_kidney_transplant()</span>
+<span class="n">df</span> <span class="o">=</span> <span class="n">load_gbsg2</span><span class="p">()</span>
+</pre></div>
+</div>
+</div>
+</div>
+<div class="cell docutils container">
+<div class="cell_input docutils container">
+<div class="highlight-ipython3 notranslate"><div class="highlight"><pre><span></span><span class="n">df</span><span class="p">[</span><span class="s1">&#39;tgrade&#39;</span><span class="p">]</span><span class="o">.</span><span class="n">value_counts</span><span class="p">()</span>
+</pre></div>
+</div>
+</div>
+<div class="cell_output docutils container">
+<div class="output text_plain highlight-myst-ansi notranslate"><div class="highlight"><pre><span></span>tgrade
+II     444
+III    161
+I       81
+Name: count, dtype: int64
+</pre></div>
+</div>
+</div>
+</div>
+<div class="cell docutils container">
+<div class="cell_input docutils container">
+<div class="highlight-ipython3 notranslate"><div class="highlight"><pre><span></span><span class="kn">from</span><span class="w"> </span><span class="nn">lifelines.datasets</span><span class="w"> </span><span class="kn">import</span> <span class="n">load_rossi</span>
+<span class="kn">import</span><span class="w"> </span><span class="nn">numpy</span><span class="w"> </span><span class="k">as</span><span class="w"> </span><span class="nn">np</span>
+
+<span class="c1"># loading data </span>
+<span class="n">data</span> <span class="o">=</span> <span class="n">load_rossi</span><span class="p">()</span>
+<span class="n">treat</span> <span class="o">=</span> <span class="n">data</span><span class="o">.</span><span class="n">query</span><span class="p">(</span><span class="s2">&quot;fin == 1&quot;</span><span class="p">)</span> 
+<span class="n">ctrl</span> <span class="o">=</span> <span class="n">data</span><span class="o">.</span><span class="n">query</span><span class="p">(</span><span class="s2">&quot;fin == 0&quot;</span><span class="p">)</span>
+
+<span class="c1"># init &amp; Fitting KM curves </span>
+<span class="n">ax</span> <span class="o">=</span> <span class="n">plt</span><span class="o">.</span><span class="n">subplot</span><span class="p">(</span><span class="mi">111</span><span class="p">)</span>
+<span class="n">t</span> <span class="o">=</span> <span class="n">np</span><span class="o">.</span><span class="n">linspace</span><span class="p">(</span><span class="mi">0</span><span class="p">,</span> <span class="mi">4000</span><span class="p">,</span> <span class="mi">4000</span><span class="p">)</span>
+<span class="n">kmf1</span> <span class="o">=</span> <span class="n">KaplanMeierFitter</span><span class="p">()</span>
+<span class="n">kmf2</span> <span class="o">=</span> <span class="n">KaplanMeierFitter</span><span class="p">()</span>
+<span class="n">kmf1</span><span class="o">.</span><span class="n">fit</span><span class="p">(</span><span class="n">df</span><span class="p">[</span><span class="s1">&#39;time&#39;</span><span class="p">],</span> <span class="n">df</span><span class="p">[</span><span class="s1">&#39;death&#39;</span><span class="p">],</span> <span class="n">timeline</span><span class="o">=</span><span class="n">t</span><span class="p">,</span> <span class="n">label</span><span class="o">=</span><span class="s2">&quot;fin. aid Yes&quot;</span><span class="p">)</span>
+
+
+<span class="c1"># # plotting the KM curves</span>
+<span class="n">kmf1</span><span class="o">.</span><span class="n">plot</span><span class="p">(</span><span class="n">ax</span><span class="o">=</span><span class="n">ax</span><span class="p">)</span>
+<span class="c1"># ax.set_title(&quot;Criminal Recidivism in 52-week After Release&quot;);</span>
+<span class="c1"># ax.set_ylabel(&quot;P(surviving from getting rearrested)&quot;);</span>
+<span class="c1"># # ax.set_ylabel(&quot;Prob. of getting rearrested&quot;);</span>
+<span class="c1"># ax.set_xlabel(&quot;time (week)&quot;);</span>
+</pre></div>
+</div>
+</div>
+<div class="cell_output docutils container">
+<div class="output text_plain highlight-myst-ansi notranslate"><div class="highlight"><pre><span></span>&lt;Axes: xlabel=&#39;timeline&#39;&gt;
+</pre></div>
+</div>
+<img alt="_images/ee184a780ecac57e61f56bff10c6ccb9ded633f5c57e44e255a9f2b28edf3bbc.png" src="_images/ee184a780ecac57e61f56bff10c6ccb9ded633f5c57e44e255a9f2b28edf3bbc.png" />
+</div>
+</div>
 </section>
 <section id="example-5-detecting-data-bias">
 <h2>Example 5: Detecting Data Bias<a class="headerlink" href="#example-5-detecting-data-bias" title="Link to this heading">#</a></h2>
+</section>
+<section id="example-6-hazard-function">
+<h2>Example 6: Hazard Function<a class="headerlink" href="#example-6-hazard-function" title="Link to this heading">#</a></h2>
 </section>
 </section>
 <section class="tex2jax_ignore mathjax_ignore" id="id1">
@@ -1054,11 +1406,12 @@ where \)</span>T$ is the time at which the event occurs.</p>
 <li class="toc-h2 nav-item toc-entry"><a class="reference internal nav-link" href="#example-3-comparing-survival-curves">Example 3: Comparing Survival Curves:</a><ul class="nav section-nav flex-column">
 <li class="toc-h3 nav-item toc-entry"><a class="reference internal nav-link" href="#data-criminals-return-to-prison">Data: Criminals return to prison</a></li>
 <li class="toc-h3 nav-item toc-entry"><a class="reference internal nav-link" href="#statistical-significance">Statistical Significance</a></li>
-<li class="toc-h3 nav-item toc-entry"><a class="reference internal nav-link" href="#example-3-identifying-data-drift">Example 3: Identifying Data Drift</a></li>
 </ul>
 </li>
+<li class="toc-h2 nav-item toc-entry"><a class="reference internal nav-link" href="#example-4-identifying-data-drift">Example 4: Identifying Data Drift</a></li>
 <li class="toc-h2 nav-item toc-entry"><a class="reference internal nav-link" href="#example-4-feature-selection">Example 4: Feature Selection</a></li>
 <li class="toc-h2 nav-item toc-entry"><a class="reference internal nav-link" href="#example-5-detecting-data-bias">Example 5: Detecting Data Bias</a></li>
+<li class="toc-h2 nav-item toc-entry"><a class="reference internal nav-link" href="#example-6-hazard-function">Example 6: Hazard Function</a></li>
 </ul>
 </li>
 <li class="toc-h1 nav-item toc-entry"><a class="reference internal nav-link" href="#id1"></a></li>

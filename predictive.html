@@ -57,11 +57,12 @@
     <script async="async" src="_static/sphinx-thebe.js?v=c100c467"></script>
     <script>var togglebuttonSelector = '.toggle, .admonition.dropdown';</script>
     <script>const THEBE_JS_URL = "https://unpkg.com/thebe@0.8.2/lib/index.js"; const thebe_selector = ".thebe,.cell"; const thebe_selector_input = "pre"; const thebe_selector_output = ".output, .cell_output"</script>
+    <script>window.MathJax = {"options": {"processHtmlClass": "tex2jax_process|mathjax_process|math|output_area"}}</script>
+    <script defer="defer" src="https://cdn.jsdelivr.net/npm/mathjax@3/es5/tex-mml-chtml.js"></script>
     <script>DOCUMENTATION_OPTIONS.pagename = 'predictive';</script>
     <link rel="icon" href="_static/danial-avetar.ico"/>
     <link rel="index" title="Index" href="genindex.html" />
     <link rel="search" title="Search" href="search.html" />
-    <link rel="next" title="Markdown Files" href="markdown.html" />
     <link rel="prev" title="Descriptive Analytics" href="descriptive.html" />
   <meta name="viewport" content="width=device-width, initial-scale=1"/>
   <meta name="docsearch:language" content="en"/>
@@ -187,8 +188,8 @@
 
 
 <li class="toctree-l1 current active"><a class="current reference internal" href="#">Predictive Analytics</a></li>
-<li class="toctree-l1"><a class="reference internal" href="markdown.html">Markdown Files</a></li>
-<li class="toctree-l1"><a class="reference internal" href="markdown-notebooks.html">Notebooks with MyST Markdown</a></li>
+
+
 </ul>
 
     </div>
@@ -361,7 +362,9 @@ document.write(`
   </button>
 `);
 </script>
-
+<button class="sidebar-toggle secondary-toggle btn btn-sm" title="Toggle secondary sidebar" data-bs-placement="bottom" data-bs-toggle="tooltip">
+    <span class="fa-solid fa-list"></span>
+</button>
 </div></div>
       
     </div>
@@ -377,6 +380,30 @@ document.write(`
     <div id="print-main-content">
         <div id="jb-print-toc">
             
+            <div>
+                <h2> Contents </h2>
+            </div>
+            <nav aria-label="Page">
+                <ul class="visible nav section-nav flex-column">
+<li class="toc-h1 nav-item toc-entry"><a class="reference internal nav-link" href="#">Predictive Analytics</a></li>
+<li class="toc-h1 nav-item toc-entry"><a class="reference internal nav-link" href="#survival-regression-with-cox-proportional-hazard-cph-model">Survival Regression with Cox Proportional Hazard (CPH) Model</a><ul class="visible nav section-nav flex-column">
+<li class="toc-h2 nav-item toc-entry"><a class="reference internal nav-link" href="#fitting-cph-model">Fitting CPH Model</a></li>
+<li class="toc-h2 nav-item toc-entry"><a class="reference internal nav-link" href="#hazard-ratio-interpretations">Hazard Ratio &amp; Interpretations</a></li>
+<li class="toc-h2 nav-item toc-entry"><a class="reference internal nav-link" href="#model-evaluataion">Model Evaluataion</a><ul class="nav section-nav flex-column">
+<li class="toc-h3 nav-item toc-entry"><a class="reference internal nav-link" href="#concordance-index-c-index">Concordance Index [C-index]</a></li>
+</ul>
+</li>
+<li class="toc-h2 nav-item toc-entry"><a class="reference internal nav-link" href="#model-calibration">Model Calibration</a></li>
+<li class="toc-h2 nav-item toc-entry"><a class="reference internal nav-link" href="#predictions">Predictions</a></li>
+</ul>
+</li>
+<li class="toc-h1 nav-item toc-entry"><a class="reference internal nav-link" href="#checking-proportional-hazard-assumption-evaluation">Checking Proportional Hazard Assumption Evaluation</a><ul class="visible nav section-nav flex-column">
+<li class="toc-h2 nav-item toc-entry"><a class="reference internal nav-link" href="#further-reading">Further Reading</a></li>
+</ul>
+</li>
+</ul>
+
+            </nav>
         </div>
     </div>
 </div>
@@ -388,6 +415,346 @@ document.write(`
                   
   <section class="tex2jax_ignore mathjax_ignore" id="predictive-analytics">
 <h1>Predictive Analytics<a class="headerlink" href="#predictive-analytics" title="Link to this heading">#</a></h1>
+<p>Whenever we have additional variables next to duration and event, we can use survival regression.</p>
+</section>
+<section class="tex2jax_ignore mathjax_ignore" id="survival-regression-with-cox-proportional-hazard-cph-model">
+<h1>Survival Regression with Cox Proportional Hazard (CPH) Model<a class="headerlink" href="#survival-regression-with-cox-proportional-hazard-cph-model" title="Link to this heading">#</a></h1>
+<p>CT</p>
+<section id="fitting-cph-model">
+<h2>Fitting CPH Model<a class="headerlink" href="#fitting-cph-model" title="Link to this heading">#</a></h2>
+<div class="cell docutils container">
+<div class="cell_input docutils container">
+<div class="highlight-ipython3 notranslate"><div class="highlight"><pre><span></span><span class="kn">from</span><span class="w"> </span><span class="nn">lifelines</span><span class="w"> </span><span class="kn">import</span> <span class="n">CoxPHFitter</span>
+<span class="kn">from</span><span class="w"> </span><span class="nn">lifelines.datasets</span><span class="w"> </span><span class="kn">import</span> <span class="n">load_rossi</span>
+
+<span class="n">df</span> <span class="o">=</span> <span class="n">load_rossi</span><span class="p">()</span>
+
+<span class="n">cph</span> <span class="o">=</span> <span class="n">CoxPHFitter</span><span class="p">()</span>
+<span class="n">cph</span><span class="o">.</span><span class="n">fit</span><span class="p">(</span><span class="n">df</span><span class="p">,</span> <span class="n">duration_col</span><span class="o">=</span><span class="s1">&#39;week&#39;</span><span class="p">,</span> <span class="n">event_col</span><span class="o">=</span><span class="s1">&#39;arrest&#39;</span><span class="p">)</span>
+
+<span class="n">cph</span><span class="o">.</span><span class="n">print_summary</span><span class="p">()</span>  
+</pre></div>
+</div>
+</div>
+<div class="cell_output docutils container">
+<div class="output text_html"><div>
+<style scoped>
+    .dataframe tbody tr th:only-of-type {
+        vertical-align: middle;
+    }
+
+    .dataframe tbody tr th {
+        vertical-align: top;
+    }
+
+    .dataframe thead th {
+        text-align: right;
+    }
+</style>
+<table border="1" class="dataframe">
+  <tbody>
+    <tr>
+      <th>model</th>
+      <td>lifelines.CoxPHFitter</td>
+    </tr>
+    <tr>
+      <th>duration col</th>
+      <td>'week'</td>
+    </tr>
+    <tr>
+      <th>event col</th>
+      <td>'arrest'</td>
+    </tr>
+    <tr>
+      <th>baseline estimation</th>
+      <td>breslow</td>
+    </tr>
+    <tr>
+      <th>number of observations</th>
+      <td>432</td>
+    </tr>
+    <tr>
+      <th>number of events observed</th>
+      <td>114</td>
+    </tr>
+    <tr>
+      <th>partial log-likelihood</th>
+      <td>-658.75</td>
+    </tr>
+    <tr>
+      <th>time fit was run</th>
+      <td>2025-04-06 08:09:10 UTC</td>
+    </tr>
+  </tbody>
+</table>
+</div><table border="1" class="dataframe">
+  <thead>
+    <tr style="text-align: right;">
+      <th style="min-width: 12px;"></th>
+      <th style="min-width: 12px;">coef</th>
+      <th style="min-width: 12px;">exp(coef)</th>
+      <th style="min-width: 12px;">se(coef)</th>
+      <th style="min-width: 12px;">coef lower 95%</th>
+      <th style="min-width: 12px;">coef upper 95%</th>
+      <th style="min-width: 12px;">exp(coef) lower 95%</th>
+      <th style="min-width: 12px;">exp(coef) upper 95%</th>
+      <th style="min-width: 12px;">cmp to</th>
+      <th style="min-width: 12px;">z</th>
+      <th style="min-width: 12px;">p</th>
+      <th style="min-width: 12px;">-log2(p)</th>
+    </tr>
+  </thead>
+  <tbody>
+    <tr>
+      <th>fin</th>
+      <td>-0.38</td>
+      <td>0.68</td>
+      <td>0.19</td>
+      <td>-0.75</td>
+      <td>-0.00</td>
+      <td>0.47</td>
+      <td>1.00</td>
+      <td>0.00</td>
+      <td>-1.98</td>
+      <td>0.05</td>
+      <td>4.40</td>
+    </tr>
+    <tr>
+      <th>age</th>
+      <td>-0.06</td>
+      <td>0.94</td>
+      <td>0.02</td>
+      <td>-0.10</td>
+      <td>-0.01</td>
+      <td>0.90</td>
+      <td>0.99</td>
+      <td>0.00</td>
+      <td>-2.61</td>
+      <td>0.01</td>
+      <td>6.79</td>
+    </tr>
+    <tr>
+      <th>race</th>
+      <td>0.31</td>
+      <td>1.37</td>
+      <td>0.31</td>
+      <td>-0.29</td>
+      <td>0.92</td>
+      <td>0.75</td>
+      <td>2.50</td>
+      <td>0.00</td>
+      <td>1.02</td>
+      <td>0.31</td>
+      <td>1.70</td>
+    </tr>
+    <tr>
+      <th>wexp</th>
+      <td>-0.15</td>
+      <td>0.86</td>
+      <td>0.21</td>
+      <td>-0.57</td>
+      <td>0.27</td>
+      <td>0.57</td>
+      <td>1.30</td>
+      <td>0.00</td>
+      <td>-0.71</td>
+      <td>0.48</td>
+      <td>1.06</td>
+    </tr>
+    <tr>
+      <th>mar</th>
+      <td>-0.43</td>
+      <td>0.65</td>
+      <td>0.38</td>
+      <td>-1.18</td>
+      <td>0.31</td>
+      <td>0.31</td>
+      <td>1.37</td>
+      <td>0.00</td>
+      <td>-1.14</td>
+      <td>0.26</td>
+      <td>1.97</td>
+    </tr>
+    <tr>
+      <th>paro</th>
+      <td>-0.08</td>
+      <td>0.92</td>
+      <td>0.20</td>
+      <td>-0.47</td>
+      <td>0.30</td>
+      <td>0.63</td>
+      <td>1.35</td>
+      <td>0.00</td>
+      <td>-0.43</td>
+      <td>0.66</td>
+      <td>0.59</td>
+    </tr>
+    <tr>
+      <th>prio</th>
+      <td>0.09</td>
+      <td>1.10</td>
+      <td>0.03</td>
+      <td>0.04</td>
+      <td>0.15</td>
+      <td>1.04</td>
+      <td>1.16</td>
+      <td>0.00</td>
+      <td>3.19</td>
+      <td>&lt;0.005</td>
+      <td>9.48</td>
+    </tr>
+  </tbody>
+</table><br><div>
+<style scoped>
+    .dataframe tbody tr th:only-of-type {
+        vertical-align: middle;
+    }
+
+    .dataframe tbody tr th {
+        vertical-align: top;
+    }
+
+    .dataframe thead th {
+        text-align: right;
+    }
+</style>
+<table border="1" class="dataframe">
+  <tbody>
+    <tr>
+      <th>Concordance</th>
+      <td>0.64</td>
+    </tr>
+    <tr>
+      <th>Partial AIC</th>
+      <td>1331.50</td>
+    </tr>
+    <tr>
+      <th>log-likelihood ratio test</th>
+      <td>33.27 on 7 df</td>
+    </tr>
+    <tr>
+      <th>-log2(p) of ll-ratio test</th>
+      <td>15.37</td>
+    </tr>
+  </tbody>
+</table>
+</div></div></div>
+</div>
+<div class="cell docutils container">
+<div class="cell_input docutils container">
+<div class="highlight-ipython3 notranslate"><div class="highlight"><pre><span></span><span class="n">ax</span><span class="o">.</span><span class="n">ravel</span><span class="p">()</span> 
+</pre></div>
+</div>
+</div>
+<div class="cell_output docutils container">
+<div class="output traceback highlight-ipythontb notranslate"><div class="highlight"><pre><span></span><span class="gt">---------------------------------------------------------------------------</span>
+<span class="ne">NameError</span><span class="g g-Whitespace">                                 </span>Traceback (most recent call last)
+<span class="n">Cell</span> <span class="n">In</span><span class="p">[</span><span class="mi">2</span><span class="p">],</span> <span class="n">line</span> <span class="mi">1</span>
+<span class="ne">----&gt; </span><span class="mi">1</span> <span class="n">ax</span><span class="o">.</span><span class="n">ravel</span><span class="p">()</span> 
+
+<span class="ne">NameError</span>: name &#39;ax&#39; is not defined
+</pre></div>
+</div>
+</div>
+</div>
+<div class="cell docutils container">
+<div class="cell_input docutils container">
+<div class="highlight-ipython3 notranslate"><div class="highlight"><pre><span></span><span class="kn">import</span><span class="w"> </span><span class="nn">matplotlib.pyplot</span><span class="w"> </span><span class="k">as</span><span class="w"> </span><span class="nn">plt</span>
+<span class="kn">import</span><span class="w"> </span><span class="nn">seaborn</span><span class="w"> </span><span class="k">as</span><span class="w"> </span><span class="nn">sns</span>
+<span class="n">fig</span><span class="p">,</span> <span class="n">ax</span> <span class="o">=</span> <span class="n">plt</span><span class="o">.</span><span class="n">subplots</span><span class="p">(</span><span class="mi">2</span><span class="p">,</span> <span class="mi">3</span><span class="p">,</span> <span class="n">figsize</span><span class="o">=</span><span class="p">(</span><span class="mi">12</span><span class="p">,</span> <span class="mi">8</span><span class="p">))</span>
+<span class="n">cols</span> <span class="o">=</span> <span class="n">df</span><span class="o">.</span><span class="n">columns</span><span class="o">.</span><span class="n">drop</span><span class="p">([</span><span class="s1">&#39;fin&#39;</span><span class="p">,</span><span class="s1">&#39;week&#39;</span><span class="p">,</span> <span class="s1">&#39;arrest&#39;</span><span class="p">])</span>
+<span class="n">axes</span> <span class="o">=</span> <span class="n">ax</span><span class="o">.</span><span class="n">ravel</span><span class="p">()</span> 
+<span class="k">for</span> <span class="nb">id</span><span class="p">,</span> <span class="n">col</span> <span class="ow">in</span> <span class="nb">enumerate</span><span class="p">(</span><span class="n">cols</span><span class="p">):</span>
+    <span class="n">_ax</span> <span class="o">=</span> <span class="n">axes</span><span class="p">[</span><span class="nb">id</span><span class="p">]</span> 
+    <span class="n">bins</span> <span class="o">=</span> <span class="p">[</span><span class="mi">17</span><span class="p">,</span> <span class="mi">22</span><span class="p">,</span> <span class="mi">27</span><span class="p">,</span> <span class="mi">32</span><span class="p">,</span> <span class="mi">37</span><span class="p">,</span> <span class="mi">44</span><span class="p">]</span> <span class="k">if</span> <span class="n">col</span> <span class="o">==</span> <span class="s1">&#39;age&#39;</span> <span class="k">else</span> <span class="s1">&#39;auto&#39;</span>
+    <span class="n">sns</span><span class="o">.</span><span class="n">histplot</span><span class="p">(</span><span class="n">data</span><span class="o">=</span><span class="n">df</span><span class="p">,</span> <span class="n">x</span><span class="o">=</span><span class="n">col</span><span class="p">,</span> <span class="n">hue</span><span class="o">=</span><span class="s1">&#39;fin&#39;</span><span class="p">,</span> <span class="n">alpha</span><span class="o">=</span><span class="mf">0.5</span><span class="p">,</span> <span class="n">bins</span><span class="o">=</span><span class="n">bins</span><span class="p">,</span> <span class="n">ax</span><span class="o">=</span><span class="n">_ax</span><span class="p">)</span>
+    <span class="n">_ax</span><span class="o">.</span><span class="n">set_xlabel</span><span class="p">(</span><span class="n">col</span><span class="p">)</span>
+</pre></div>
+</div>
+</div>
+<div class="cell_output docutils container">
+<img alt="_images/295bed37f22b35c97ea9d9ef84182f5a621f9063868572595dd3545403b0124e.png" src="_images/295bed37f22b35c97ea9d9ef84182f5a621f9063868572595dd3545403b0124e.png" />
+</div>
+</div>
+</section>
+<section id="hazard-ratio-interpretations">
+<h2>Hazard Ratio &amp; Interpretations<a class="headerlink" href="#hazard-ratio-interpretations" title="Link to this heading">#</a></h2>
+</section>
+<section id="model-evaluataion">
+<h2>Model Evaluataion<a class="headerlink" href="#model-evaluataion" title="Link to this heading">#</a></h2>
+<p>If censoring is present, it’s not appropriate to use a loss function like mean-squared-error or mean-absolute-loss. This is because the difference between a censored value and the predicted value could be due to poor prediction or due to censoring. Below we introduce alternative ways to measure prediction performance.</p>
+<section id="concordance-index-c-index">
+<h3>Concordance Index [C-index]<a class="headerlink" href="#concordance-index-c-index" title="Link to this heading">#</a></h3>
+<div class="math notranslate nohighlight">
+\[ C-index := \frac{\#  concordant \,\,\, pairs}{\# comparable \,\,\,  pairs} \]</div>
+<ul class="simple">
+<li><p>Concordant pair: the pair <span class="math notranslate nohighlight">\((i, j)\)</span> is concordant if <span class="math notranslate nohighlight">\(t_i &gt; t_j\)</span> and <span class="math notranslate nohighlight">\(\hat t_i &gt; \hat t_j\)</span> where <span class="math notranslate nohighlight">\(t\)</span> is the observed time and <span class="math notranslate nohighlight">\(\hat t\)</span> is the estimated survival time</p></li>
+<li><p>Comparable pairs:</p></li>
+</ul>
+<img src="image.png" alt="drawing" width="500"/></section>
+</section>
+<section id="model-calibration">
+<h2>Model Calibration<a class="headerlink" href="#model-calibration" title="Link to this heading">#</a></h2>
+<div class="cell docutils container">
+<div class="cell_input docutils container">
+<div class="highlight-ipython3 notranslate"><div class="highlight"><pre><span></span><span class="kn">from</span><span class="w"> </span><span class="nn">lifelines</span><span class="w"> </span><span class="kn">import</span> <span class="n">CoxPHFitter</span>
+<span class="kn">from</span><span class="w"> </span><span class="nn">lifelines.datasets</span><span class="w"> </span><span class="kn">import</span> <span class="n">load_rossi</span>
+<span class="kn">from</span><span class="w"> </span><span class="nn">lifelines.calibration</span><span class="w"> </span><span class="kn">import</span> <span class="n">survival_probability_calibration</span>
+
+<span class="n">regression_dataset</span> <span class="o">=</span> <span class="n">load_rossi</span><span class="p">()</span>
+<span class="n">cph</span> <span class="o">=</span> <span class="n">CoxPHFitter</span><span class="p">(</span><span class="n">baseline_estimation_method</span><span class="o">=</span><span class="s2">&quot;spline&quot;</span><span class="p">,</span> <span class="n">n_baseline_knots</span><span class="o">=</span><span class="mi">3</span><span class="p">)</span>
+<span class="n">cph</span><span class="o">.</span><span class="n">fit</span><span class="p">(</span><span class="n">rossi</span><span class="p">,</span> <span class="s2">&quot;week&quot;</span><span class="p">,</span> <span class="s2">&quot;arrest&quot;</span><span class="p">)</span>
+
+<span class="n">survival_probability_calibration</span><span class="p">(</span><span class="n">cph</span><span class="p">,</span> <span class="n">rossi</span><span class="p">,</span> <span class="n">t0</span><span class="o">=</span><span class="mi">25</span><span class="p">);</span>
+</pre></div>
+</div>
+</div>
+<div class="cell_output docutils container">
+<div class="output stream highlight-myst-ansi notranslate"><div class="highlight"><pre><span></span>ICI =  0.0036926057314467567
+E50 =  0.003442100352935129
+</pre></div>
+</div>
+<div class="output text_plain highlight-myst-ansi notranslate"><div class="highlight"><pre><span></span>(&lt;Axes: title={&#39;center&#39;: &#39;Smoothed calibration curve of \npredicted vs observed probabilities of t ≤ 25 mortality&#39;}, xlabel=&#39;Predicted probability of \nt ≤ 25 mortality&#39;, ylabel=&#39;Observed probability of \nt ≤ 25 mortality&#39;&gt;,
+ np.float64(0.0036926057314467567),
+ np.float64(0.003442100352935129))
+</pre></div>
+</div>
+<img alt="_images/2e5156a730aae276fd41fafdf4a3f0b1c69bd534035e5f33033484c9ad52bceb.png" src="_images/2e5156a730aae276fd41fafdf4a3f0b1c69bd534035e5f33033484c9ad52bceb.png" />
+</div>
+</div>
+</section>
+<section id="predictions">
+<h2>Predictions<a class="headerlink" href="#predictions" title="Link to this heading">#</a></h2>
+<div class="cell docutils container">
+<div class="cell_input docutils container">
+<div class="highlight-ipython3 notranslate"><div class="highlight"><pre><span></span><span class="n">Prediction</span>
+</pre></div>
+</div>
+</div>
+</div>
+</section>
+</section>
+<section class="tex2jax_ignore mathjax_ignore" id="checking-proportional-hazard-assumption-evaluation">
+<h1>Checking Proportional Hazard Assumption Evaluation<a class="headerlink" href="#checking-proportional-hazard-assumption-evaluation" title="Link to this heading">#</a></h1>
+<p>It is important to note that if the graph of the hazards cross for two or more categories of a predictor of interest, the PH assumption is not met. However, althought the hazard functions do not cross, it is possible that the PH assumption is not met. Thus, rather than checking for crossing hazards, we need to use other apporaches.</p>
+<div class="cell docutils container">
+<div class="cell_input docutils container">
+<div class="highlight-ipython3 notranslate"><div class="highlight"><pre><span></span><span class="c1"># It seems that the proportional hazards assumption is violated as the log-log survival curves are not parallel.</span>
+</pre></div>
+</div>
+</div>
+</div>
+<section id="further-reading">
+<h2>Further Reading<a class="headerlink" href="#further-reading" title="Link to this heading">#</a></h2>
+<p>parametric and non-parametric models</p>
+<p>ML Models</p>
+<ul class="simple">
+<li><p>Survival Trees</p></li>
+<li><p>Support Vector Machine</p></li>
+<li><p>Baysian Survival Analysis</p></li>
+<li><p>Deep Survival Analysis</p></li>
+</ul>
+</section>
 </section>
 
     <script type="text/x-thebe-config">
@@ -429,21 +796,43 @@ document.write(`
         <p class="prev-next-title">Descriptive Analytics</p>
       </div>
     </a>
-    <a class="right-next"
-       href="markdown.html"
-       title="next page">
-      <div class="prev-next-info">
-        <p class="prev-next-subtitle">next</p>
-        <p class="prev-next-title">Markdown Files</p>
-      </div>
-      <i class="fa-solid fa-angle-right"></i>
-    </a>
 </div>
                 </footer>
               
             </div>
             
             
+              
+                <div class="bd-sidebar-secondary bd-toc"><div class="sidebar-secondary-items sidebar-secondary__inner">
+
+
+  <div class="sidebar-secondary-item">
+  <div class="page-toc tocsection onthispage">
+    <i class="fa-solid fa-list"></i> Contents
+  </div>
+  <nav class="bd-toc-nav page-toc">
+    <ul class="visible nav section-nav flex-column">
+<li class="toc-h1 nav-item toc-entry"><a class="reference internal nav-link" href="#">Predictive Analytics</a></li>
+<li class="toc-h1 nav-item toc-entry"><a class="reference internal nav-link" href="#survival-regression-with-cox-proportional-hazard-cph-model">Survival Regression with Cox Proportional Hazard (CPH) Model</a><ul class="visible nav section-nav flex-column">
+<li class="toc-h2 nav-item toc-entry"><a class="reference internal nav-link" href="#fitting-cph-model">Fitting CPH Model</a></li>
+<li class="toc-h2 nav-item toc-entry"><a class="reference internal nav-link" href="#hazard-ratio-interpretations">Hazard Ratio &amp; Interpretations</a></li>
+<li class="toc-h2 nav-item toc-entry"><a class="reference internal nav-link" href="#model-evaluataion">Model Evaluataion</a><ul class="nav section-nav flex-column">
+<li class="toc-h3 nav-item toc-entry"><a class="reference internal nav-link" href="#concordance-index-c-index">Concordance Index [C-index]</a></li>
+</ul>
+</li>
+<li class="toc-h2 nav-item toc-entry"><a class="reference internal nav-link" href="#model-calibration">Model Calibration</a></li>
+<li class="toc-h2 nav-item toc-entry"><a class="reference internal nav-link" href="#predictions">Predictions</a></li>
+</ul>
+</li>
+<li class="toc-h1 nav-item toc-entry"><a class="reference internal nav-link" href="#checking-proportional-hazard-assumption-evaluation">Checking Proportional Hazard Assumption Evaluation</a><ul class="visible nav section-nav flex-column">
+<li class="toc-h2 nav-item toc-entry"><a class="reference internal nav-link" href="#further-reading">Further Reading</a></li>
+</ul>
+</li>
+</ul>
+
+  </nav></div>
+
+</div></div>
               
             
           </div>
