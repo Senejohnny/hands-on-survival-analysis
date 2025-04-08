@@ -1,30 +1,30 @@
----
-classes:
-  - wide
----
-
 #  Outline 
+
+Some of the introductory material will be given as [.ppt]() file [to be uploaded]
 
 ## Notebook 1: Descriptive Survival Analysis
 
 
-[![Open In Colab](https://colab.research.google.com/assets/colab-badge.svg)](https://colab.research.google.com/github/senejohnny/PyData_London_2025/blob/main/survival_book/descriptive.ipynb)
+- General users: notebook available in [Colab](https://colab.research.google.com/github/senejohnny/PyData_London_2025/blob/main/survival_book/descriptive.ipynb)
 
-[![Open in Databricks](https://databricks.com/wp-content/uploads/2024/03/open-in-databricks.svg)](https://accounts.cloud.databricks.com/workspaces)
+- ABN AMRO employees: notebook available in [Databrick](https://accounts.cloud.databricks.com/workspaces)
 
 <!-- [![Open In Colab](https://colab.research.google.com/assets/colab-badge.svg)](https://colab.research.google.com/github/USERNAME/REPOSITORY/blob/main/notebook.ipynb) -->
 ## Notebook 2: Predictive Survival Analysis
 
 
-[![Open In Colab](https://colab.research.google.com/assets/colab-badge.svg)](https://colab.research.google.com/github/senejohnny/PyData_London_2025/blob/main/survival_book/descriptive.ipynb)
+- General users: notebook available in [Colab](https://colab.research.google.com/github/senejohnny/PyData_London_2025/blob/main/survival_book/descriptive.ipynb)
 
-[![Open in Databricks](https://databricks.com/wp-content/uploads/2024/03/open-in-databricks.svg)](https://accounts.cloud.databricks.com/workspaces)
-
-
-##  Prescriptive Survival Analysis & Further topics 
+- ABN AMRO employees: notebook available in [Databrick](https://accounts.cloud.databricks.com/workspaces)
 
 
-```{seealso}
+## Further topics 
+
+- See Prescriptive Survival Analysis chapter for further detail
+
+- Predictive Survival Analysis with Machine Learning 
+
+```{seealso} 
 A taxonomy of machine learning models in survival analysis context are presented in 
 [Survival Analysis: a deep dive | PyData Amsterdam 2023](https://www.youtube.com/watch?v=I33h5-GmHSM)
 ```

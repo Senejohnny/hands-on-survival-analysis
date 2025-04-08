@@ -1,11 +1,6 @@
----
-classes:
-  - wide
----
-
 # Prescriptive Survival Analysis
 
-This chapter is out of the scope of the tutorial. However, upon interest below topics are relevant to causal inference and prescriptive analytics 
+Deep diving on the details of this chapter is out of the scope of the tutorial. However, upon interest below topics are relevant to causal inference and prescriptive analytics 
 
 
 ## Introduction to Causal Inference (CI)

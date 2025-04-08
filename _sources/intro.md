@@ -1,8 +1,3 @@
----
-classes:
-  - wide
----
-
 #  Introduction 
 
 Survival analysis, originally developed for healthcare mortality studies, has evolved into a versatile statistical method for analyzing time-to-event data across diverse fields from marketing & economy to sociology & engineering. Survival analysis potentials and use are often overlooked across descriptive, predictive, and prescriptive analytics. This lack of awareness often leads to employing suboptimal approaches when handling time-to-event problems. Specially, during partial information access due to missing data.
