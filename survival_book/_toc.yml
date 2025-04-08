@@ -7,6 +7,7 @@ chapters:
 - file: outline
 - file: descriptive
 - file: predictive
-- file: markdown
-# - file: notebooks
-- file: markdown-notebooks
+- file: prescriptive
+- file: biblio
+# - file: markdown
+# - file: markdown-notebooks
