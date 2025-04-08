@@ -6,7 +6,7 @@ Survival analysis, originally developed for healthcare mortality studies, has ev
 This introductory tutorial is prepared for practicing and aspiring data scientists and analysts who are interested in adding survival analysis into their toolkit. It provides a brief introduction to survival statistics. Through hands-on experience with the lifelines python library and notebook, participants will have dedicated time for Q&A and to execute the specification, fitting, and evaluation of models using a real-world dataset.
 
 
-## 
+## Quick commands
 
 
 - Building the book 
