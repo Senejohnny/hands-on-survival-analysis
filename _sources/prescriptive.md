@@ -1,38 +1,52 @@
 
-# Prescriptive Survival Analytics 
+# Prescriptive Survival Analysis
+
+This chapter is out of the scope of the tutorial. However, upon interest below topics are relevant to causal inference and prescriptive analytics 
 
 
+## Introduction to Causal Inference (CI)
+There are two schools of thought in Causal Inference. 
 
-## An example cell
+1. Potential Outcome
 
-With MyST Markdown, you can define code cells with a directive like so:
+2. Structural Causal Models 
 
-```{code-cell}
-print(2 + 2)
-```
-
-When your book is built, the contents of any `{code-cell}` blocks will be
-executed with your default Jupyter kernel, and their outputs will be displayed
-in-line with the rest of your content.
 
 ```{seealso}
-Jupyter Book uses [Jupytext](https://jupytext.readthedocs.io/en/latest/) to convert text-based files to notebooks, and can support [many other text-based notebook files](https://jupyterbook.org/file-types/jupytext.html).
+The Causal Inference school of thoughts are extensively covered in below talks   
+
+- [Causal Inference: a deep dive | Data Science in Finance 2024](https://www.youtube.com/watch?v=XTn3Fn-pt3s)
+
+- [Causal Effect Estimation in Practice: Lessons Learned from E-commerce & Banking | PyData Amsterdam 2024](https://www.youtube.com/watch?v=pz7QD2GPBlE)
 ```
 
-## Create a notebook with MyST Markdown
 
-MyST Markdown notebooks are defined by two things:
+## Applying CI tools to Survival Analysis
 
-1. YAML metadata that is needed to understand if / how it should convert text files to notebooks (including information about the kernel needed).
-   See the YAML at the top of this page for example.
-2. The presence of `{code-cell}` directives, which will be executed with your book.
+1. Potential Outcome: 
 
-That's all that is needed to get started!
+   - Calculate the propensity score given relevant variables
+   - Correcting for unbalanced confounding using the Inverse Propensity Weights to re-weight Kaplan-Meier (KM) estimator. 
 
-## Quickly add YAML metadata for MyST Notebooks
+2. Structural Causal Models: Given the desired variable for effect estimation  
 
-If you have a markdown file and you'd like to quickly add YAML metadata to it, so that Jupyter Book will treat it as a MyST Markdown Notebook, run the following command:
+   - Identify the causal graph
+   - Fit a Cox proportional hazard with only confounders (avoid including mediator & Collider)
+   - Ensure the cox proportional hazard assumption is satisfied 
+   - Average Treatment Effect (ATE) is the coefficient of the desired variable i.e., treatment 
+
+```{note}
+
+Checking cox proportional hazard assumption is not important for predictive analytics, while 
+the situation is different in prescriptive analytics. 
+
+- In prediction the objective is to maximize an accuracy metric, and not to learn about how individual feature contribute to the model making that prediction.
+
+- In prescriptive analytics, the focus is to understand the influence of individual variables on the survival duration & outcome.
 
 ```
-jupyter-book myst init path/to/markdownfile.md
-```
+
+## Checking & Ensuring Proportional Hazard Assumption  
+
+Material to be added
+

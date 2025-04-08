@@ -68,7 +68,7 @@ df = pd.DataFrame({
 
 [31m---------------------------------------------------------------------------[39m
 [31mValueError[39m                                Traceback (most recent call last)
-[36mCell[39m[36m [39m[32mIn[11][39m[32m, line 31[39m
+[36mCell[39m[36m [39m[32mIn[10][39m[32m, line 31[39m
 [32m     29[39m base_churn_time = np.random.exponential(scale=[32m70[39m, size=[38;5;28mint[39m(n_clients * [32m0.3[39m) )
 [32m     30[39m years_active = (datetime([32m2025[39m, [32m3[39m, [32m16[39m) - start_dates).astype([33m'[39m[33mtimedelta64[D][39m[33m'[39m).astype([38;5;28mint[39m)
 [32m---> [39m[32m31[39m time_to_churn = [43mbase_churn_time[49m[43m [49m[43m*[49m[43m [49m[43m([49m[32;43m1[39;49m[43m [49m[43m+[49m[43m [49m[43myears_active[49m[43m [49m[43m*[49m[43m [49m[32;43m0.001[39;49m[43m)[49m

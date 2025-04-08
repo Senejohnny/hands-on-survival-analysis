@@ -16,7 +16,7 @@
 [![Open in Databricks](https://databricks.com/wp-content/uploads/2024/03/open-in-databricks.svg)](https://accounts.cloud.databricks.com/workspaces)
 
 
-##  Prescriptive Survival Analysis & Advanced topics 
+##  Prescriptive Survival Analysis & Further topics 
 
 
 - Overview of some of the Machine Learning methods are presented in [PyData Amsterdam 2023](https://www.youtube.com/watch?v=I33h5-GmHSM)
