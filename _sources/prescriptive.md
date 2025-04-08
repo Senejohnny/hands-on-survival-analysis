@@ -1,3 +1,7 @@
+---
+classes:
+  - wide
+---
 
 # Prescriptive Survival Analysis
 
