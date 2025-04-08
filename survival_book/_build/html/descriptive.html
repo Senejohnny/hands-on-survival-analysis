@@ -191,8 +191,9 @@
 <li class="toctree-l1"><a class="reference internal" href="predictive.html">Predictive Survival Analysis</a></li>
 
 
-<li class="toctree-l1"><a class="reference internal" href="prescriptive.html">Prescriptive Survival Analytics</a></li>
-<li class="toctree-l1"><a class="reference internal" href="biblio.html">Reference &amp; Further reading</a></li>
+
+<li class="toctree-l1"><a class="reference internal" href="prescriptive.html">Prescriptive Survival Analysis</a></li>
+<li class="toctree-l1"><a class="reference internal" href="biblio.html">References &amp; Further reading</a></li>
 </ul>
 
     </div>
@@ -431,15 +432,6 @@ document.write(`
 </section>
 <section class="tex2jax_ignore mathjax_ignore" id="packages">
 <h1>Packages<a class="headerlink" href="#packages" title="Link to this heading">#</a></h1>
-<div class="cell docutils container">
-<div class="cell_input docutils container">
-<div class="highlight-ipython3 notranslate"><div class="highlight"><pre><span></span><span class="c1"># ! pip3 install pandas</span>
-<span class="c1"># ! pip3 install lifelines</span>
-<span class="c1"># ! pip install matplotlib</span>
-</pre></div>
-</div>
-</div>
-</div>
 <div class="cell docutils container">
 <div class="cell_input docutils container">
 <div class="highlight-ipython3 notranslate"><div class="highlight"><pre><span></span><span class="kn">import</span><span class="w"> </span><span class="nn">pandas</span><span class="w"> </span><span class="k">as</span><span class="w"> </span><span class="nn">pd</span>
@@ -993,7 +985,7 @@ where \)</span>T$ is the time at which the event occurs.</p>
 <div class="cell_output docutils container">
 <div class="output traceback highlight-ipythontb notranslate"><div class="highlight"><pre><span></span><span class="gt">---------------------------------------------------------------------------</span>
 <span class="ne">ValueError</span><span class="g g-Whitespace">                                </span>Traceback (most recent call last)
-<span class="n">Cell</span> <span class="n">In</span><span class="p">[</span><span class="mi">11</span><span class="p">],</span> <span class="n">line</span> <span class="mi">31</span>
+<span class="n">Cell</span> <span class="n">In</span><span class="p">[</span><span class="mi">10</span><span class="p">],</span> <span class="n">line</span> <span class="mi">31</span>
 <span class="g g-Whitespace">     </span><span class="mi">29</span> <span class="n">base_churn_time</span> <span class="o">=</span> <span class="n">np</span><span class="o">.</span><span class="n">random</span><span class="o">.</span><span class="n">exponential</span><span class="p">(</span><span class="n">scale</span><span class="o">=</span><span class="mi">70</span><span class="p">,</span> <span class="n">size</span><span class="o">=</span><span class="nb">int</span><span class="p">(</span><span class="n">n_clients</span> <span class="o">*</span> <span class="mf">0.3</span><span class="p">)</span> <span class="p">)</span>
 <span class="g g-Whitespace">     </span><span class="mi">30</span> <span class="n">years_active</span> <span class="o">=</span> <span class="p">(</span><span class="n">datetime</span><span class="p">(</span><span class="mi">2025</span><span class="p">,</span> <span class="mi">3</span><span class="p">,</span> <span class="mi">16</span><span class="p">)</span> <span class="o">-</span> <span class="n">start_dates</span><span class="p">)</span><span class="o">.</span><span class="n">astype</span><span class="p">(</span><span class="s1">&#39;timedelta64[D]&#39;</span><span class="p">)</span><span class="o">.</span><span class="n">astype</span><span class="p">(</span><span class="nb">int</span><span class="p">)</span>
 <span class="ne">---&gt; </span><span class="mi">31</span> <span class="n">time_to_churn</span> <span class="o">=</span> <span class="n">base_churn_time</span> <span class="o">*</span> <span class="p">(</span><span class="mi">1</span> <span class="o">+</span> <span class="n">years_active</span> <span class="o">*</span> <span class="mf">0.001</span><span class="p">)</span>
