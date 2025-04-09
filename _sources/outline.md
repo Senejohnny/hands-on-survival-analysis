@@ -22,7 +22,7 @@ Some of the introductory material will be given as [.ppt]() file [to be uploaded
 
 - See Prescriptive Survival Analysis chapter for further detail
 
-- Predictive Survival Analysis with Machine Learning 
+- Predictive Survival Analysis with Machine Learning {cite}`wang2019machine`
 
 ```{seealso} 
 A taxonomy of machine learning models in survival analysis context are presented in 

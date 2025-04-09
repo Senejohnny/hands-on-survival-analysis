@@ -2,8 +2,8 @@
 
 
 ```{bibliography}
-<!-- {cite:p}`wang2019machine` -->
 ```
+
 
 ```{seealso}
 A taxonomy of machine learning models in survival analysis context are presented in 
