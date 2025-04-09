@@ -441,11 +441,12 @@ document.write(`
 </section>
 <section id="cox-proportional-hazard-chp-model">
 <h2>Cox Proportional Hazard (CHP) Model<a class="headerlink" href="#cox-proportional-hazard-chp-model" title="Link to this heading">#</a></h2>
-<p>Traditional models, e.g., line linear regression, can not be used due to censoring. CPH model is based on the idea that log of the hazard is a linear function of covariates
-$<span class="math notranslate nohighlight">\(
+<p>Traditional models, e.g., line linear regression, can not be used due to censoring. CPH model is based on the idea that log of the hazard is a linear function of covariates</p>
+<div class="math notranslate nohighlight">
+\[
 \log \left [ \frac{h(t, x)}{h_0(t)} \right ] = \beta ^{\top} x  \, \Longrightarrow \,  h(t,x) = h_0(t) \, e^{\beta ^{\top} x}  
-\)</span><span class="math notranslate nohighlight">\(
-where \)</span>x<span class="math notranslate nohighlight">\( and \)</span>\beta<span class="math notranslate nohighlight">\( are variable and regression coefficient vectors, respectively, and \)</span>h_0(t)$ is a base-line hazard function (semi-parametric &amp; non-negative).</p>
+\]</div>
+<p>where <span class="math notranslate nohighlight">\(x\)</span> and <span class="math notranslate nohighlight">\(\beta\)</span> are variable and regression coefficient vectors, respectively, and <span class="math notranslate nohighlight">\(h_0(t)\)</span> is a base-line hazard function (semi-parametric &amp; non-negative).</p>
 <p>Attention: The only time-varying component in CPH model is the base-line hazard <span class="math notranslate nohighlight">\(h_0(t)\)</span>, where individual covariates would only scale this function with the time-invariant factor <span class="math notranslate nohighlight">\(e^{\beta ^{\top} x}\)</span></p>
 <section id="proportional-hazard-assumption">
 <h3>Proportional Hazard Assumption<a class="headerlink" href="#proportional-hazard-assumption" title="Link to this heading">#</a></h3>
@@ -461,6 +462,15 @@ where \)</span>x<span class="math notranslate nohighlight">\( and \)</span>\beta
 </ul>
 <p><img alt="image" src="_images/proportional-hazard-assumption.jpg" /></p>
 <p><em>Survival function vs time, given different covariates. Courtesy of <a class="reference external" href="http://ifelines.readthedocs.io">ifelines.readthedocs.io</a></em></p>
+<div class="admonition note">
+<p class="admonition-title">Note</p>
+<p>Checking cox proportional hazard assumption is not important for predictive analytics, while
+the situation is different in prescriptive analytics.</p>
+<ul class="simple">
+<li><p>In prediction the objective is to maximize an accuracy metric, and not to learn about how individual feature contribute to the model making that prediction.</p></li>
+<li><p>In prescriptive analytics, the focus is to understand the influence of individual variables on the survival duration &amp; event.</p></li>
+</ul>
+</div>
 </section>
 <section id="fitting-cph">
 <h3>Fitting CPH<a class="headerlink" href="#fitting-cph" title="Link to this heading">#</a></h3>
@@ -525,7 +535,7 @@ where \)</span>x<span class="math notranslate nohighlight">\( and \)</span>\beta
     </tr>
     <tr>
       <th>time fit was run</th>
-      <td>2025-04-09 12:26:51 UTC</td>
+      <td>2025-04-09 12:54:54 UTC</td>
     </tr>
   </tbody>
 </table>
@@ -725,14 +735,16 @@ where \)</span>x<span class="math notranslate nohighlight">\( and \)</span>\beta
 </section>
 <section id="model-evaluataion">
 <h2>Model Evaluataion<a class="headerlink" href="#model-evaluataion" title="Link to this heading">#</a></h2>
-<p>If censoring is present, it’s not appropriate to use a loss function like mean-squared-error or mean-absolute-loss. This is because the difference between a censored value and the predicted value could be due to poor prediction or due to censoring. Below we introduce alternative ways to measure prediction performance.</p>
+<p>If censoring is present, it’s not appropriate to use a loss function like mean-squared-error or mean-absolute-loss. This is because the difference between a censored value and the predicted value could be due to poor prediction or due to censoring.</p>
+<p>Due to censoring metrics like Root Mean Square (RMS) and <span class="math notranslate nohighlight">\(R^2\)</span> are not relevant to survival analysis. Specialized evaluation metrics for survival are</p>
+<ul class="simple">
+<li><p>c-index</p></li>
+<li><p>Brier score</p></li>
+<li><p>Mean Absolute Error (MAE),</p></li>
+</ul>
 <section id="concordance-index-c-index">
 <h3>Concordance Index [C-index]<a class="headerlink" href="#concordance-index-c-index" title="Link to this heading">#</a></h3>
-<ul class="simple">
-<li><p>Due to censoring metrics like Root Mean Square (RMS) and <span class="math notranslate nohighlight">\(R^2\)</span> are not relevant to survival analysis.</p></li>
-<li><p>Specialized evaluation metrics for survival are c-index, Brier score, and Mean Absolute Error (MAE),</p></li>
-</ul>
-<p>Definition of C-index:</p>
+<p>Definition</p>
 <div class="math notranslate nohighlight">
 \[ C-index := \frac{\#  concordant \,\,\, pairs}{\# comparable \,\,\,  pairs} \]</div>
 <ul class="simple">
