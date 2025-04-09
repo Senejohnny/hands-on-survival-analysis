@@ -2,7 +2,7 @@
 
 
 ```{bibliography}
-:style: unsrt
+{cite:p}`wang2019machine`
 ```
 
 ```{seealso}
