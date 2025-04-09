@@ -1,0 +1,15 @@
+/* _static/custom.css */
+.container {
+    max-width: 100% !important;
+    width: 100% !important;
+}
+
+.bd-main {
+    max-width: 100% !important;
+    flex-grow: 1;
+}
+
+.bd-content {
+    max-width: 100% !important;
+    flex-grow: 1;
+}

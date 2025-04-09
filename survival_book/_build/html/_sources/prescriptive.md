@@ -1,8 +1,11 @@
-
 # Prescriptive Survival Analysis
 
-This chapter is out of the scope of the tutorial. However, upon interest below topics are relevant to causal inference and prescriptive analytics 
+This type of analytics answer the question "what should be done?"
 
+```{note}
+This chapter is out of the scope of this tutorial and most of the contents are under preparation. 
+Upon interest below topics are relevant to prescriptive survival analysis 
+```
 
 ## Introduction to Causal Inference (CI)
 There are two schools of thought in Causal Inference. 
@@ -42,11 +45,11 @@ the situation is different in prescriptive analytics.
 
 - In prediction the objective is to maximize an accuracy metric, and not to learn about how individual feature contribute to the model making that prediction.
 
-- In prescriptive analytics, the focus is to understand the influence of individual variables on the survival duration & outcome.
+- In prescriptive analytics, the focus is to understand the influence of individual variables on the survival duration & event.
 
 ```
 
 ## Checking & Ensuring Proportional Hazard Assumption  
 
-Material to be added
+Under preparation
 
