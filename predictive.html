@@ -464,6 +464,15 @@ where \)</span>x<span class="math notranslate nohighlight">\( and \)</span>\beta
 <ul class="simple">
 <li><p>Crossing of the survival/hazard curves for two or more categories of a predictor of interest, signal that the PH assumption is not met. However, it is possible that the functions do not cross and the PH assumption is not met. Thus, other approaches are needed to check PH assumption than curves crossing in a graph.</p></li>
 </ul>
+<div class="admonition note">
+<p class="admonition-title">Note</p>
+<p>Checking cox proportional hazard assumption is not important for predictive analytics, while
+the situation is different in prescriptive analytics.</p>
+<ul class="simple">
+<li><p>In prediction the objective is to maximize an accuracy metric, and not to learn about how individual feature contribute to the model making that prediction.</p></li>
+<li><p>In prescriptive analytics, the focus is on inference &amp; correlation and to understand the influence of individual variables on the survival duration &amp; event.</p></li>
+</ul>
+</div>
 </section>
 <section id="fitting-cph">
 <h3>Fitting CPH<a class="headerlink" href="#fitting-cph" title="Link to this heading">#</a></h3>
@@ -528,7 +537,7 @@ where \)</span>x<span class="math notranslate nohighlight">\( and \)</span>\beta
     </tr>
     <tr>
       <th>time fit was run</th>
-      <td>2025-04-10 20:24:19 UTC</td>
+      <td>2025-04-10 20:43:27 UTC</td>
     </tr>
   </tbody>
 </table>
@@ -725,12 +734,12 @@ where \)</span>x<span class="math notranslate nohighlight">\( and \)</span>\beta
 <section id="model-evaluataion">
 <h2>Model Evaluataion<a class="headerlink" href="#model-evaluataion" title="Link to this heading">#</a></h2>
 <p>If censoring is present, it’s not appropriate to use a loss function like mean-squared-error or mean-absolute-loss. This is because the difference between a censored value and the predicted value could be due to poor prediction or due to censoring. Below we introduce alternative ways to measure prediction performance.</p>
-<section id="concordance-index-c-index">
-<h3>Concordance Index [C-index]<a class="headerlink" href="#concordance-index-c-index" title="Link to this heading">#</a></h3>
+<p>Due to censoring metrics like Root Mean Square (RMS) and <span class="math notranslate nohighlight">\(R^2\)</span> are not relevant to survival analysis.</p>
 <ul class="simple">
-<li><p>Due to censoring metrics like Root Mean Square (RMS) and <span class="math notranslate nohighlight">\(R^2\)</span> are not relevant to survival analysis.</p></li>
 <li><p>Specialized evaluation metrics for survival are c-index, Brier score, and Mean Absolute Error (MAE),</p></li>
 </ul>
+<section id="concordance-index-c-index">
+<h3>Concordance Index [C-index]<a class="headerlink" href="#concordance-index-c-index" title="Link to this heading">#</a></h3>
 <p>Definition of C-index:</p>
 <div class="math notranslate nohighlight">
 \[ C-index := \frac{\#  concordant \,\,\, pairs}{\# comparable \,\,\,  pairs} \]</div>
