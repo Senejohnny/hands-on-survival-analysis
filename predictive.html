@@ -187,9 +187,8 @@
 
 
 
-
-
 <li class="toctree-l1 current active"><a class="current reference internal" href="#">Predictive Survival Analysis</a></li>
+
 
 
 
@@ -405,10 +404,10 @@ document.write(`
 <li class="toc-h3 nav-item toc-entry"><a class="reference internal nav-link" href="#scores">Scores</a></li>
 </ul>
 </li>
-<li class="toc-h2 nav-item toc-entry"><a class="reference internal nav-link" href="#model-evaluation">Model Evaluation</a><ul class="nav section-nav flex-column">
-<li class="toc-h3 nav-item toc-entry"><a class="reference internal nav-link" href="#concordance-index-c-index">Concordance Index [C-index]</a></li>
 </ul>
 </li>
+<li class="toc-h1 nav-item toc-entry"><a class="reference internal nav-link" href="#model-evaluation">Model Evaluation</a><ul class="visible nav section-nav flex-column">
+<li class="toc-h2 nav-item toc-entry"><a class="reference internal nav-link" href="#concordance-index-c-index">Concordance Index [C-index]</a></li>
 </ul>
 </li>
 <li class="toc-h1 nav-item toc-entry"><a class="reference internal nav-link" href="#model-calibration">Model Calibration</a></li>
@@ -576,7 +575,7 @@ the situation is different in prescriptive analytics.</p>
     </tr>
     <tr>
       <th>time fit was run</th>
-      <td>2025-04-11 19:17:17 UTC</td>
+      <td>2025-04-11 20:25:49 UTC</td>
     </tr>
   </tbody>
 </table>
@@ -756,8 +755,9 @@ the situation is different in prescriptive analytics.</p>
 <p>Along the same line of reasoning, whether the subject had prior arrest or not, i.e., <code class="docutils literal notranslate"><span class="pre">prio</span></code>, increase the risk of subjects getting re-arrested by 9%, with hazard ratio of <span class="math notranslate nohighlight">\(e^{0.09} = 1.09\)</span></p>
 </section>
 </section>
-<section id="model-evaluation">
-<h2>Model Evaluation<a class="headerlink" href="#model-evaluation" title="Link to this heading">#</a></h2>
+</section>
+<section class="tex2jax_ignore mathjax_ignore" id="model-evaluation">
+<h1>Model Evaluation<a class="headerlink" href="#model-evaluation" title="Link to this heading">#</a></h1>
 <p>Due to censoring metrics like Root Mean Square (RMS) and <span class="math notranslate nohighlight">\(R^2\)</span> are not relevant to survival analysis. This is because the difference between a censored value and the predicted value could be due to poor prediction or due to censoring. Specialized evaluation metrics for survival analysis are</p>
 <ul class="simple">
 <li><p>c-index,</p></li>
@@ -765,7 +765,7 @@ the situation is different in prescriptive analytics.</p>
 <li><p>Mean Absolute Error (MAE),</p></li>
 </ul>
 <section id="concordance-index-c-index">
-<h3>Concordance Index [C-index]<a class="headerlink" href="#concordance-index-c-index" title="Link to this heading">#</a></h3>
+<h2>Concordance Index [C-index]<a class="headerlink" href="#concordance-index-c-index" title="Link to this heading">#</a></h2>
 <p>Definition of C-index:</p>
 <div class="math notranslate nohighlight">
 \[ C-index := \frac{\#  concordant \,\,\, pairs}{\# comparable \,\,\,  pairs} \]</div>
@@ -774,7 +774,6 @@ the situation is different in prescriptive analytics.</p>
 <li><p>Comparable pairs:</p></li>
 </ul>
 <p><img alt="imae" src="_images/c-index.jpg" /></p>
-</section>
 </section>
 </section>
 <section class="tex2jax_ignore mathjax_ignore" id="model-calibration">
@@ -1018,10 +1017,10 @@ S(T &gt; t | T &gt; \tau) =  \frac{S(T &gt; t \, \&amp; \,   T &gt; \tau)}{S(T &
 <li class="toc-h3 nav-item toc-entry"><a class="reference internal nav-link" href="#scores">Scores</a></li>
 </ul>
 </li>
-<li class="toc-h2 nav-item toc-entry"><a class="reference internal nav-link" href="#model-evaluation">Model Evaluation</a><ul class="nav section-nav flex-column">
-<li class="toc-h3 nav-item toc-entry"><a class="reference internal nav-link" href="#concordance-index-c-index">Concordance Index [C-index]</a></li>
 </ul>
 </li>
+<li class="toc-h1 nav-item toc-entry"><a class="reference internal nav-link" href="#model-evaluation">Model Evaluation</a><ul class="visible nav section-nav flex-column">
+<li class="toc-h2 nav-item toc-entry"><a class="reference internal nav-link" href="#concordance-index-c-index">Concordance Index [C-index]</a></li>
 </ul>
 </li>
 <li class="toc-h1 nav-item toc-entry"><a class="reference internal nav-link" href="#model-calibration">Model Calibration</a></li>

@@ -27,4 +27,3 @@
 ```{note}
 This chapter is out of the scope of this tutorial. However, for interested readers some pointer to the relevant topics are provided for further reading.
 ```
-
