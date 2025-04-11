@@ -193,6 +193,7 @@
 
 
 
+
 <li class="toctree-l1"><a class="reference internal" href="prescriptive.html">Prescriptive Survival Analysis</a></li>
 <li class="toctree-l1"><a class="reference internal" href="biblio.html">References &amp; Further reading</a></li>
 </ul>
@@ -410,13 +411,13 @@ document.write(`
 </li>
 </ul>
 </li>
-<li class="toc-h1 nav-item toc-entry"><a class="reference internal nav-link" href="#prediction">Prediction</a><ul class="visible nav section-nav flex-column">
+<li class="toc-h1 nav-item toc-entry"><a class="reference internal nav-link" href="#model-calibration">Model Calibration</a></li>
+<li class="toc-h1 nav-item toc-entry"><a class="reference internal nav-link" href="#model-prediction">Model Prediction</a><ul class="visible nav section-nav flex-column">
 <li class="toc-h2 nav-item toc-entry"><a class="reference internal nav-link" href="#data">Data</a></li>
 <li class="toc-h2 nav-item toc-entry"><a class="reference internal nav-link" href="#survival-cumulative-hazard-functions">Survival &amp; Cumulative Hazard functions</a></li>
 <li class="toc-h2 nav-item toc-entry"><a class="reference internal nav-link" href="#percentile">Percentile</a></li>
 <li class="toc-h2 nav-item toc-entry"><a class="reference internal nav-link" href="#expectation">Expectation</a></li>
 <li class="toc-h2 nav-item toc-entry"><a class="reference internal nav-link" href="#prediction-on-censored-subjects">Prediction on censored subjects</a></li>
-<li class="toc-h2 nav-item toc-entry"><a class="reference internal nav-link" href="#model-calibration">Model Calibration</a></li>
 <li class="toc-h2 nav-item toc-entry"><a class="reference internal nav-link" href="#further-topics-taxonomy-of-ml-methods">Further topics: Taxonomy of ML methods</a></li>
 </ul>
 </li>
@@ -575,7 +576,7 @@ the situation is different in prescriptive analytics.</p>
     </tr>
     <tr>
       <th>time fit was run</th>
-      <td>2025-04-11 18:57:21 UTC</td>
+      <td>2025-04-11 19:17:17 UTC</td>
     </tr>
   </tbody>
 </table>
@@ -776,8 +777,39 @@ the situation is different in prescriptive analytics.</p>
 </section>
 </section>
 </section>
-<section class="tex2jax_ignore mathjax_ignore" id="prediction">
-<h1>Prediction<a class="headerlink" href="#prediction" title="Link to this heading">#</a></h1>
+<section class="tex2jax_ignore mathjax_ignore" id="model-calibration">
+<h1>Model Calibration<a class="headerlink" href="#model-calibration" title="Link to this heading">#</a></h1>
+<div class="cell docutils container">
+<div class="cell_input docutils container">
+<div class="highlight-ipython3 notranslate"><div class="highlight"><pre><span></span><span class="kn">from</span><span class="w"> </span><span class="nn">lifelines</span><span class="w"> </span><span class="kn">import</span> <span class="n">CoxPHFitter</span>
+<span class="kn">from</span><span class="w"> </span><span class="nn">lifelines.datasets</span><span class="w"> </span><span class="kn">import</span> <span class="n">load_rossi</span>
+<span class="kn">from</span><span class="w"> </span><span class="nn">lifelines.calibration</span><span class="w"> </span><span class="kn">import</span> <span class="n">survival_probability_calibration</span>
+
+<span class="n">regression_dataset</span> <span class="o">=</span> <span class="n">load_rossi</span><span class="p">()</span>
+<span class="n">cph</span> <span class="o">=</span> <span class="n">CoxPHFitter</span><span class="p">(</span><span class="n">baseline_estimation_method</span><span class="o">=</span><span class="s2">&quot;spline&quot;</span><span class="p">,</span> <span class="n">n_baseline_knots</span><span class="o">=</span><span class="mi">3</span><span class="p">)</span>
+<span class="n">cph</span><span class="o">.</span><span class="n">fit</span><span class="p">(</span><span class="n">rossi</span><span class="p">,</span> <span class="s2">&quot;week&quot;</span><span class="p">,</span> <span class="s2">&quot;arrest&quot;</span><span class="p">)</span>
+
+<span class="n">survival_probability_calibration</span><span class="p">(</span><span class="n">cph</span><span class="p">,</span> <span class="n">rossi</span><span class="p">,</span> <span class="n">t0</span><span class="o">=</span><span class="mi">25</span><span class="p">);</span>
+</pre></div>
+</div>
+</div>
+<div class="cell_output docutils container">
+<div class="output traceback highlight-ipythontb notranslate"><div class="highlight"><pre><span></span><span class="gt">---------------------------------------------------------------------------</span>
+<span class="ne">NameError</span><span class="g g-Whitespace">                                 </span>Traceback (most recent call last)
+<span class="n">Cell</span> <span class="n">In</span><span class="p">[</span><span class="mi">3</span><span class="p">],</span> <span class="n">line</span> <span class="mi">7</span>
+<span class="g g-Whitespace">      </span><span class="mi">5</span> <span class="n">regression_dataset</span> <span class="o">=</span> <span class="n">load_rossi</span><span class="p">()</span>
+<span class="g g-Whitespace">      </span><span class="mi">6</span> <span class="n">cph</span> <span class="o">=</span> <span class="n">CoxPHFitter</span><span class="p">(</span><span class="n">baseline_estimation_method</span><span class="o">=</span><span class="s2">&quot;spline&quot;</span><span class="p">,</span> <span class="n">n_baseline_knots</span><span class="o">=</span><span class="mi">3</span><span class="p">)</span>
+<span class="ne">----&gt; </span><span class="mi">7</span> <span class="n">cph</span><span class="o">.</span><span class="n">fit</span><span class="p">(</span><span class="n">rossi</span><span class="p">,</span> <span class="s2">&quot;week&quot;</span><span class="p">,</span> <span class="s2">&quot;arrest&quot;</span><span class="p">)</span>
+<span class="g g-Whitespace">      </span><span class="mi">9</span> <span class="n">survival_probability_calibration</span><span class="p">(</span><span class="n">cph</span><span class="p">,</span> <span class="n">rossi</span><span class="p">,</span> <span class="n">t0</span><span class="o">=</span><span class="mi">25</span><span class="p">);</span>
+
+<span class="ne">NameError</span>: name &#39;rossi&#39; is not defined
+</pre></div>
+</div>
+</div>
+</div>
+</section>
+<section class="tex2jax_ignore mathjax_ignore" id="model-prediction">
+<h1>Model Prediction<a class="headerlink" href="#model-prediction" title="Link to this heading">#</a></h1>
 <section id="data">
 <h2>Data<a class="headerlink" href="#data" title="Link to this heading">#</a></h2>
 <p>Let’s define an synthetic data to represent a low-risk and a high-risk subject.</p>
@@ -895,37 +927,6 @@ S(T &gt; t | T &gt; \tau) =  \frac{S(T &gt; t \, \&amp; \,   T &gt; \tau)}{S(T &
 </div>
 </div>
 </section>
-<section id="model-calibration">
-<h2>Model Calibration<a class="headerlink" href="#model-calibration" title="Link to this heading">#</a></h2>
-<div class="cell docutils container">
-<div class="cell_input docutils container">
-<div class="highlight-ipython3 notranslate"><div class="highlight"><pre><span></span><span class="kn">from</span><span class="w"> </span><span class="nn">lifelines</span><span class="w"> </span><span class="kn">import</span> <span class="n">CoxPHFitter</span>
-<span class="kn">from</span><span class="w"> </span><span class="nn">lifelines.datasets</span><span class="w"> </span><span class="kn">import</span> <span class="n">load_rossi</span>
-<span class="kn">from</span><span class="w"> </span><span class="nn">lifelines.calibration</span><span class="w"> </span><span class="kn">import</span> <span class="n">survival_probability_calibration</span>
-
-<span class="n">regression_dataset</span> <span class="o">=</span> <span class="n">load_rossi</span><span class="p">()</span>
-<span class="n">cph</span> <span class="o">=</span> <span class="n">CoxPHFitter</span><span class="p">(</span><span class="n">baseline_estimation_method</span><span class="o">=</span><span class="s2">&quot;spline&quot;</span><span class="p">,</span> <span class="n">n_baseline_knots</span><span class="o">=</span><span class="mi">3</span><span class="p">)</span>
-<span class="n">cph</span><span class="o">.</span><span class="n">fit</span><span class="p">(</span><span class="n">rossi</span><span class="p">,</span> <span class="s2">&quot;week&quot;</span><span class="p">,</span> <span class="s2">&quot;arrest&quot;</span><span class="p">)</span>
-
-<span class="n">survival_probability_calibration</span><span class="p">(</span><span class="n">cph</span><span class="p">,</span> <span class="n">rossi</span><span class="p">,</span> <span class="n">t0</span><span class="o">=</span><span class="mi">25</span><span class="p">);</span>
-</pre></div>
-</div>
-</div>
-<div class="cell_output docutils container">
-<div class="output traceback highlight-ipythontb notranslate"><div class="highlight"><pre><span></span><span class="gt">---------------------------------------------------------------------------</span>
-<span class="ne">NameError</span><span class="g g-Whitespace">                                 </span>Traceback (most recent call last)
-<span class="n">Cell</span> <span class="n">In</span><span class="p">[</span><span class="mi">8</span><span class="p">],</span> <span class="n">line</span> <span class="mi">7</span>
-<span class="g g-Whitespace">      </span><span class="mi">5</span> <span class="n">regression_dataset</span> <span class="o">=</span> <span class="n">load_rossi</span><span class="p">()</span>
-<span class="g g-Whitespace">      </span><span class="mi">6</span> <span class="n">cph</span> <span class="o">=</span> <span class="n">CoxPHFitter</span><span class="p">(</span><span class="n">baseline_estimation_method</span><span class="o">=</span><span class="s2">&quot;spline&quot;</span><span class="p">,</span> <span class="n">n_baseline_knots</span><span class="o">=</span><span class="mi">3</span><span class="p">)</span>
-<span class="ne">----&gt; </span><span class="mi">7</span> <span class="n">cph</span><span class="o">.</span><span class="n">fit</span><span class="p">(</span><span class="n">rossi</span><span class="p">,</span> <span class="s2">&quot;week&quot;</span><span class="p">,</span> <span class="s2">&quot;arrest&quot;</span><span class="p">)</span>
-<span class="g g-Whitespace">      </span><span class="mi">9</span> <span class="n">survival_probability_calibration</span><span class="p">(</span><span class="n">cph</span><span class="p">,</span> <span class="n">rossi</span><span class="p">,</span> <span class="n">t0</span><span class="o">=</span><span class="mi">25</span><span class="p">);</span>
-
-<span class="ne">NameError</span>: name &#39;rossi&#39; is not defined
-</pre></div>
-</div>
-</div>
-</div>
-</section>
 <section id="further-topics-taxonomy-of-ml-methods">
 <h2>Further topics: Taxonomy of ML methods<a class="headerlink" href="#further-topics-taxonomy-of-ml-methods" title="Link to this heading">#</a></h2>
 <p><img alt="image.png" src="_images/taxonomy-ml.jpg" /></p>
@@ -1023,13 +1024,13 @@ S(T &gt; t | T &gt; \tau) =  \frac{S(T &gt; t \, \&amp; \,   T &gt; \tau)}{S(T &
 </li>
 </ul>
 </li>
-<li class="toc-h1 nav-item toc-entry"><a class="reference internal nav-link" href="#prediction">Prediction</a><ul class="visible nav section-nav flex-column">
+<li class="toc-h1 nav-item toc-entry"><a class="reference internal nav-link" href="#model-calibration">Model Calibration</a></li>
+<li class="toc-h1 nav-item toc-entry"><a class="reference internal nav-link" href="#model-prediction">Model Prediction</a><ul class="visible nav section-nav flex-column">
 <li class="toc-h2 nav-item toc-entry"><a class="reference internal nav-link" href="#data">Data</a></li>
 <li class="toc-h2 nav-item toc-entry"><a class="reference internal nav-link" href="#survival-cumulative-hazard-functions">Survival &amp; Cumulative Hazard functions</a></li>
 <li class="toc-h2 nav-item toc-entry"><a class="reference internal nav-link" href="#percentile">Percentile</a></li>
 <li class="toc-h2 nav-item toc-entry"><a class="reference internal nav-link" href="#expectation">Expectation</a></li>
 <li class="toc-h2 nav-item toc-entry"><a class="reference internal nav-link" href="#prediction-on-censored-subjects">Prediction on censored subjects</a></li>
-<li class="toc-h2 nav-item toc-entry"><a class="reference internal nav-link" href="#model-calibration">Model Calibration</a></li>
 <li class="toc-h2 nav-item toc-entry"><a class="reference internal nav-link" href="#further-topics-taxonomy-of-ml-methods">Further topics: Taxonomy of ML methods</a></li>
 </ul>
 </li>
