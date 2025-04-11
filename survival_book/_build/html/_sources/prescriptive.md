@@ -3,8 +3,7 @@
 This type of analytics answer the question "what should be done?"
 
 ```{note}
-This chapter is out of the scope of this tutorial and most of the contents are under preparation. 
-Upon interest below topics are relevant to prescriptive survival analysis 
+This chapter is out of the scope of this tutorial. However, for interested readers some pointer to the relevant topics are provided for further reading.
 ```
 
 ## Introduction to Causal Inference (CI)

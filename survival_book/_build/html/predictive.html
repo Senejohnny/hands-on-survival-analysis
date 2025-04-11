@@ -193,6 +193,7 @@
 
 
 
+
 <li class="toctree-l1"><a class="reference internal" href="prescriptive.html">Prescriptive Survival Analysis</a></li>
 <li class="toctree-l1"><a class="reference internal" href="biblio.html">References &amp; Further reading</a></li>
 </ul>
@@ -392,28 +393,35 @@ document.write(`
                 <ul class="visible nav section-nav flex-column">
 <li class="toc-h1 nav-item toc-entry"><a class="reference internal nav-link" href="#">Predictive Survival Analysis</a></li>
 <li class="toc-h1 nav-item toc-entry"><a class="reference internal nav-link" href="#survival-regression">Survival Regression</a><ul class="visible nav section-nav flex-column">
-<li class="toc-h2 nav-item toc-entry"><a class="reference internal nav-link" href="#taxonomy-of-predictive-methods-statistical">Taxonomy of Predictive Methods (Statistical)</a></li>
-<li class="toc-h2 nav-item toc-entry"><a class="reference internal nav-link" href="#cox-proportional-hazard-chp-model">Cox Proportional Hazard (CHP) Model</a><ul class="nav section-nav flex-column">
-<li class="toc-h3 nav-item toc-entry"><a class="reference internal nav-link" href="#proportional-hazard-assumption">Proportional Hazard Assumption</a></li>
+<li class="toc-h2 nav-item toc-entry"><a class="reference internal nav-link" href="#taxonomy-of-statistical-methods">Taxonomy of Statistical Methods</a></li>
+<li class="toc-h2 nav-item toc-entry"><a class="reference internal nav-link" href="#chp-model">CHP Model</a><ul class="nav section-nav flex-column">
+<li class="toc-h3 nav-item toc-entry"><a class="reference internal nav-link" href="#ph-assumption">PH Assumption</a></li>
+<li class="toc-h3 nav-item toc-entry"><a class="reference internal nav-link" href="#dataset">Dataset</a></li>
 <li class="toc-h3 nav-item toc-entry"><a class="reference internal nav-link" href="#fitting-cph">Fitting CPH</a></li>
-<li class="toc-h3 nav-item toc-entry"><a class="reference internal nav-link" href="#interpretation">Interpretation</a></li>
 </ul>
 </li>
-<li class="toc-h2 nav-item toc-entry"><a class="reference internal nav-link" href="#model-evaluataion">Model Evaluataion</a><ul class="nav section-nav flex-column">
+<li class="toc-h2 nav-item toc-entry"><a class="reference internal nav-link" href="#interpretation">Interpretation</a><ul class="nav section-nav flex-column">
+<li class="toc-h3 nav-item toc-entry"><a class="reference internal nav-link" href="#metrics">Metrics</a></li>
+<li class="toc-h3 nav-item toc-entry"><a class="reference internal nav-link" href="#scores">Scores</a></li>
+</ul>
+</li>
+<li class="toc-h2 nav-item toc-entry"><a class="reference internal nav-link" href="#model-evaluation">Model Evaluation</a><ul class="nav section-nav flex-column">
 <li class="toc-h3 nav-item toc-entry"><a class="reference internal nav-link" href="#concordance-index-c-index">Concordance Index [C-index]</a></li>
 </ul>
 </li>
 </ul>
 </li>
-<li class="toc-h1 nav-item toc-entry"><a class="reference internal nav-link" href="#prediction">Prediction</a><ul class="visible nav section-nav flex-column">
-<li class="toc-h2 nav-item toc-entry"><a class="reference internal nav-link" href="#model-calibration">Model Calibration</a></li>
-<li class="toc-h2 nav-item toc-entry"><a class="reference internal nav-link" href="#predictions">Predictions</a></li>
+<li class="toc-h1 nav-item toc-entry"><a class="reference internal nav-link" href="#model-calibration">Model Calibration</a></li>
+<li class="toc-h1 nav-item toc-entry"><a class="reference internal nav-link" href="#model-prediction">Model Prediction</a><ul class="visible nav section-nav flex-column">
+<li class="toc-h2 nav-item toc-entry"><a class="reference internal nav-link" href="#data">Data</a></li>
+<li class="toc-h2 nav-item toc-entry"><a class="reference internal nav-link" href="#survival-cumulative-hazard-functions">Survival &amp; Cumulative Hazard functions</a></li>
+<li class="toc-h2 nav-item toc-entry"><a class="reference internal nav-link" href="#percentile">Percentile</a></li>
+<li class="toc-h2 nav-item toc-entry"><a class="reference internal nav-link" href="#expectation">Expectation</a></li>
+<li class="toc-h2 nav-item toc-entry"><a class="reference internal nav-link" href="#prediction-on-censored-subjects">Prediction on censored subjects</a></li>
+<li class="toc-h2 nav-item toc-entry"><a class="reference internal nav-link" href="#further-topics-taxonomy-of-ml-methods">Further topics: Taxonomy of ML methods</a></li>
 </ul>
 </li>
-<li class="toc-h1 nav-item toc-entry"><a class="reference internal nav-link" href="#checking-proportional-hazard-assumption-evaluation">Checking Proportional Hazard Assumption Evaluation</a><ul class="visible nav section-nav flex-column">
-<li class="toc-h2 nav-item toc-entry"><a class="reference internal nav-link" href="#further-reading">Further Reading</a></li>
-</ul>
-</li>
+<li class="toc-h1 nav-item toc-entry"><a class="reference internal nav-link" href="#exercise">Exercise</a></li>
 </ul>
 
             </nav>
@@ -433,22 +441,23 @@ document.write(`
 <section class="tex2jax_ignore mathjax_ignore" id="survival-regression">
 <h1>Survival Regression<a class="headerlink" href="#survival-regression" title="Link to this heading">#</a></h1>
 <p>Whenever we have additional variables next to duration &amp; event, we can use survival regression.</p>
-<section id="taxonomy-of-predictive-methods-statistical">
-<h2>Taxonomy of Predictive Methods (Statistical)<a class="headerlink" href="#taxonomy-of-predictive-methods-statistical" title="Link to this heading">#</a></h2>
+<section id="taxonomy-of-statistical-methods">
+<h2>Taxonomy of Statistical Methods<a class="headerlink" href="#taxonomy-of-statistical-methods" title="Link to this heading">#</a></h2>
 <p><img alt="image" src="_images/taxonomy-predictive.jpg" /></p>
 <p><em>Taxonomy of predictive statistical survival methods.  ML for Survival Analysis: A Survey [2018]</em></p>
 <p>Among the many methods available, Cox proportional hazard (CPH) and accelerated failure models are popular with many implementation. These methods model hazard rate <span class="math notranslate nohighlight">\(h(t, x)\)</span>, as a function of time <span class="math notranslate nohighlight">\(t\)</span> and covariate <span class="math notranslate nohighlight">\(x\)</span></p>
 </section>
-<section id="cox-proportional-hazard-chp-model">
-<h2>Cox Proportional Hazard (CHP) Model<a class="headerlink" href="#cox-proportional-hazard-chp-model" title="Link to this heading">#</a></h2>
-<p>Traditional models, e.g., line linear regression, can not be used due to censoring. CPH model is based on the idea that log of the hazard is a linear function of covariates
-$<span class="math notranslate nohighlight">\(
+<section id="chp-model">
+<h2>CHP Model<a class="headerlink" href="#chp-model" title="Link to this heading">#</a></h2>
+<p>Traditional models, e.g., line linear regression, can not be used due to censoring. CPH model is based on the idea that log of the hazard is a linear function of covariates</p>
+<div class="math notranslate nohighlight">
+\[
 \log \left [ \frac{h(t, x)}{h_0(t)} \right ] = \beta ^{\top} x  \, \Longrightarrow \,  h(t,x) = h_0(t) \, e^{\beta ^{\top} x}  
-\)</span><span class="math notranslate nohighlight">\(
-where \)</span>x<span class="math notranslate nohighlight">\( and \)</span>\beta<span class="math notranslate nohighlight">\( are variable and regression coefficient vectors, respectively, and \)</span>h_0(t)$ is a base-line hazard function (semi-parametric &amp; non-negative).</p>
+\]</div>
+<p>where <span class="math notranslate nohighlight">\(x\)</span> and <span class="math notranslate nohighlight">\(\beta\)</span> are variable and regression coefficient vectors, respectively, and <span class="math notranslate nohighlight">\(h_0(t)\)</span> is a base-line hazard function (semi-parametric &amp; non-negative).</p>
 <p>Attention: The only time-varying component in CPH model is the base-line hazard <span class="math notranslate nohighlight">\(h_0(t)\)</span>, where individual covariates would only scale this function with the time-invariant factor <span class="math notranslate nohighlight">\(e^{\beta ^{\top} x}\)</span></p>
-<section id="proportional-hazard-assumption">
-<h3>Proportional Hazard Assumption<a class="headerlink" href="#proportional-hazard-assumption" title="Link to this heading">#</a></h3>
+<section id="ph-assumption">
+<h3>PH Assumption<a class="headerlink" href="#ph-assumption" title="Link to this heading">#</a></h3>
 <p>The Proportional Hazards assumption means that the hazard ratio of two sample is constant over time (time-invariant),</p>
 <div class="math notranslate nohighlight">
 \[
@@ -461,9 +470,7 @@ where \)</span>x<span class="math notranslate nohighlight">\( and \)</span>\beta
 </ul>
 <p><img alt="image" src="_images/proportional-hazard-assumption.jpg" /></p>
 <p><em>Survival function vs time, given different covariates. Courtesy of <a class="reference external" href="http://ifelines.readthedocs.io">ifelines.readthedocs.io</a></em></p>
-<ul class="simple">
-<li><p>Crossing of the survival/hazard curves for two or more categories of a predictor of interest, signal that the PH assumption is not met. However, it is possible that the functions do not cross and the PH assumption is not met. Thus, other approaches are needed to check PH assumption than curves crossing in a graph.</p></li>
-</ul>
+<p>Crossing of the survival/hazard curves for two or more categories of a predictor of interest, signal that the PH assumption is not met. However, it is possible that the functions do not cross and the PH assumption is not met. Thus, other approaches are needed to check PH assumption than curves crossing in a graph.</p>
 <div class="admonition note">
 <p class="admonition-title">Note</p>
 <p>Checking cox proportional hazard assumption is not important for predictive analytics, while
@@ -474,14 +481,46 @@ the situation is different in prescriptive analytics.</p>
 </ul>
 </div>
 </section>
+<section id="dataset">
+<h3>Dataset<a class="headerlink" href="#dataset" title="Link to this heading">#</a></h3>
+<p>The data is related to 432 convicts who were released from Maryland state prisons in the 1970s and who were followed up for one year after release. Half the released convicts were assigned at random to an experimental treatment in which they were given financial aid; half did not receive aid <span id="id1">[<a class="reference internal" href="biblio.html#id3" title="Peter H Rossi, Richard A Berk, and Kenneth J Lenihan. Money, work, and crime: experimental evidence. Elsevier, 2013.">RBL13</a>]</span>. Below, there is a sneak peek at the features distributions of this experimental dataset.</p>
+<ul class="simple">
+<li><p>fin: whether the inmate received financial aid after release.</p></li>
+<li><p>prio: The number of convictions an inmate had prior to incarceration.</p></li>
+<li><p>mar: whether the inmate was married at the time of release or not</p></li>
+<li><p>wexp: whether the inmate had full-time work experience before incarceration or not.</p></li>
+<li><p>paro: whether the inmate was released on parole or not.</p></li>
+</ul>
+<p><a class="reference external" href="https://search.r-project.org/CRAN/refmans/penPHcure/html/cpRossi.html">Further info</a></p>
+<div class="cell docutils container">
+<div class="cell_input docutils container">
+<div class="highlight-ipython3 notranslate"><div class="highlight"><pre><span></span><span class="kn">import</span><span class="w"> </span><span class="nn">matplotlib.pyplot</span><span class="w"> </span><span class="k">as</span><span class="w"> </span><span class="nn">plt</span>
+<span class="kn">import</span><span class="w"> </span><span class="nn">seaborn</span><span class="w"> </span><span class="k">as</span><span class="w"> </span><span class="nn">sns</span>
+<span class="kn">from</span><span class="w"> </span><span class="nn">lifelines.datasets</span><span class="w"> </span><span class="kn">import</span> <span class="n">load_rossi</span>
+
+<span class="n">df</span> <span class="o">=</span> <span class="n">load_rossi</span><span class="p">()</span>
+
+<span class="n">fig</span><span class="p">,</span> <span class="n">ax</span> <span class="o">=</span> <span class="n">plt</span><span class="o">.</span><span class="n">subplots</span><span class="p">(</span><span class="mi">2</span><span class="p">,</span> <span class="mi">3</span><span class="p">,</span> <span class="n">figsize</span><span class="o">=</span><span class="p">(</span><span class="mi">12</span><span class="p">,</span> <span class="mi">8</span><span class="p">))</span>
+<span class="n">cols</span> <span class="o">=</span> <span class="n">df</span><span class="o">.</span><span class="n">columns</span><span class="o">.</span><span class="n">drop</span><span class="p">([</span><span class="s1">&#39;fin&#39;</span><span class="p">,</span><span class="s1">&#39;week&#39;</span><span class="p">,</span> <span class="s1">&#39;arrest&#39;</span><span class="p">])</span>
+<span class="n">axes</span> <span class="o">=</span> <span class="n">ax</span><span class="o">.</span><span class="n">ravel</span><span class="p">()</span> 
+<span class="k">for</span> <span class="nb">id</span><span class="p">,</span> <span class="n">col</span> <span class="ow">in</span> <span class="nb">enumerate</span><span class="p">(</span><span class="n">cols</span><span class="p">):</span>
+    <span class="n">_ax</span> <span class="o">=</span> <span class="n">axes</span><span class="p">[</span><span class="nb">id</span><span class="p">]</span> 
+    <span class="n">bins</span> <span class="o">=</span> <span class="p">[</span><span class="mi">17</span><span class="p">,</span> <span class="mi">22</span><span class="p">,</span> <span class="mi">27</span><span class="p">,</span> <span class="mi">32</span><span class="p">,</span> <span class="mi">37</span><span class="p">,</span> <span class="mi">44</span><span class="p">]</span> <span class="k">if</span> <span class="n">col</span> <span class="o">==</span> <span class="s1">&#39;age&#39;</span> <span class="k">else</span> <span class="s1">&#39;auto&#39;</span>
+    <span class="n">sns</span><span class="o">.</span><span class="n">histplot</span><span class="p">(</span><span class="n">data</span><span class="o">=</span><span class="n">df</span><span class="p">,</span> <span class="n">x</span><span class="o">=</span><span class="n">col</span><span class="p">,</span> <span class="n">hue</span><span class="o">=</span><span class="s1">&#39;fin&#39;</span><span class="p">,</span> <span class="n">alpha</span><span class="o">=</span><span class="mf">0.5</span><span class="p">,</span> <span class="n">bins</span><span class="o">=</span><span class="n">bins</span><span class="p">,</span> <span class="n">ax</span><span class="o">=</span><span class="n">_ax</span><span class="p">)</span>
+    <span class="n">_ax</span><span class="o">.</span><span class="n">set_xlabel</span><span class="p">(</span><span class="n">col</span><span class="p">)</span>
+</pre></div>
+</div>
+</div>
+<div class="cell_output docutils container">
+<img alt="_images/295bed37f22b35c97ea9d9ef84182f5a621f9063868572595dd3545403b0124e.png" src="_images/295bed37f22b35c97ea9d9ef84182f5a621f9063868572595dd3545403b0124e.png" />
+</div>
+</div>
+</section>
 <section id="fitting-cph">
 <h3>Fitting CPH<a class="headerlink" href="#fitting-cph" title="Link to this heading">#</a></h3>
 <div class="cell docutils container">
 <div class="cell_input docutils container">
 <div class="highlight-ipython3 notranslate"><div class="highlight"><pre><span></span><span class="kn">from</span><span class="w"> </span><span class="nn">lifelines</span><span class="w"> </span><span class="kn">import</span> <span class="n">CoxPHFitter</span>
-<span class="kn">from</span><span class="w"> </span><span class="nn">lifelines.datasets</span><span class="w"> </span><span class="kn">import</span> <span class="n">load_rossi</span>
-
-<span class="n">df</span> <span class="o">=</span> <span class="n">load_rossi</span><span class="p">()</span>
 
 <span class="n">cph</span> <span class="o">=</span> <span class="n">CoxPHFitter</span><span class="p">()</span>
 <span class="n">cph</span><span class="o">.</span><span class="n">fit</span><span class="p">(</span><span class="n">df</span><span class="p">,</span> <span class="n">duration_col</span><span class="o">=</span><span class="s1">&#39;week&#39;</span><span class="p">,</span> <span class="n">event_col</span><span class="o">=</span><span class="s1">&#39;arrest&#39;</span><span class="p">)</span>
@@ -537,7 +576,7 @@ the situation is different in prescriptive analytics.</p>
     </tr>
     <tr>
       <th>time fit was run</th>
-      <td>2025-04-10 20:43:27 UTC</td>
+      <td>2025-04-11 19:17:17 UTC</td>
     </tr>
   </tbody>
 </table>
@@ -695,14 +734,19 @@ the situation is different in prescriptive analytics.</p>
 </div></div></div>
 </div>
 </section>
+</section>
 <section id="interpretation">
-<h3>Interpretation<a class="headerlink" href="#interpretation" title="Link to this heading">#</a></h3>
+<h2>Interpretation<a class="headerlink" href="#interpretation" title="Link to this heading">#</a></h2>
+<section id="metrics">
+<h3>Metrics<a class="headerlink" href="#metrics" title="Link to this heading">#</a></h3>
 <ul class="simple">
 <li><p>partial log-likelihood is the cost function</p></li>
 <li><p>breslow estimator is used to estimate <span class="math notranslate nohighlight">\(\hat H_0\)</span>. Then the baseline survival function can be calculated as <span class="math notranslate nohighlight">\(S_0(t) = e^{-H_0(t)}\)</span></p></li>
-<li><p>Concordance will follow</p></li>
-<li></li>
+<li><p>Concordance will be elaborated in evaluation section</p></li>
 </ul>
+</section>
+<section id="scores">
+<h3>Scores<a class="headerlink" href="#scores" title="Link to this heading">#</a></h3>
 <p>Let’s consider <code class="docutils literal notranslate"><span class="pre">fin</span></code> variable (whether subject provided with financial aid after release), a one unit increase in <code class="docutils literal notranslate"><span class="pre">fin</span></code> means the base-line hazard will decrease by <span class="math notranslate nohighlight">\(e^{-0.37} = 0.69\)</span>, why?</p>
 <div class="math notranslate nohighlight">
 \[
@@ -710,33 +754,15 @@ the situation is different in prescriptive analytics.</p>
 \]</div>
 <p>Since the hazard ratio (vs base-line) is <span class="math notranslate nohighlight">\(0.69\)</span> (&lt; 1), we can argue financial aid reduces the risk of subjects getting re-arrested by 31%.</p>
 <p>Along the same line of reasoning, whether the subject had prior arrest or not, i.e., <code class="docutils literal notranslate"><span class="pre">prio</span></code>, increase the risk of subjects getting re-arrested by 9%, with hazard ratio of <span class="math notranslate nohighlight">\(e^{0.09} = 1.09\)</span></p>
-<div class="cell docutils container">
-<div class="cell_input docutils container">
-<div class="highlight-ipython3 notranslate"><div class="highlight"><pre><span></span><span class="kn">import</span><span class="w"> </span><span class="nn">matplotlib.pyplot</span><span class="w"> </span><span class="k">as</span><span class="w"> </span><span class="nn">plt</span>
-<span class="kn">import</span><span class="w"> </span><span class="nn">seaborn</span><span class="w"> </span><span class="k">as</span><span class="w"> </span><span class="nn">sns</span>
-<span class="n">fig</span><span class="p">,</span> <span class="n">ax</span> <span class="o">=</span> <span class="n">plt</span><span class="o">.</span><span class="n">subplots</span><span class="p">(</span><span class="mi">2</span><span class="p">,</span> <span class="mi">3</span><span class="p">,</span> <span class="n">figsize</span><span class="o">=</span><span class="p">(</span><span class="mi">12</span><span class="p">,</span> <span class="mi">8</span><span class="p">))</span>
-<span class="n">cols</span> <span class="o">=</span> <span class="n">df</span><span class="o">.</span><span class="n">columns</span><span class="o">.</span><span class="n">drop</span><span class="p">([</span><span class="s1">&#39;fin&#39;</span><span class="p">,</span><span class="s1">&#39;week&#39;</span><span class="p">,</span> <span class="s1">&#39;arrest&#39;</span><span class="p">])</span>
-<span class="n">axes</span> <span class="o">=</span> <span class="n">ax</span><span class="o">.</span><span class="n">ravel</span><span class="p">()</span> 
-<span class="k">for</span> <span class="nb">id</span><span class="p">,</span> <span class="n">col</span> <span class="ow">in</span> <span class="nb">enumerate</span><span class="p">(</span><span class="n">cols</span><span class="p">):</span>
-    <span class="n">_ax</span> <span class="o">=</span> <span class="n">axes</span><span class="p">[</span><span class="nb">id</span><span class="p">]</span> 
-    <span class="n">bins</span> <span class="o">=</span> <span class="p">[</span><span class="mi">17</span><span class="p">,</span> <span class="mi">22</span><span class="p">,</span> <span class="mi">27</span><span class="p">,</span> <span class="mi">32</span><span class="p">,</span> <span class="mi">37</span><span class="p">,</span> <span class="mi">44</span><span class="p">]</span> <span class="k">if</span> <span class="n">col</span> <span class="o">==</span> <span class="s1">&#39;age&#39;</span> <span class="k">else</span> <span class="s1">&#39;auto&#39;</span>
-    <span class="n">sns</span><span class="o">.</span><span class="n">histplot</span><span class="p">(</span><span class="n">data</span><span class="o">=</span><span class="n">df</span><span class="p">,</span> <span class="n">x</span><span class="o">=</span><span class="n">col</span><span class="p">,</span> <span class="n">hue</span><span class="o">=</span><span class="s1">&#39;fin&#39;</span><span class="p">,</span> <span class="n">alpha</span><span class="o">=</span><span class="mf">0.5</span><span class="p">,</span> <span class="n">bins</span><span class="o">=</span><span class="n">bins</span><span class="p">,</span> <span class="n">ax</span><span class="o">=</span><span class="n">_ax</span><span class="p">)</span>
-    <span class="n">_ax</span><span class="o">.</span><span class="n">set_xlabel</span><span class="p">(</span><span class="n">col</span><span class="p">)</span>
-</pre></div>
-</div>
-</div>
-<div class="cell_output docutils container">
-<img alt="_images/295bed37f22b35c97ea9d9ef84182f5a621f9063868572595dd3545403b0124e.png" src="_images/295bed37f22b35c97ea9d9ef84182f5a621f9063868572595dd3545403b0124e.png" />
-</div>
-</div>
 </section>
 </section>
-<section id="model-evaluataion">
-<h2>Model Evaluataion<a class="headerlink" href="#model-evaluataion" title="Link to this heading">#</a></h2>
-<p>If censoring is present, it’s not appropriate to use a loss function like mean-squared-error or mean-absolute-loss. This is because the difference between a censored value and the predicted value could be due to poor prediction or due to censoring. Below we introduce alternative ways to measure prediction performance.</p>
-<p>Due to censoring metrics like Root Mean Square (RMS) and <span class="math notranslate nohighlight">\(R^2\)</span> are not relevant to survival analysis.</p>
+<section id="model-evaluation">
+<h2>Model Evaluation<a class="headerlink" href="#model-evaluation" title="Link to this heading">#</a></h2>
+<p>Due to censoring metrics like Root Mean Square (RMS) and <span class="math notranslate nohighlight">\(R^2\)</span> are not relevant to survival analysis. This is because the difference between a censored value and the predicted value could be due to poor prediction or due to censoring. Specialized evaluation metrics for survival analysis are</p>
 <ul class="simple">
-<li><p>Specialized evaluation metrics for survival are c-index, Brier score, and Mean Absolute Error (MAE),</p></li>
+<li><p>c-index,</p></li>
+<li><p>Brier score,</p></li>
+<li><p>Mean Absolute Error (MAE),</p></li>
 </ul>
 <section id="concordance-index-c-index">
 <h3>Concordance Index [C-index]<a class="headerlink" href="#concordance-index-c-index" title="Link to this heading">#</a></h3>
@@ -751,13 +777,8 @@ the situation is different in prescriptive analytics.</p>
 </section>
 </section>
 </section>
-<section class="tex2jax_ignore mathjax_ignore" id="prediction">
-<h1>Prediction<a class="headerlink" href="#prediction" title="Link to this heading">#</a></h1>
-<ul class="simple">
-<li><p>on censored subjects</p></li>
-</ul>
-<section id="model-calibration">
-<h2>Model Calibration<a class="headerlink" href="#model-calibration" title="Link to this heading">#</a></h2>
+<section class="tex2jax_ignore mathjax_ignore" id="model-calibration">
+<h1>Model Calibration<a class="headerlink" href="#model-calibration" title="Link to this heading">#</a></h1>
 <div class="cell docutils container">
 <div class="cell_input docutils container">
 <div class="highlight-ipython3 notranslate"><div class="highlight"><pre><span></span><span class="kn">from</span><span class="w"> </span><span class="nn">lifelines</span><span class="w"> </span><span class="kn">import</span> <span class="n">CoxPHFitter</span>
@@ -787,38 +808,136 @@ the situation is different in prescriptive analytics.</p>
 </div>
 </div>
 </section>
-<section id="predictions">
-<h2>Predictions<a class="headerlink" href="#predictions" title="Link to this heading">#</a></h2>
+<section class="tex2jax_ignore mathjax_ignore" id="model-prediction">
+<h1>Model Prediction<a class="headerlink" href="#model-prediction" title="Link to this heading">#</a></h1>
+<section id="data">
+<h2>Data<a class="headerlink" href="#data" title="Link to this heading">#</a></h2>
+<p>Let’s define an synthetic data to represent a low-risk and a high-risk subject.</p>
 <div class="cell docutils container">
 <div class="cell_input docutils container">
-<div class="highlight-ipython3 notranslate"><div class="highlight"><pre><span></span><span class="n">Prediction</span>
+<div class="highlight-ipython3 notranslate"><div class="highlight"><pre><span></span><span class="kn">import</span><span class="w"> </span><span class="nn">pandas</span><span class="w"> </span><span class="k">as</span><span class="w"> </span><span class="nn">pd</span>
+ 
+<span class="n">X</span> <span class="o">=</span> <span class="n">pd</span><span class="o">.</span><span class="n">DataFrame</span><span class="p">({</span><span class="s1">&#39;fin&#39;</span><span class="p">:[</span><span class="mi">1</span><span class="p">,</span> <span class="mi">0</span><span class="p">],</span> <span class="s1">&#39;age&#39;</span><span class="p">:</span> <span class="p">[</span><span class="mi">45</span><span class="p">,</span> <span class="mi">35</span><span class="p">],</span> <span class="s1">&#39;race&#39;</span><span class="p">:</span> <span class="p">[</span><span class="mi">0</span><span class="p">,</span> <span class="mi">1</span><span class="p">],</span> <span class="s1">&#39;wexp&#39;</span><span class="p">:</span> <span class="p">[</span><span class="mi">1</span><span class="p">,</span> <span class="mi">0</span><span class="p">],</span> <span class="s1">&#39;mar&#39;</span><span class="p">:</span> <span class="p">[</span><span class="mi">1</span><span class="p">,</span> <span class="mi">0</span><span class="p">],</span> <span class="s1">&#39;paro&#39;</span><span class="p">:</span> <span class="p">[</span><span class="mi">1</span><span class="p">,</span> <span class="mi">0</span><span class="p">],</span> <span class="s1">&#39;prio&#39;</span><span class="p">:</span> <span class="p">[</span><span class="mi">0</span><span class="p">,</span> <span class="mi">10</span><span class="p">]})</span>
 </pre></div>
 </div>
 </div>
 </div>
 </section>
-</section>
-<section class="tex2jax_ignore mathjax_ignore" id="checking-proportional-hazard-assumption-evaluation">
-<h1>Checking Proportional Hazard Assumption Evaluation<a class="headerlink" href="#checking-proportional-hazard-assumption-evaluation" title="Link to this heading">#</a></h1>
-<p>It is important to note that if the graph of the hazards cross for two or more categories of a predictor of interest, the PH assumption is not met. However, althought the hazard functions do not cross, it is possible that the PH assumption is not met. Thus, rather than checking for crossing hazards, we need to use other apporaches.</p>
+<section id="survival-cumulative-hazard-functions">
+<h2>Survival &amp; Cumulative Hazard functions<a class="headerlink" href="#survival-cumulative-hazard-functions" title="Link to this heading">#</a></h2>
 <div class="cell docutils container">
 <div class="cell_input docutils container">
-<div class="highlight-ipython3 notranslate"><div class="highlight"><pre><span></span><span class="c1"># It seems that the proportional hazards assumption is violated as the log-log survival curves are not parallel.</span>
+<div class="highlight-ipython3 notranslate"><div class="highlight"><pre><span></span><span class="kn">import</span><span class="w"> </span><span class="nn">matplotlib.pyplot</span><span class="w"> </span><span class="k">as</span><span class="w"> </span><span class="nn">plt</span>
+<span class="kn">import</span><span class="w"> </span><span class="nn">numpy</span><span class="w"> </span><span class="k">as</span><span class="w"> </span><span class="nn">np</span> 
+<span class="n">fig</span><span class="p">,</span> <span class="n">axs</span> <span class="o">=</span> <span class="n">plt</span><span class="o">.</span><span class="n">subplots</span><span class="p">(</span><span class="mi">1</span><span class="p">,</span> <span class="mi">2</span><span class="p">,</span> <span class="n">figsize</span><span class="o">=</span><span class="p">(</span><span class="mi">12</span><span class="p">,</span> <span class="mi">5</span><span class="p">))</span>
+<span class="n">cph</span><span class="o">.</span><span class="n">predict_survival_function</span><span class="p">(</span><span class="n">X</span><span class="p">)</span><span class="o">.</span><span class="n">rename</span><span class="p">(</span><span class="n">columns</span><span class="o">=</span><span class="p">{</span><span class="mi">0</span><span class="p">:</span> <span class="s1">&#39;Low-risk&#39;</span><span class="p">,</span> <span class="mi">1</span><span class="p">:</span> <span class="s1">&#39;Hig-risk&#39;</span><span class="p">})</span><span class="o">.</span><span class="n">plot</span><span class="p">(</span><span class="n">ax</span><span class="o">=</span><span class="n">axs</span><span class="p">[</span><span class="mi">0</span><span class="p">])</span>
+<span class="n">cph</span><span class="o">.</span><span class="n">predict_cumulative_hazard</span><span class="p">(</span><span class="n">X</span><span class="p">)</span><span class="o">.</span><span class="n">rename</span><span class="p">(</span><span class="n">columns</span><span class="o">=</span><span class="p">{</span><span class="mi">0</span><span class="p">:</span> <span class="s1">&#39;Low-risk&#39;</span><span class="p">,</span> <span class="mi">1</span><span class="p">:</span> <span class="s1">&#39;Hig-risk&#39;</span><span class="p">})</span><span class="o">.</span><span class="n">plot</span><span class="p">(</span><span class="n">ax</span><span class="o">=</span><span class="n">axs</span><span class="p">[</span><span class="mi">1</span><span class="p">])</span>
+
+<span class="n">axs</span><span class="p">[</span><span class="mi">0</span><span class="p">]</span><span class="o">.</span><span class="n">set_ylabel</span><span class="p">(</span><span class="s1">&#39;$S(t)$&#39;</span><span class="p">)</span>
+<span class="n">axs</span><span class="p">[</span><span class="mi">0</span><span class="p">]</span><span class="o">.</span><span class="n">set_title</span><span class="p">(</span><span class="s1">&#39;Survival Function&#39;</span><span class="p">)</span>
+<span class="n">axs</span><span class="p">[</span><span class="mi">1</span><span class="p">]</span><span class="o">.</span><span class="n">set_ylabel</span><span class="p">(</span><span class="s1">&#39;$H_0(t)$&#39;</span><span class="p">)</span>
+<span class="n">axs</span><span class="p">[</span><span class="mi">1</span><span class="p">]</span><span class="o">.</span><span class="n">set_title</span><span class="p">(</span><span class="s1">&#39;Cumulative Hazard Function&#39;</span><span class="p">)</span>
+
+<span class="k">for</span> <span class="n">ax</span> <span class="ow">in</span> <span class="n">axs</span><span class="p">:</span> 
+    <span class="n">ax</span><span class="o">.</span><span class="n">set_xlabel</span><span class="p">(</span><span class="s1">&#39;Time (week)&#39;</span><span class="p">)</span>
+</pre></div>
+</div>
+</div>
+<div class="cell_output docutils container">
+<img alt="_images/a6ffc5b93b5d764c9f89b341d4a49474ed9ecd23872ed0e057228e90cb067a8c.png" src="_images/a6ffc5b93b5d764c9f89b341d4a49474ed9ecd23872ed0e057228e90cb067a8c.png" />
+</div>
+</div>
+</section>
+<section id="percentile">
+<h2>Percentile<a class="headerlink" href="#percentile" title="Link to this heading">#</a></h2>
+<p>Returns the median lifetimes for the individuals p = 0.5, by default. If the survival curve of an individual does not cross 0.5, then the result is infinity</p>
+<div class="cell docutils container">
+<div class="cell_input docutils container">
+<div class="highlight-ipython3 notranslate"><div class="highlight"><pre><span></span><span class="k">for</span> <span class="n">p</span> <span class="ow">in</span> <span class="p">[</span><span class="mf">0.5</span><span class="p">,</span> <span class="mf">0.8</span><span class="p">,</span> <span class="mf">0.98</span><span class="p">]:</span>
+    <span class="nb">print</span><span class="p">(</span><span class="sa">f</span><span class="s1">&#39;predicted precentile for p=</span><span class="si">{</span><span class="n">p</span><span class="si">}</span><span class="s1"> </span><span class="se">\n</span><span class="s1">&#39;</span><span class="p">,</span> <span class="n">cph</span><span class="o">.</span><span class="n">predict_percentile</span><span class="p">(</span><span class="n">X</span><span class="p">,</span> <span class="n">p</span><span class="o">=</span><span class="n">p</span><span class="p">))</span>
+</pre></div>
+</div>
+</div>
+<div class="cell_output docutils container">
+<div class="output stream highlight-myst-ansi notranslate"><div class="highlight"><pre><span></span>predicted precentile for p=0.5 
+ 0    inf
+1    inf
+Name: 0.5, dtype: float64
+predicted precentile for p=0.8 
+ 0     inf
+1    33.0
+Name: 0.8, dtype: float64
+predicted precentile for p=0.98 
+ 0    45.0
+1     7.0
+Name: 0.98, dtype: float64
 </pre></div>
 </div>
 </div>
 </div>
-<section id="further-reading">
-<h2>Further Reading<a class="headerlink" href="#further-reading" title="Link to this heading">#</a></h2>
-<p>parametric and non-parametric models</p>
-<p>ML Models</p>
-<ul class="simple">
-<li><p>Survival Trees</p></li>
-<li><p>Support Vector Machine</p></li>
-<li><p>Baysian Survival Analysis</p></li>
-<li><p>Deep Survival Analysis</p></li>
-</ul>
 </section>
+<section id="expectation">
+<h2>Expectation<a class="headerlink" href="#expectation" title="Link to this heading">#</a></h2>
+<p>Definition: The area under the subject survival function</p>
+<div class="math notranslate nohighlight">
+\[
+E[T] = \int_0^{\infty} S(t) dt
+\]</div>
+<p>If <span class="math notranslate nohighlight">\(S(t) \not \rightarrow 0 \Rightarrow E[T]\rightarrow \infty \)</span>. Then the returned values are meaningless/too large. In that  using predict_median or predict_percentile would be better.</p>
+<div class="cell docutils container">
+<div class="cell_input docutils container">
+<div class="highlight-ipython3 notranslate"><div class="highlight"><pre><span></span><span class="n">cph</span><span class="o">.</span><span class="n">predict_expectation</span><span class="p">(</span><span class="n">X</span><span class="p">)</span>
+</pre></div>
+</div>
+</div>
+<div class="cell_output docutils container">
+<div class="output text_plain highlight-myst-ansi notranslate"><div class="highlight"><pre><span></span>0    50.446642
+1    42.545695
+dtype: float64
+</pre></div>
+</div>
+</div>
+</div>
+</section>
+<section id="prediction-on-censored-subjects">
+<h2>Prediction on censored subjects<a class="headerlink" href="#prediction-on-censored-subjects" title="Link to this heading">#</a></h2>
+<p>Sometimes we are interested to predict the event time of censored subjects. In this case we need to formalize the question, what is a subject’s new survival function, given we know the subject has lived past time <span class="math notranslate nohighlight">\(\tau\)</span>,</p>
+<div class="math notranslate nohighlight">
+\[ 
+S(T &gt; t | T &gt; \tau) =  \frac{S(T &gt; t \, \&amp; \,   T &gt; \tau)}{S(T &gt; \tau)} = \frac{S(T &gt; t)}{S(T &gt; \tau)} = \frac{S(t)}{S(\tau)}
+\]</div>
+<p>The final relationship <span class="math notranslate nohighlight">\(S(t) / S(\tau)\)</span> means, the original survival function is scaled by the survival function at time <span class="math notranslate nohighlight">\(\tau\)</span>. Therefore, the remaining hazard/survival of censored subjects is the remaining duration of the subject, i.e. normalized back to starting at 0. Of course, during the time period <span class="math notranslate nohighlight">\(t \in [0, \tau]\)</span>, the subject is survived with <span class="math notranslate nohighlight">\(S(t) = 1\)</span></p>
+<p>In below example, we are assuming that the subjects survived from getting re-arrested until week 10. The remaining survival function from <span class="math notranslate nohighlight">\(10\)</span> to <span class="math notranslate nohighlight">\(52\)</span>-week is shifted to start from zero</p>
+<div class="cell docutils container">
+<div class="cell_input docutils container">
+<div class="highlight-ipython3 notranslate"><div class="highlight"><pre><span></span><span class="n">fig</span><span class="p">,</span> <span class="n">ax</span> <span class="o">=</span> <span class="n">plt</span><span class="o">.</span><span class="n">subplots</span><span class="p">(</span><span class="mi">1</span><span class="p">,</span> <span class="mi">1</span><span class="p">,</span> <span class="n">figsize</span><span class="o">=</span><span class="p">(</span><span class="mi">6</span><span class="p">,</span> <span class="mi">5</span><span class="p">))</span>
+
+<span class="n">cph</span><span class="o">.</span><span class="n">predict_survival_function</span><span class="p">(</span><span class="n">X</span><span class="p">,</span> <span class="n">conditional_after</span><span class="o">=</span><span class="p">[</span><span class="mi">10</span><span class="p">,</span> <span class="mi">10</span><span class="p">])</span><span class="o">.</span><span class="n">rename</span><span class="p">(</span><span class="n">columns</span><span class="o">=</span><span class="p">{</span><span class="mi">0</span><span class="p">:</span> <span class="s1">&#39;Low-risk&#39;</span><span class="p">,</span> <span class="mi">1</span><span class="p">:</span> <span class="s1">&#39;Hig-risk&#39;</span><span class="p">})</span><span class="o">.</span><span class="n">plot</span><span class="p">(</span><span class="n">ax</span><span class="o">=</span><span class="n">ax</span><span class="p">)</span>
+
+<span class="n">ax</span><span class="o">.</span><span class="n">set_ylabel</span><span class="p">(</span><span class="s1">&#39;Survival, $S(t)$&#39;</span><span class="p">)</span>
+<span class="n">ax</span><span class="o">.</span><span class="n">set_xlabel</span><span class="p">(</span><span class="s1">&#39;Time (week)&#39;</span><span class="p">)</span>
+</pre></div>
+</div>
+</div>
+<div class="cell_output docutils container">
+<div class="output text_plain highlight-myst-ansi notranslate"><div class="highlight"><pre><span></span>Text(0.5, 0, &#39;Time (week)&#39;)
+</pre></div>
+</div>
+<img alt="_images/359a596e687d72c7361276c7cde1ad2a66b37ef66a57173217ae715cac891339.png" src="_images/359a596e687d72c7361276c7cde1ad2a66b37ef66a57173217ae715cac891339.png" />
+</div>
+</div>
+</section>
+<section id="further-topics-taxonomy-of-ml-methods">
+<h2>Further topics: Taxonomy of ML methods<a class="headerlink" href="#further-topics-taxonomy-of-ml-methods" title="Link to this heading">#</a></h2>
+<p><img alt="image.png" src="_images/taxonomy-ml.jpg" /></p>
+<div class="admonition seealso">
+<p class="admonition-title">See also</p>
+<p>The idea behind some of the machine learning models in the above toxonomy are presented in <a class="reference external" href="https://www.youtube.com/watch?v=I33h5-GmHSM">Survival Analysis: a deep dive | PyData Amsterdam 2023</a></p>
+</div>
+</section>
+</section>
+<section class="tex2jax_ignore mathjax_ignore" id="exercise">
+<h1>Exercise<a class="headerlink" href="#exercise" title="Link to this heading">#</a></h1>
 </section>
 
     <script type="text/x-thebe-config">
@@ -887,28 +1006,35 @@ the situation is different in prescriptive analytics.</p>
     <ul class="visible nav section-nav flex-column">
 <li class="toc-h1 nav-item toc-entry"><a class="reference internal nav-link" href="#">Predictive Survival Analysis</a></li>
 <li class="toc-h1 nav-item toc-entry"><a class="reference internal nav-link" href="#survival-regression">Survival Regression</a><ul class="visible nav section-nav flex-column">
-<li class="toc-h2 nav-item toc-entry"><a class="reference internal nav-link" href="#taxonomy-of-predictive-methods-statistical">Taxonomy of Predictive Methods (Statistical)</a></li>
-<li class="toc-h2 nav-item toc-entry"><a class="reference internal nav-link" href="#cox-proportional-hazard-chp-model">Cox Proportional Hazard (CHP) Model</a><ul class="nav section-nav flex-column">
-<li class="toc-h3 nav-item toc-entry"><a class="reference internal nav-link" href="#proportional-hazard-assumption">Proportional Hazard Assumption</a></li>
+<li class="toc-h2 nav-item toc-entry"><a class="reference internal nav-link" href="#taxonomy-of-statistical-methods">Taxonomy of Statistical Methods</a></li>
+<li class="toc-h2 nav-item toc-entry"><a class="reference internal nav-link" href="#chp-model">CHP Model</a><ul class="nav section-nav flex-column">
+<li class="toc-h3 nav-item toc-entry"><a class="reference internal nav-link" href="#ph-assumption">PH Assumption</a></li>
+<li class="toc-h3 nav-item toc-entry"><a class="reference internal nav-link" href="#dataset">Dataset</a></li>
 <li class="toc-h3 nav-item toc-entry"><a class="reference internal nav-link" href="#fitting-cph">Fitting CPH</a></li>
-<li class="toc-h3 nav-item toc-entry"><a class="reference internal nav-link" href="#interpretation">Interpretation</a></li>
 </ul>
 </li>
-<li class="toc-h2 nav-item toc-entry"><a class="reference internal nav-link" href="#model-evaluataion">Model Evaluataion</a><ul class="nav section-nav flex-column">
+<li class="toc-h2 nav-item toc-entry"><a class="reference internal nav-link" href="#interpretation">Interpretation</a><ul class="nav section-nav flex-column">
+<li class="toc-h3 nav-item toc-entry"><a class="reference internal nav-link" href="#metrics">Metrics</a></li>
+<li class="toc-h3 nav-item toc-entry"><a class="reference internal nav-link" href="#scores">Scores</a></li>
+</ul>
+</li>
+<li class="toc-h2 nav-item toc-entry"><a class="reference internal nav-link" href="#model-evaluation">Model Evaluation</a><ul class="nav section-nav flex-column">
 <li class="toc-h3 nav-item toc-entry"><a class="reference internal nav-link" href="#concordance-index-c-index">Concordance Index [C-index]</a></li>
 </ul>
 </li>
 </ul>
 </li>
-<li class="toc-h1 nav-item toc-entry"><a class="reference internal nav-link" href="#prediction">Prediction</a><ul class="visible nav section-nav flex-column">
-<li class="toc-h2 nav-item toc-entry"><a class="reference internal nav-link" href="#model-calibration">Model Calibration</a></li>
-<li class="toc-h2 nav-item toc-entry"><a class="reference internal nav-link" href="#predictions">Predictions</a></li>
+<li class="toc-h1 nav-item toc-entry"><a class="reference internal nav-link" href="#model-calibration">Model Calibration</a></li>
+<li class="toc-h1 nav-item toc-entry"><a class="reference internal nav-link" href="#model-prediction">Model Prediction</a><ul class="visible nav section-nav flex-column">
+<li class="toc-h2 nav-item toc-entry"><a class="reference internal nav-link" href="#data">Data</a></li>
+<li class="toc-h2 nav-item toc-entry"><a class="reference internal nav-link" href="#survival-cumulative-hazard-functions">Survival &amp; Cumulative Hazard functions</a></li>
+<li class="toc-h2 nav-item toc-entry"><a class="reference internal nav-link" href="#percentile">Percentile</a></li>
+<li class="toc-h2 nav-item toc-entry"><a class="reference internal nav-link" href="#expectation">Expectation</a></li>
+<li class="toc-h2 nav-item toc-entry"><a class="reference internal nav-link" href="#prediction-on-censored-subjects">Prediction on censored subjects</a></li>
+<li class="toc-h2 nav-item toc-entry"><a class="reference internal nav-link" href="#further-topics-taxonomy-of-ml-methods">Further topics: Taxonomy of ML methods</a></li>
 </ul>
 </li>
-<li class="toc-h1 nav-item toc-entry"><a class="reference internal nav-link" href="#checking-proportional-hazard-assumption-evaluation">Checking Proportional Hazard Assumption Evaluation</a><ul class="visible nav section-nav flex-column">
-<li class="toc-h2 nav-item toc-entry"><a class="reference internal nav-link" href="#further-reading">Further Reading</a></li>
-</ul>
-</li>
+<li class="toc-h1 nav-item toc-entry"><a class="reference internal nav-link" href="#exercise">Exercise</a></li>
 </ul>
 
   </nav></div>
