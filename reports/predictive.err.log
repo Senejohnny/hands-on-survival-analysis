@@ -32,7 +32,7 @@ survival_probability_calibration(cph, rossi, t0=25);
 
 [31m---------------------------------------------------------------------------[39m
 [31mNameError[39m                                 Traceback (most recent call last)
-[36mCell[39m[36m [39m[32mIn[3][39m[32m, line 7[39m
+[36mCell[39m[36m [39m[32mIn[8][39m[32m, line 7[39m
 [32m      5[39m regression_dataset = load_rossi()
 [32m      6[39m cph = CoxPHFitter(baseline_estimation_method=[33m"[39m[33mspline[39m[33m"[39m, n_baseline_knots=[32m3[39m)
 [32m----> [39m[32m7[39m cph.fit([43mrossi[49m, [33m"[39m[33mweek[39m[33m"[39m, [33m"[39m[33marrest[39m[33m"[39m)
