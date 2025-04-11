@@ -396,9 +396,9 @@ document.write(`
 <li class="toc-h2 nav-item toc-entry"><a class="reference internal nav-link" href="#cox-proportional-hazard-chp-model">Cox Proportional Hazard (CHP) Model</a><ul class="nav section-nav flex-column">
 <li class="toc-h3 nav-item toc-entry"><a class="reference internal nav-link" href="#proportional-hazard-assumption">Proportional Hazard Assumption</a></li>
 <li class="toc-h3 nav-item toc-entry"><a class="reference internal nav-link" href="#fitting-cph">Fitting CPH</a></li>
+<li class="toc-h3 nav-item toc-entry"><a class="reference internal nav-link" href="#interpretation">Interpretation</a></li>
 </ul>
 </li>
-<li class="toc-h2 nav-item toc-entry"><a class="reference internal nav-link" href="#hazard-ratio-interpretations">Hazard Ratio &amp; Interpretations</a></li>
 <li class="toc-h2 nav-item toc-entry"><a class="reference internal nav-link" href="#model-evaluataion">Model Evaluataion</a><ul class="nav section-nav flex-column">
 <li class="toc-h3 nav-item toc-entry"><a class="reference internal nav-link" href="#concordance-index-c-index">Concordance Index [C-index]</a></li>
 </ul>
@@ -461,6 +461,18 @@ where \)</span>x<span class="math notranslate nohighlight">\( and \)</span>\beta
 </ul>
 <p><img alt="image" src="_images/proportional-hazard-assumption.jpg" /></p>
 <p><em>Survival function vs time, given different covariates. Courtesy of <a class="reference external" href="http://ifelines.readthedocs.io">ifelines.readthedocs.io</a></em></p>
+<ul class="simple">
+<li><p>Crossing of the survival/hazard curves for two or more categories of a predictor of interest, signal that the PH assumption is not met. However, it is possible that the functions do not cross and the PH assumption is not met. Thus, other approaches are needed to check PH assumption than curves crossing in a graph.</p></li>
+</ul>
+<div class="admonition note">
+<p class="admonition-title">Note</p>
+<p>Checking cox proportional hazard assumption is not important for predictive analytics, while
+the situation is different in prescriptive analytics.</p>
+<ul class="simple">
+<li><p>In prediction the objective is to maximize an accuracy metric, and not to learn about how individual feature contribute to the model making that prediction.</p></li>
+<li><p>In prescriptive analytics, the focus is on inference &amp; correlation and to understand the influence of individual variables on the survival duration &amp; event.</p></li>
+</ul>
+</div>
 </section>
 <section id="fitting-cph">
 <h3>Fitting CPH<a class="headerlink" href="#fitting-cph" title="Link to this heading">#</a></h3>
@@ -525,7 +537,7 @@ where \)</span>x<span class="math notranslate nohighlight">\( and \)</span>\beta
     </tr>
     <tr>
       <th>time fit was run</th>
-      <td>2025-04-09 12:26:51 UTC</td>
+      <td>2025-04-10 20:43:27 UTC</td>
     </tr>
   </tbody>
 </table>
@@ -682,23 +694,22 @@ where \)</span>x<span class="math notranslate nohighlight">\( and \)</span>\beta
 </table>
 </div></div></div>
 </div>
-<div class="cell docutils container">
-<div class="cell_input docutils container">
-<div class="highlight-ipython3 notranslate"><div class="highlight"><pre><span></span><span class="n">ax</span><span class="o">.</span><span class="n">ravel</span><span class="p">()</span> 
-</pre></div>
-</div>
-</div>
-<div class="cell_output docutils container">
-<div class="output traceback highlight-ipythontb notranslate"><div class="highlight"><pre><span></span><span class="gt">---------------------------------------------------------------------------</span>
-<span class="ne">NameError</span><span class="g g-Whitespace">                                 </span>Traceback (most recent call last)
-<span class="n">Cell</span> <span class="n">In</span><span class="p">[</span><span class="mi">2</span><span class="p">],</span> <span class="n">line</span> <span class="mi">1</span>
-<span class="ne">----&gt; </span><span class="mi">1</span> <span class="n">ax</span><span class="o">.</span><span class="n">ravel</span><span class="p">()</span> 
-
-<span class="ne">NameError</span>: name &#39;ax&#39; is not defined
-</pre></div>
-</div>
-</div>
-</div>
+</section>
+<section id="interpretation">
+<h3>Interpretation<a class="headerlink" href="#interpretation" title="Link to this heading">#</a></h3>
+<ul class="simple">
+<li><p>partial log-likelihood is the cost function</p></li>
+<li><p>breslow estimator is used to estimate <span class="math notranslate nohighlight">\(\hat H_0\)</span>. Then the baseline survival function can be calculated as <span class="math notranslate nohighlight">\(S_0(t) = e^{-H_0(t)}\)</span></p></li>
+<li><p>Concordance will follow</p></li>
+<li></li>
+</ul>
+<p>Let’s consider <code class="docutils literal notranslate"><span class="pre">fin</span></code> variable (whether subject provided with financial aid after release), a one unit increase in <code class="docutils literal notranslate"><span class="pre">fin</span></code> means the base-line hazard will decrease by <span class="math notranslate nohighlight">\(e^{-0.37} = 0.69\)</span>, why?</p>
+<div class="math notranslate nohighlight">
+\[
+ \frac{h(t | fin = 1)}{h(t | fin= 0)} = e^{\beta_{fin} (1- 0)} = e^{\beta_{fin}} = e^{-0.37} 
+\]</div>
+<p>Since the hazard ratio (vs base-line) is <span class="math notranslate nohighlight">\(0.69\)</span> (&lt; 1), we can argue financial aid reduces the risk of subjects getting re-arrested by 31%.</p>
+<p>Along the same line of reasoning, whether the subject had prior arrest or not, i.e., <code class="docutils literal notranslate"><span class="pre">prio</span></code>, increase the risk of subjects getting re-arrested by 9%, with hazard ratio of <span class="math notranslate nohighlight">\(e^{0.09} = 1.09\)</span></p>
 <div class="cell docutils container">
 <div class="cell_input docutils container">
 <div class="highlight-ipython3 notranslate"><div class="highlight"><pre><span></span><span class="kn">import</span><span class="w"> </span><span class="nn">matplotlib.pyplot</span><span class="w"> </span><span class="k">as</span><span class="w"> </span><span class="nn">plt</span>
@@ -720,18 +731,15 @@ where \)</span>x<span class="math notranslate nohighlight">\( and \)</span>\beta
 </div>
 </section>
 </section>
-<section id="hazard-ratio-interpretations">
-<h2>Hazard Ratio &amp; Interpretations<a class="headerlink" href="#hazard-ratio-interpretations" title="Link to this heading">#</a></h2>
-</section>
 <section id="model-evaluataion">
 <h2>Model Evaluataion<a class="headerlink" href="#model-evaluataion" title="Link to this heading">#</a></h2>
 <p>If censoring is present, it’s not appropriate to use a loss function like mean-squared-error or mean-absolute-loss. This is because the difference between a censored value and the predicted value could be due to poor prediction or due to censoring. Below we introduce alternative ways to measure prediction performance.</p>
-<section id="concordance-index-c-index">
-<h3>Concordance Index [C-index]<a class="headerlink" href="#concordance-index-c-index" title="Link to this heading">#</a></h3>
+<p>Due to censoring metrics like Root Mean Square (RMS) and <span class="math notranslate nohighlight">\(R^2\)</span> are not relevant to survival analysis.</p>
 <ul class="simple">
-<li><p>Due to censoring metrics like Root Mean Square (RMS) and <span class="math notranslate nohighlight">\(R^2\)</span> are not relevant to survival analysis.</p></li>
 <li><p>Specialized evaluation metrics for survival are c-index, Brier score, and Mean Absolute Error (MAE),</p></li>
 </ul>
+<section id="concordance-index-c-index">
+<h3>Concordance Index [C-index]<a class="headerlink" href="#concordance-index-c-index" title="Link to this heading">#</a></h3>
 <p>Definition of C-index:</p>
 <div class="math notranslate nohighlight">
 \[ C-index := \frac{\#  concordant \,\,\, pairs}{\# comparable \,\,\,  pairs} \]</div>
@@ -765,16 +773,17 @@ where \)</span>x<span class="math notranslate nohighlight">\( and \)</span>\beta
 </div>
 </div>
 <div class="cell_output docutils container">
-<div class="output stream highlight-myst-ansi notranslate"><div class="highlight"><pre><span></span>ICI =  0.0036926057314467567
-E50 =  0.003442100352935129
+<div class="output traceback highlight-ipythontb notranslate"><div class="highlight"><pre><span></span><span class="gt">---------------------------------------------------------------------------</span>
+<span class="ne">NameError</span><span class="g g-Whitespace">                                 </span>Traceback (most recent call last)
+<span class="n">Cell</span> <span class="n">In</span><span class="p">[</span><span class="mi">3</span><span class="p">],</span> <span class="n">line</span> <span class="mi">7</span>
+<span class="g g-Whitespace">      </span><span class="mi">5</span> <span class="n">regression_dataset</span> <span class="o">=</span> <span class="n">load_rossi</span><span class="p">()</span>
+<span class="g g-Whitespace">      </span><span class="mi">6</span> <span class="n">cph</span> <span class="o">=</span> <span class="n">CoxPHFitter</span><span class="p">(</span><span class="n">baseline_estimation_method</span><span class="o">=</span><span class="s2">&quot;spline&quot;</span><span class="p">,</span> <span class="n">n_baseline_knots</span><span class="o">=</span><span class="mi">3</span><span class="p">)</span>
+<span class="ne">----&gt; </span><span class="mi">7</span> <span class="n">cph</span><span class="o">.</span><span class="n">fit</span><span class="p">(</span><span class="n">rossi</span><span class="p">,</span> <span class="s2">&quot;week&quot;</span><span class="p">,</span> <span class="s2">&quot;arrest&quot;</span><span class="p">)</span>
+<span class="g g-Whitespace">      </span><span class="mi">9</span> <span class="n">survival_probability_calibration</span><span class="p">(</span><span class="n">cph</span><span class="p">,</span> <span class="n">rossi</span><span class="p">,</span> <span class="n">t0</span><span class="o">=</span><span class="mi">25</span><span class="p">);</span>
+
+<span class="ne">NameError</span>: name &#39;rossi&#39; is not defined
 </pre></div>
 </div>
-<div class="output text_plain highlight-myst-ansi notranslate"><div class="highlight"><pre><span></span>(&lt;Axes: title={&#39;center&#39;: &#39;Smoothed calibration curve of \npredicted vs observed probabilities of t ≤ 25 mortality&#39;}, xlabel=&#39;Predicted probability of \nt ≤ 25 mortality&#39;, ylabel=&#39;Observed probability of \nt ≤ 25 mortality&#39;&gt;,
- np.float64(0.0036926057314467567),
- np.float64(0.003442100352935129))
-</pre></div>
-</div>
-<img alt="_images/2e5156a730aae276fd41fafdf4a3f0b1c69bd534035e5f33033484c9ad52bceb.png" src="_images/2e5156a730aae276fd41fafdf4a3f0b1c69bd534035e5f33033484c9ad52bceb.png" />
 </div>
 </div>
 </section>
@@ -882,9 +891,9 @@ E50 =  0.003442100352935129
 <li class="toc-h2 nav-item toc-entry"><a class="reference internal nav-link" href="#cox-proportional-hazard-chp-model">Cox Proportional Hazard (CHP) Model</a><ul class="nav section-nav flex-column">
 <li class="toc-h3 nav-item toc-entry"><a class="reference internal nav-link" href="#proportional-hazard-assumption">Proportional Hazard Assumption</a></li>
 <li class="toc-h3 nav-item toc-entry"><a class="reference internal nav-link" href="#fitting-cph">Fitting CPH</a></li>
+<li class="toc-h3 nav-item toc-entry"><a class="reference internal nav-link" href="#interpretation">Interpretation</a></li>
 </ul>
 </li>
-<li class="toc-h2 nav-item toc-entry"><a class="reference internal nav-link" href="#hazard-ratio-interpretations">Hazard Ratio &amp; Interpretations</a></li>
 <li class="toc-h2 nav-item toc-entry"><a class="reference internal nav-link" href="#model-evaluataion">Model Evaluataion</a><ul class="nav section-nav flex-column">
 <li class="toc-h3 nav-item toc-entry"><a class="reference internal nav-link" href="#concordance-index-c-index">Concordance Index [C-index]</a></li>
 </ul>

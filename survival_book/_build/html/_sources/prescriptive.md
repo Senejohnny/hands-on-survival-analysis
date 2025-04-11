@@ -39,14 +39,12 @@ The Causal Inference school of thoughts are extensively covered in below talks
    - Average Treatment Effect (ATE) is the coefficient of the desired variable i.e., treatment 
 
 ```{note}
-
 Checking cox proportional hazard assumption is not important for predictive analytics, while 
 the situation is different in prescriptive analytics. 
 
 - In prediction the objective is to maximize an accuracy metric, and not to learn about how individual feature contribute to the model making that prediction.
 
-- In prescriptive analytics, the focus is to understand the influence of individual variables on the survival duration & event.
-
+- In prescriptive analytics, the focus is on inference & correlation and to understand the influence of individual variables on the survival duration & event.
 ```
 
 ## Checking & Ensuring Proportional Hazard Assumption  
