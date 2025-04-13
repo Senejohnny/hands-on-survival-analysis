@@ -2,13 +2,13 @@
 <!DOCTYPE html>
 
 
-<html lang="en" data-content_root="./" >
+<html lang="en" data-content_root="../" >
 
   <head>
     <meta charset="utf-8" />
     <meta name="viewport" content="width=device-width, initial-scale=1.0" /><meta name="viewport" content="width=device-width, initial-scale=1" />
 
-    <title>Prescriptive Survival Analysis &#8212; Hands-on Survival Analysis</title>
+    <title>Answer to Notebook 1: &#8212; Hands-on Survival Analysis</title>
   
   
   
@@ -18,52 +18,50 @@
   </script>
   
   <!-- Loaded before other Sphinx assets -->
-  <link href="_static/styles/theme.css?digest=dfe6caa3a7d634c4db9b" rel="stylesheet" />
-<link href="_static/styles/bootstrap.css?digest=dfe6caa3a7d634c4db9b" rel="stylesheet" />
-<link href="_static/styles/pydata-sphinx-theme.css?digest=dfe6caa3a7d634c4db9b" rel="stylesheet" />
+  <link href="../_static/styles/theme.css?digest=dfe6caa3a7d634c4db9b" rel="stylesheet" />
+<link href="../_static/styles/bootstrap.css?digest=dfe6caa3a7d634c4db9b" rel="stylesheet" />
+<link href="../_static/styles/pydata-sphinx-theme.css?digest=dfe6caa3a7d634c4db9b" rel="stylesheet" />
 
   
-  <link href="_static/vendor/fontawesome/6.5.2/css/all.min.css?digest=dfe6caa3a7d634c4db9b" rel="stylesheet" />
-  <link rel="preload" as="font" type="font/woff2" crossorigin href="_static/vendor/fontawesome/6.5.2/webfonts/fa-solid-900.woff2" />
-<link rel="preload" as="font" type="font/woff2" crossorigin href="_static/vendor/fontawesome/6.5.2/webfonts/fa-brands-400.woff2" />
-<link rel="preload" as="font" type="font/woff2" crossorigin href="_static/vendor/fontawesome/6.5.2/webfonts/fa-regular-400.woff2" />
+  <link href="../_static/vendor/fontawesome/6.5.2/css/all.min.css?digest=dfe6caa3a7d634c4db9b" rel="stylesheet" />
+  <link rel="preload" as="font" type="font/woff2" crossorigin href="../_static/vendor/fontawesome/6.5.2/webfonts/fa-solid-900.woff2" />
+<link rel="preload" as="font" type="font/woff2" crossorigin href="../_static/vendor/fontawesome/6.5.2/webfonts/fa-brands-400.woff2" />
+<link rel="preload" as="font" type="font/woff2" crossorigin href="../_static/vendor/fontawesome/6.5.2/webfonts/fa-regular-400.woff2" />
 
-    <link rel="stylesheet" type="text/css" href="_static/pygments.css?v=03e43079" />
-    <link rel="stylesheet" type="text/css" href="_static/styles/sphinx-book-theme.css?v=eba8b062" />
-    <link rel="stylesheet" type="text/css" href="_static/togglebutton.css?v=13237357" />
-    <link rel="stylesheet" type="text/css" href="_static/copybutton.css?v=76b2166b" />
-    <link rel="stylesheet" type="text/css" href="_static/mystnb.4510f1fc1dee50b3e5859aac5469c37c29e427902b24a333a5f9fcb2f0b3ac41.css?v=be8a1c11" />
-    <link rel="stylesheet" type="text/css" href="_static/sphinx-thebe.css?v=4fa983c6" />
-    <link rel="stylesheet" type="text/css" href="_static/sphinx-design.min.css?v=95c83b7e" />
-    <link rel="stylesheet" type="text/css" href="_static/custom.css?v=08ddc5dc" />
+    <link rel="stylesheet" type="text/css" href="../_static/pygments.css?v=03e43079" />
+    <link rel="stylesheet" type="text/css" href="../_static/styles/sphinx-book-theme.css?v=eba8b062" />
+    <link rel="stylesheet" type="text/css" href="../_static/togglebutton.css?v=13237357" />
+    <link rel="stylesheet" type="text/css" href="../_static/copybutton.css?v=76b2166b" />
+    <link rel="stylesheet" type="text/css" href="../_static/mystnb.4510f1fc1dee50b3e5859aac5469c37c29e427902b24a333a5f9fcb2f0b3ac41.css?v=be8a1c11" />
+    <link rel="stylesheet" type="text/css" href="../_static/sphinx-thebe.css?v=4fa983c6" />
+    <link rel="stylesheet" type="text/css" href="../_static/sphinx-design.min.css?v=95c83b7e" />
+    <link rel="stylesheet" type="text/css" href="../_static/custom.css?v=08ddc5dc" />
   
   <!-- Pre-loaded scripts that we'll load fully later -->
-  <link rel="preload" as="script" href="_static/scripts/bootstrap.js?digest=dfe6caa3a7d634c4db9b" />
-<link rel="preload" as="script" href="_static/scripts/pydata-sphinx-theme.js?digest=dfe6caa3a7d634c4db9b" />
-  <script src="_static/vendor/fontawesome/6.5.2/js/all.min.js?digest=dfe6caa3a7d634c4db9b"></script>
+  <link rel="preload" as="script" href="../_static/scripts/bootstrap.js?digest=dfe6caa3a7d634c4db9b" />
+<link rel="preload" as="script" href="../_static/scripts/pydata-sphinx-theme.js?digest=dfe6caa3a7d634c4db9b" />
+  <script src="../_static/vendor/fontawesome/6.5.2/js/all.min.js?digest=dfe6caa3a7d634c4db9b"></script>
 
-    <script src="_static/documentation_options.js?v=9eb32ce0"></script>
-    <script src="_static/doctools.js?v=9a2dae69"></script>
-    <script src="_static/sphinx_highlight.js?v=dc90522c"></script>
-    <script src="_static/clipboard.min.js?v=a7894cd8"></script>
-    <script src="_static/copybutton.js?v=f281be69"></script>
-    <script src="_static/scripts/sphinx-book-theme.js?v=887ef09a"></script>
+    <script src="../_static/documentation_options.js?v=9eb32ce0"></script>
+    <script src="../_static/doctools.js?v=9a2dae69"></script>
+    <script src="../_static/sphinx_highlight.js?v=dc90522c"></script>
+    <script src="../_static/clipboard.min.js?v=a7894cd8"></script>
+    <script src="../_static/copybutton.js?v=f281be69"></script>
+    <script src="../_static/scripts/sphinx-book-theme.js?v=887ef09a"></script>
     <script>let toggleHintShow = 'Click to show';</script>
     <script>let toggleHintHide = 'Click to hide';</script>
     <script>let toggleOpenOnPrint = 'true';</script>
-    <script src="_static/togglebutton.js?v=4a39c7ea"></script>
+    <script src="../_static/togglebutton.js?v=4a39c7ea"></script>
     <script>var togglebuttonSelector = '.toggle, .admonition.dropdown';</script>
-    <script src="_static/design-tabs.js?v=f930bc37"></script>
+    <script src="../_static/design-tabs.js?v=f930bc37"></script>
     <script>const THEBE_JS_URL = "https://unpkg.com/thebe@0.8.2/lib/index.js"; const thebe_selector = ".thebe,.cell"; const thebe_selector_input = "pre"; const thebe_selector_output = ".output, .cell_output"</script>
-    <script async="async" src="_static/sphinx-thebe.js?v=c100c467"></script>
+    <script async="async" src="../_static/sphinx-thebe.js?v=c100c467"></script>
     <script>var togglebuttonSelector = '.toggle, .admonition.dropdown';</script>
     <script>const THEBE_JS_URL = "https://unpkg.com/thebe@0.8.2/lib/index.js"; const thebe_selector = ".thebe,.cell"; const thebe_selector_input = "pre"; const thebe_selector_output = ".output, .cell_output"</script>
-    <script>DOCUMENTATION_OPTIONS.pagename = 'prescriptive';</script>
-    <link rel="icon" href="_static/danial-avetar.ico"/>
-    <link rel="index" title="Index" href="genindex.html" />
-    <link rel="search" title="Search" href="search.html" />
-    <link rel="next" title="References &amp; Further reading" href="biblio.html" />
-    <link rel="prev" title="Predictive Survival Analysis" href="predictive.html" />
+    <script>DOCUMENTATION_OPTIONS.pagename = '_no_toctree/.descriptive_answer';</script>
+    <link rel="icon" href="../_static/danial-avetar.ico"/>
+    <link rel="index" title="Index" href="../genindex.html" />
+    <link rel="search" title="Search" href="../search.html" />
   <meta name="viewport" content="width=device-width, initial-scale=1"/>
   <meta name="docsearch:language" content="en"/>
   </head>
@@ -95,7 +93,7 @@
     <div class="search-button__overlay"></div>
     <div class="search-button__search-container">
 <form class="bd-search d-flex align-items-center"
-      action="search.html"
+      action="../search.html"
       method="get">
   <i class="fa-solid fa-magnifying-glass"></i>
   <input type="search"
@@ -126,6 +124,8 @@
       
       
       
+        
+      
       <div class="bd-sidebar-primary bd-sidebar">
         
 
@@ -144,7 +144,7 @@
     
   
 
-<a class="navbar-brand logo" href="intro.html">
+<a class="navbar-brand logo" href="../intro.html">
   
   
   
@@ -170,28 +170,28 @@
         
         <ul class="nav bd-sidenav bd-sidenav__home-link">
             <li class="toctree-l1">
-                <a class="reference internal" href="intro.html">
+                <a class="reference internal" href="../intro.html">
                     Introduction
                 </a>
             </li>
         </ul>
-        <ul class="current nav bd-sidenav">
-<li class="toctree-l1"><a class="reference internal" href="outline.html">Outline</a></li>
-<li class="toctree-l1"><a class="reference internal" href="descriptive.html">Descriptive Survival Analysis</a></li>
+        <ul class="nav bd-sidenav">
+<li class="toctree-l1"><a class="reference internal" href="../outline.html">Outline</a></li>
+<li class="toctree-l1"><a class="reference internal" href="../descriptive.html">Descriptive Survival Analysis</a></li>
 
 
 
 
 
 
-<li class="toctree-l1"><a class="reference internal" href="predictive.html">Predictive Survival Analysis</a></li>
+<li class="toctree-l1"><a class="reference internal" href="../predictive.html">Predictive Survival Analysis</a></li>
 
 
 
 
 
-<li class="toctree-l1 current active"><a class="current reference internal" href="#">Prescriptive Survival Analysis</a></li>
-<li class="toctree-l1"><a class="reference internal" href="biblio.html">References &amp; Further reading</a></li>
+<li class="toctree-l1"><a class="reference internal" href="../prescriptive.html">Prescriptive Survival Analysis</a></li>
+<li class="toctree-l1"><a class="reference internal" href="../biblio.html">References &amp; Further reading</a></li>
 </ul>
 
     </div>
@@ -263,7 +263,7 @@
       
       
       
-      <li><a href="https://github.com/executablebooks/jupyter-book/issues/new?title=Issue%20on%20page%20%2Fprescriptive.html&body=Your%20issue%20content%20here." target="_blank"
+      <li><a href="https://github.com/executablebooks/jupyter-book/issues/new?title=Issue%20on%20page%20%2F_no_toctree/.descriptive_answer.html&body=Your%20issue%20content%20here." target="_blank"
    class="btn btn-sm btn-source-issues-button dropdown-item"
    title="Open an issue"
    data-bs-placement="left" data-bs-toggle="tooltip"
@@ -293,7 +293,7 @@
       
       
       
-      <li><a href="_sources/prescriptive.md" target="_blank"
+      <li><a href="../_sources/_no_toctree/.descriptive_answer.ipynb" target="_blank"
    class="btn btn-sm btn-download-source-button dropdown-item"
    title="Download source file"
    data-bs-placement="left" data-bs-toggle="tooltip"
@@ -303,7 +303,7 @@
 <span class="btn__icon-container">
   <i class="fas fa-file"></i>
   </span>
-<span class="btn__text-container">.md</span>
+<span class="btn__text-container">.ipynb</span>
 </a>
 </li>
       
@@ -377,7 +377,7 @@ document.write(`
               
 
 <div id="jb-print-docs-body" class="onlyprint">
-    <h1>Prescriptive Survival Analysis</h1>
+    <h1>Answer to Notebook 1:</h1>
     <!-- Table of contents -->
     <div id="print-main-content">
         <div id="jb-print-toc">
@@ -387,10 +387,10 @@ document.write(`
             </div>
             <nav aria-label="Page">
                 <ul class="visible nav section-nav flex-column">
-<li class="toc-h2 nav-item toc-entry"><a class="reference internal nav-link" href="#introduction-to-causal-inference-ci">Introduction to Causal Inference (CI)</a></li>
-<li class="toc-h2 nav-item toc-entry"><a class="reference internal nav-link" href="#applying-ci-tools-to-survival-analysis">Applying CI tools to Survival Analysis</a></li>
-<li class="toc-h2 nav-item toc-entry"><a class="reference internal nav-link" href="#checking-ensuring-proportional-hazard-assumption">Checking &amp; Ensuring Proportional Hazard Assumption</a></li>
+<li class="toc-h1 nav-item toc-entry"><a class="reference internal nav-link" href="#">Answer to Notebook 1:</a></li>
+<li class="toc-h1 nav-item toc-entry"><a class="reference internal nav-link" href="#example-2-1">Example 2.1</a></li>
 </ul>
+
             </nav>
         </div>
     </div>
@@ -401,61 +401,53 @@ document.write(`
 <div id="searchbox"></div>
                 <article class="bd-article">
                   
-  <section class="tex2jax_ignore mathjax_ignore" id="prescriptive-survival-analysis">
-<h1>Prescriptive Survival Analysis<a class="headerlink" href="#prescriptive-survival-analysis" title="Link to this heading">#</a></h1>
-<p>This type of analytics answer the question “what should be done?”</p>
-<div class="admonition note">
-<p class="admonition-title">Note</p>
-<p>This chapter is out of the scope of this tutorial. However, for interested readers some pointer to the relevant topics are provided for further reading.</p>
-</div>
-<section id="introduction-to-causal-inference-ci">
-<h2>Introduction to Causal Inference (CI)<a class="headerlink" href="#introduction-to-causal-inference-ci" title="Link to this heading">#</a></h2>
-<p>There are two schools of thought in Causal Inference.</p>
-<ol class="arabic simple">
-<li><p>Potential Outcome</p></li>
-<li><p>Structural Causal Models</p></li>
-</ol>
-<div class="admonition seealso">
-<p class="admonition-title">See also</p>
-<p>The Causal Inference school of thoughts are extensively covered in below talks</p>
-<ul class="simple">
-<li><p><a class="reference external" href="https://www.youtube.com/watch?v=XTn3Fn-pt3s">Causal Inference: a deep dive | Data Science in Finance 2024</a></p></li>
-<li><p><a class="reference external" href="https://www.youtube.com/watch?v=pz7QD2GPBlE">Causal Effect Estimation in Practice: Lessons Learned from E-commerce &amp; Banking | PyData Amsterdam 2024</a></p></li>
-</ul>
-</div>
+  <section class="tex2jax_ignore mathjax_ignore" id="answer-to-notebook-1">
+<h1>Answer to Notebook 1:<a class="headerlink" href="#answer-to-notebook-1" title="Link to this heading">#</a></h1>
 </section>
-<section id="applying-ci-tools-to-survival-analysis">
-<h2>Applying CI tools to Survival Analysis<a class="headerlink" href="#applying-ci-tools-to-survival-analysis" title="Link to this heading">#</a></h2>
-<ol class="arabic simple">
-<li><p>Potential Outcome:</p>
-<ul class="simple">
-<li><p>Calculate the propensity score given relevant variables</p></li>
-<li><p>Correcting for unbalanced confounding using the Inverse Propensity Weights to re-weight Kaplan-Meier (KM) estimator.</p></li>
-</ul>
-</li>
-<li><p>Structural Causal Models: Given the desired variable for effect estimation</p>
-<ul class="simple">
-<li><p>Identify the causal graph</p></li>
-<li><p>Fit a Cox proportional hazard with only confounders (avoid including mediator &amp; Collider)</p></li>
-<li><p>Ensure the cox proportional hazard assumption is satisfied</p></li>
-<li><p>Average Treatment Effect (ATE) is the coefficient of the desired variable i.e., treatment</p></li>
-</ul>
-</li>
-</ol>
-<div class="admonition note">
-<p class="admonition-title">Note</p>
-<p>Checking cox proportional hazard assumption is not important for predictive analytics, while
-the situation is different in prescriptive analytics.</p>
-<ul class="simple">
-<li><p>In prediction the objective is to maximize an accuracy metric, and not to learn about how individual feature contribute to the model making that prediction.</p></li>
-<li><p>In prescriptive analytics, the focus is on inference &amp; correlation and to understand the influence of individual variables on the survival duration &amp; event.</p></li>
-</ul>
+<section class="tex2jax_ignore mathjax_ignore" id="example-2-1">
+<h1>Example 2.1<a class="headerlink" href="#example-2-1" title="Link to this heading">#</a></h1>
+<div class="cell docutils container">
+<div class="cell_input docutils container">
+<div class="highlight-ipython3 notranslate"><div class="highlight"><pre><span></span><span class="kn">import</span><span class="w"> </span><span class="nn">matplotlib.pyplot</span><span class="w"> </span><span class="k">as</span><span class="w"> </span><span class="nn">plt</span> 
+<span class="kn">from</span><span class="w"> </span><span class="nn">lifelines.datasets</span><span class="w"> </span><span class="kn">import</span> <span class="n">load_gbsg2</span>
+<span class="kn">import</span><span class="w"> </span><span class="nn">numpy</span><span class="w"> </span><span class="k">as</span><span class="w"> </span><span class="nn">np</span> 
+<span class="kn">from</span><span class="w"> </span><span class="nn">lifelines</span><span class="w"> </span><span class="kn">import</span> <span class="n">KaplanMeierFitter</span>
+
+<span class="n">data</span> <span class="o">=</span> <span class="p">(</span>
+    <span class="n">load_gbsg2</span><span class="p">()</span>
+    <span class="o">.</span><span class="n">assign</span><span class="p">(</span><span class="n">time</span> <span class="o">=</span> <span class="k">lambda</span> <span class="n">x</span><span class="p">:</span> <span class="n">x</span><span class="p">[</span><span class="s1">&#39;time&#39;</span><span class="p">]</span><span class="o">/</span><span class="mf">365.5</span> <span class="p">)</span>
+    <span class="o">.</span><span class="n">query</span><span class="p">(</span><span class="s2">&quot;horTh == &#39;no&#39; &quot;</span><span class="p">)</span>
+<span class="p">)</span>
+<span class="n">I</span> <span class="o">=</span> <span class="n">data</span><span class="o">.</span><span class="n">query</span><span class="p">(</span><span class="s2">&quot;tgrade == &#39;I&#39; &quot;</span><span class="p">)</span> 
+<span class="n">II</span> <span class="o">=</span> <span class="n">data</span><span class="o">.</span><span class="n">query</span><span class="p">(</span><span class="s2">&quot;tgrade == &#39;II&#39; &quot;</span><span class="p">)</span>
+<span class="n">III</span> <span class="o">=</span> <span class="n">data</span><span class="o">.</span><span class="n">query</span><span class="p">(</span><span class="s2">&quot;tgrade == &#39;III&#39; &quot;</span><span class="p">)</span>
+
+<span class="n">dfs</span> <span class="o">=</span> <span class="p">[</span><span class="n">I</span><span class="p">,</span> <span class="n">II</span><span class="p">,</span> <span class="n">III</span><span class="p">]</span>
+<span class="n">labels</span> <span class="o">=</span> <span class="p">[</span><span class="s1">&#39;I&#39;</span><span class="p">,</span> <span class="s1">&#39;II&#39;</span><span class="p">,</span> <span class="s1">&#39;III&#39;</span><span class="p">]</span>
+
+<span class="n">ax</span> <span class="o">=</span> <span class="n">plt</span><span class="o">.</span><span class="n">subplot</span><span class="p">(</span><span class="mi">111</span><span class="p">)</span>
+<span class="c1"># t = np.linspace(0, 2660, 2÷÷)</span>
+<span class="n">kmfs</span> <span class="o">=</span> <span class="p">[</span><span class="n">KaplanMeierFitter</span><span class="p">()</span> <span class="k">for</span> <span class="n">i</span> <span class="ow">in</span> <span class="n">dfs</span><span class="p">]</span>
+<span class="k">for</span> <span class="n">i</span><span class="p">,</span> <span class="n">df</span> <span class="ow">in</span> <span class="nb">enumerate</span><span class="p">(</span><span class="n">dfs</span><span class="p">):</span>
+    <span class="n">kmfs</span><span class="p">[</span><span class="n">i</span><span class="p">]</span><span class="o">.</span><span class="n">fit</span><span class="p">(</span><span class="n">df</span><span class="p">[</span><span class="s1">&#39;time&#39;</span><span class="p">],</span> <span class="n">df</span><span class="p">[</span><span class="s1">&#39;cens&#39;</span><span class="p">],</span> <span class="n">label</span><span class="o">=</span><span class="n">labels</span><span class="p">[</span><span class="n">i</span><span class="p">])</span>
+
+<span class="c1"># plotting the KM curves</span>
+<span class="k">for</span> <span class="n">i</span><span class="p">,</span> <span class="n">_</span> <span class="ow">in</span> <span class="nb">enumerate</span><span class="p">(</span><span class="n">dfs</span><span class="p">):</span>
+    <span class="n">kmfs</span><span class="p">[</span><span class="n">i</span><span class="p">]</span><span class="o">.</span><span class="n">plot</span><span class="p">()</span>
+
+<span class="kn">from</span><span class="w"> </span><span class="nn">lifelines.plotting</span><span class="w"> </span><span class="kn">import</span> <span class="n">add_at_risk_counts</span>
+<span class="n">add_at_risk_counts</span><span class="p">(</span><span class="o">*</span><span class="n">kmfs</span><span class="p">,</span> <span class="n">ax</span><span class="o">=</span><span class="n">ax</span><span class="p">)</span>
+
+<span class="n">ax</span><span class="o">.</span><span class="n">set_title</span><span class="p">(</span><span class="s2">&quot;Criminal Recidivism in 52-week After Release&quot;</span><span class="p">);</span>
+<span class="n">ax</span><span class="o">.</span><span class="n">set_ylabel</span><span class="p">(</span><span class="s2">&quot;Recurrence-free survival rate&quot;</span><span class="p">);</span>
+<span class="n">ax</span><span class="o">.</span><span class="n">set_xlabel</span><span class="p">(</span><span class="s2">&quot;time (year)&quot;</span><span class="p">);</span>
+</pre></div>
 </div>
-</section>
-<section id="checking-ensuring-proportional-hazard-assumption">
-<h2>Checking &amp; Ensuring Proportional Hazard Assumption<a class="headerlink" href="#checking-ensuring-proportional-hazard-assumption" title="Link to this heading">#</a></h2>
-<p>Under preparation</p>
-</section>
+</div>
+<div class="cell_output docutils container">
+<img alt="../_images/9ec0aa9b93c5fd88a3b7e581d948bea5e6bc7a35c5dae618b1b94967317ae008.png" src="../_images/9ec0aa9b93c5fd88a3b7e581d948bea5e6bc7a35c5dae618b1b94967317ae008.png" />
+</div>
+</div>
 </section>
 
     <script type="text/x-thebe-config">
@@ -471,7 +463,7 @@ the situation is different in prescriptive analytics.</p>
         },
         kernelOptions: {
             name: "python3",
-            path: "./."
+            path: "./_no_toctree"
         },
         predefinedOutput: true
     }
@@ -488,24 +480,6 @@ the situation is different in prescriptive analytics.</p>
                 <footer class="prev-next-footer d-print-none">
                   
 <div class="prev-next-area">
-    <a class="left-prev"
-       href="predictive.html"
-       title="previous page">
-      <i class="fa-solid fa-angle-left"></i>
-      <div class="prev-next-info">
-        <p class="prev-next-subtitle">previous</p>
-        <p class="prev-next-title">Predictive Survival Analysis</p>
-      </div>
-    </a>
-    <a class="right-next"
-       href="biblio.html"
-       title="next page">
-      <div class="prev-next-info">
-        <p class="prev-next-subtitle">next</p>
-        <p class="prev-next-title">References &amp; Further reading</p>
-      </div>
-      <i class="fa-solid fa-angle-right"></i>
-    </a>
 </div>
                 </footer>
               
@@ -522,10 +496,10 @@ the situation is different in prescriptive analytics.</p>
   </div>
   <nav class="bd-toc-nav page-toc">
     <ul class="visible nav section-nav flex-column">
-<li class="toc-h2 nav-item toc-entry"><a class="reference internal nav-link" href="#introduction-to-causal-inference-ci">Introduction to Causal Inference (CI)</a></li>
-<li class="toc-h2 nav-item toc-entry"><a class="reference internal nav-link" href="#applying-ci-tools-to-survival-analysis">Applying CI tools to Survival Analysis</a></li>
-<li class="toc-h2 nav-item toc-entry"><a class="reference internal nav-link" href="#checking-ensuring-proportional-hazard-assumption">Checking &amp; Ensuring Proportional Hazard Assumption</a></li>
+<li class="toc-h1 nav-item toc-entry"><a class="reference internal nav-link" href="#">Answer to Notebook 1:</a></li>
+<li class="toc-h1 nav-item toc-entry"><a class="reference internal nav-link" href="#example-2-1">Example 2.1</a></li>
 </ul>
+
   </nav></div>
 
 </div></div>
@@ -573,8 +547,8 @@ By Danial Senejohnny
   </div>
   
   <!-- Scripts loaded after <body> so the DOM is not blocked -->
-  <script src="_static/scripts/bootstrap.js?digest=dfe6caa3a7d634c4db9b"></script>
-<script src="_static/scripts/pydata-sphinx-theme.js?digest=dfe6caa3a7d634c4db9b"></script>
+  <script src="../_static/scripts/bootstrap.js?digest=dfe6caa3a7d634c4db9b"></script>
+<script src="../_static/scripts/pydata-sphinx-theme.js?digest=dfe6caa3a7d634c4db9b"></script>
 
   <footer class="bd-footer">
   </footer>
