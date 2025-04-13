@@ -580,7 +580,7 @@ the situation is different in prescriptive analytics.</p>
     </tr>
     <tr>
       <th>time fit was run</th>
-      <td>2025-04-13 20:10:45 UTC</td>
+      <td>2025-04-13 20:23:13 UTC</td>
     </tr>
   </tbody>
 </table>
@@ -933,13 +933,191 @@ to train and test and explore your own ideas to fit a better model.</p>
 <p><em>Recurrence Free Survival: defined as the length of time from the end of primary treatment (Surgery/chemotherapy) until there is evidence of cancer recurrence or until the death of the patient.</em></p>
 <div class="cell docutils container">
 <div class="cell_input docutils container">
-<div class="highlight-ipython3 notranslate"><div class="highlight"><pre><span></span><span class="kn">from</span><span class="w"> </span><span class="nn">lifelines</span><span class="w"> </span><span class="kn">import</span> <span class="n">CoxPHFitter</span>
-<span class="kn">import</span><span class="w"> </span><span class="nn">numpy</span><span class="w"> </span><span class="k">as</span><span class="w"> </span><span class="nn">np</span> 
-<span class="kn">from</span><span class="w"> </span><span class="nn">lifelines.datasets</span><span class="w"> </span><span class="kn">import</span> <span class="n">load_gbsg2</span>
+<div class="highlight-ipython3 notranslate"><div class="highlight"><pre><span></span><span class="kn">from</span><span class="w"> </span><span class="nn">lifelines.datasets</span><span class="w"> </span><span class="kn">import</span> <span class="n">load_gbsg2</span>
 <span class="n">df</span> <span class="o">=</span> <span class="n">load_gbsg2</span><span class="p">()</span>
+<span class="n">df</span>
 </pre></div>
 </div>
 </div>
+<div class="cell_output docutils container">
+<div class="output text_html"><div>
+<style scoped>
+    .dataframe tbody tr th:only-of-type {
+        vertical-align: middle;
+    }
+
+    .dataframe tbody tr th {
+        vertical-align: top;
+    }
+
+    .dataframe thead th {
+        text-align: right;
+    }
+</style>
+<table border="1" class="dataframe">
+  <thead>
+    <tr style="text-align: right;">
+      <th></th>
+      <th>horTh</th>
+      <th>age</th>
+      <th>menostat</th>
+      <th>tsize</th>
+      <th>tgrade</th>
+      <th>pnodes</th>
+      <th>progrec</th>
+      <th>estrec</th>
+      <th>time</th>
+      <th>cens</th>
+    </tr>
+  </thead>
+  <tbody>
+    <tr>
+      <th>0</th>
+      <td>no</td>
+      <td>70</td>
+      <td>Post</td>
+      <td>21</td>
+      <td>II</td>
+      <td>3</td>
+      <td>48</td>
+      <td>66</td>
+      <td>1814</td>
+      <td>1</td>
+    </tr>
+    <tr>
+      <th>1</th>
+      <td>yes</td>
+      <td>56</td>
+      <td>Post</td>
+      <td>12</td>
+      <td>II</td>
+      <td>7</td>
+      <td>61</td>
+      <td>77</td>
+      <td>2018</td>
+      <td>1</td>
+    </tr>
+    <tr>
+      <th>2</th>
+      <td>yes</td>
+      <td>58</td>
+      <td>Post</td>
+      <td>35</td>
+      <td>II</td>
+      <td>9</td>
+      <td>52</td>
+      <td>271</td>
+      <td>712</td>
+      <td>1</td>
+    </tr>
+    <tr>
+      <th>3</th>
+      <td>yes</td>
+      <td>59</td>
+      <td>Post</td>
+      <td>17</td>
+      <td>II</td>
+      <td>4</td>
+      <td>60</td>
+      <td>29</td>
+      <td>1807</td>
+      <td>1</td>
+    </tr>
+    <tr>
+      <th>4</th>
+      <td>no</td>
+      <td>73</td>
+      <td>Post</td>
+      <td>35</td>
+      <td>II</td>
+      <td>1</td>
+      <td>26</td>
+      <td>65</td>
+      <td>772</td>
+      <td>1</td>
+    </tr>
+    <tr>
+      <th>...</th>
+      <td>...</td>
+      <td>...</td>
+      <td>...</td>
+      <td>...</td>
+      <td>...</td>
+      <td>...</td>
+      <td>...</td>
+      <td>...</td>
+      <td>...</td>
+      <td>...</td>
+    </tr>
+    <tr>
+      <th>681</th>
+      <td>no</td>
+      <td>49</td>
+      <td>Pre</td>
+      <td>30</td>
+      <td>III</td>
+      <td>3</td>
+      <td>1</td>
+      <td>84</td>
+      <td>721</td>
+      <td>0</td>
+    </tr>
+    <tr>
+      <th>682</th>
+      <td>yes</td>
+      <td>53</td>
+      <td>Post</td>
+      <td>25</td>
+      <td>III</td>
+      <td>17</td>
+      <td>0</td>
+      <td>0</td>
+      <td>186</td>
+      <td>0</td>
+    </tr>
+    <tr>
+      <th>683</th>
+      <td>no</td>
+      <td>51</td>
+      <td>Pre</td>
+      <td>25</td>
+      <td>III</td>
+      <td>5</td>
+      <td>43</td>
+      <td>0</td>
+      <td>769</td>
+      <td>1</td>
+    </tr>
+    <tr>
+      <th>684</th>
+      <td>no</td>
+      <td>52</td>
+      <td>Post</td>
+      <td>23</td>
+      <td>II</td>
+      <td>3</td>
+      <td>15</td>
+      <td>34</td>
+      <td>727</td>
+      <td>1</td>
+    </tr>
+    <tr>
+      <th>685</th>
+      <td>no</td>
+      <td>55</td>
+      <td>Post</td>
+      <td>23</td>
+      <td>II</td>
+      <td>9</td>
+      <td>116</td>
+      <td>15</td>
+      <td>1701</td>
+      <td>1</td>
+    </tr>
+  </tbody>
+</table>
+<p>686 rows × 10 columns</p>
+</div></div></div>
 </div>
 </section>
 </section>
