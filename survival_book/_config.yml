@@ -32,3 +32,7 @@ html:
   favicon: danial-avetar.ico
   extra_css:
     - '_static/custom.css'
+
+
+exclude_patterns:
+    - '_no_toctree/'

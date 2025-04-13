@@ -1,0 +1,80 @@
+Traceback (most recent call last):
+  File "/usr/local/lib/python3.11/site-packages/jupyter_cache/executors/utils.py", line 58, in single_nb_execution
+    executenb(
+  File "/usr/local/lib/python3.11/site-packages/nbclient/client.py", line 1319, in execute
+    return NotebookClient(nb=nb, resources=resources, km=km, **kwargs).execute()
+           ^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^
+  File "/usr/local/lib/python3.11/site-packages/jupyter_core/utils/__init__.py", line 165, in wrapped
+    return loop.run_until_complete(inner)
+           ^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^
+  File "/usr/local/Cellar/python@3.11/3.11.11/Frameworks/Python.framework/Versions/3.11/lib/python3.11/asyncio/base_events.py", line 654, in run_until_complete
+    return future.result()
+           ^^^^^^^^^^^^^^^
+  File "/usr/local/lib/python3.11/site-packages/nbclient/client.py", line 709, in async_execute
+    await self.async_execute_cell(
+  File "/usr/local/lib/python3.11/site-packages/nbclient/client.py", line 1062, in async_execute_cell
+    await self._check_raise_for_error(cell, cell_index, exec_reply)
+  File "/usr/local/lib/python3.11/site-packages/nbclient/client.py", line 918, in _check_raise_for_error
+    raise CellExecutionError.from_cell_and_msg(cell, exec_reply_content)
+nbclient.exceptions.CellExecutionError: An error occurred while executing the following cell:
+------------------
+import numpy as np
+import pandas as pd
+from lifelines import KaplanMeierFitter
+import matplotlib.pyplot as plt
+from datetime import datetime, timedelta
+
+# Set random seed for reproducibility
+np.random.seed(42)
+
+# Generate synthetic data
+n_clients = 1500  # 500 clients per start year
+
+# Define start years and generate dates
+start_years = [2020, 2021, 2022]
+clients_per_year = n_clients // len(start_years)
+
+start_dates = []
+for year in start_years:
+    # Generate random dates within each year
+    dates = [datetime(year, 1, 1) + timedelta(days=np.random.randint(0, 365)) 
+            for _ in range(clients_per_year)]
+    start_dates.extend(dates)
+
+# Convert to numpy array
+start_dates = np.array(start_dates)
+
+# Generate time to churn (in days)
+# More recent clients tend to churn faster
+base_churn_time = np.random.exponential(scale=70, size=int(n_clients * 0.3) )
+years_active = (datetime(2025, 3, 16) - start_dates).astype('timedelta64[D]').astype(int)
+time_to_churn = base_churn_time * (1 + years_active * 0.001)
+
+# Generate censoring indicator (1 = churned, 0 = still active)
+# Older clients are more likely to be censored (survived longer)
+censoring_prob = 0.4 - (years_active * 0.0002)
+censored = np.random.binomial(n=1, p=censoring_prob, size=n_clients)
+
+# Create DataFrame
+df = pd.DataFrame({
+    'start_date': start_dates,
+    'start_year': [d.year for d in start_dates],
+    'time_to_churn': time_to_churn,
+    'churned': censored,
+    'years_active': years_active / 365
+})
+------------------
+
+
+[31m---------------------------------------------------------------------------[39m
+[31mValueError[39m                                Traceback (most recent call last)
+[36mCell[39m[36m [39m[32mIn[1][39m[32m, line 31[39m
+[32m     29[39m base_churn_time = np.random.exponential(scale=[32m70[39m, size=[38;5;28mint[39m(n_clients * [32m0.3[39m) )
+[32m     30[39m years_active = (datetime([32m2025[39m, [32m3[39m, [32m16[39m) - start_dates).astype([33m'[39m[33mtimedelta64[D][39m[33m'[39m).astype([38;5;28mint[39m)
+[32m---> [39m[32m31[39m time_to_churn = [43mbase_churn_time[49m[43m [49m[43m*[49m[43m [49m[43m([49m[32;43m1[39;49m[43m [49m[43m+[49m[43m [49m[43myears_active[49m[43m [49m[43m*[49m[43m [49m[32;43m0.001[39;49m[43m)[49m
+[32m     33[39m [38;5;66;03m# Generate censoring indicator (1 = churned, 0 = still active)[39;00m
+[32m     34[39m [38;5;66;03m# Older clients are more likely to be censored (survived longer)[39;00m
+[32m     35[39m censoring_prob = [32m0.4[39m - (years_active * [32m0.0002[39m)
+
+[31mValueError[39m: operands could not be broadcast together with shapes (450,) (1500,) 
+

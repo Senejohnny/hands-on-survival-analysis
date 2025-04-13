@@ -18,63 +18,52 @@ Traceback (most recent call last):
     raise CellExecutionError.from_cell_and_msg(cell, exec_reply_content)
 nbclient.exceptions.CellExecutionError: An error occurred while executing the following cell:
 ------------------
-import numpy as np
-import pandas as pd
-from lifelines import KaplanMeierFitter
-import matplotlib.pyplot as plt
-from datetime import datetime, timedelta
-
-# Set random seed for reproducibility
-np.random.seed(42)
-
-# Generate synthetic data
-n_clients = 1500  # 500 clients per start year
-
-# Define start years and generate dates
-start_years = [2020, 2021, 2022]
-clients_per_year = n_clients // len(start_years)
-
-start_dates = []
-for year in start_years:
-    # Generate random dates within each year
-    dates = [datetime(year, 1, 1) + timedelta(days=np.random.randint(0, 365)) 
-            for _ in range(clients_per_year)]
-    start_dates.extend(dates)
-
-# Convert to numpy array
-start_dates = np.array(start_dates)
-
-# Generate time to churn (in days)
-# More recent clients tend to churn faster
-base_churn_time = np.random.exponential(scale=70, size=int(n_clients * 0.3) )
-years_active = (datetime(2025, 3, 16) - start_dates).astype('timedelta64[D]').astype(int)
-time_to_churn = base_churn_time * (1 + years_active * 0.001)
-
-# Generate censoring indicator (1 = churned, 0 = still active)
-# Older clients are more likely to be censored (survived longer)
-censoring_prob = 0.4 - (years_active * 0.0002)
-censored = np.random.binomial(n=1, p=censoring_prob, size=n_clients)
-
-# Create DataFrame
-df = pd.DataFrame({
-    'start_date': start_dates,
-    'start_year': [d.year for d in start_dates],
-    'time_to_churn': time_to_churn,
-    'churned': censored,
-    'years_active': years_active / 365
-})
+df.groupby(['start_year'])['churned'].value_counts()
 ------------------
 
 
 [31m---------------------------------------------------------------------------[39m
-[31mValueError[39m                                Traceback (most recent call last)
-[36mCell[39m[36m [39m[32mIn[10][39m[32m, line 31[39m
-[32m     29[39m base_churn_time = np.random.exponential(scale=[32m70[39m, size=[38;5;28mint[39m(n_clients * [32m0.3[39m) )
-[32m     30[39m years_active = (datetime([32m2025[39m, [32m3[39m, [32m16[39m) - start_dates).astype([33m'[39m[33mtimedelta64[D][39m[33m'[39m).astype([38;5;28mint[39m)
-[32m---> [39m[32m31[39m time_to_churn = [43mbase_churn_time[49m[43m [49m[43m*[49m[43m [49m[43m([49m[32;43m1[39;49m[43m [49m[43m+[49m[43m [49m[43myears_active[49m[43m [49m[43m*[49m[43m [49m[32;43m0.001[39;49m[43m)[49m
-[32m     33[39m [38;5;66;03m# Generate censoring indicator (1 = churned, 0 = still active)[39;00m
-[32m     34[39m [38;5;66;03m# Older clients are more likely to be censored (survived longer)[39;00m
-[32m     35[39m censoring_prob = [32m0.4[39m - (years_active * [32m0.0002[39m)
+[31mKeyError[39m                                  Traceback (most recent call last)
+[36mCell[39m[36m [39m[32mIn[11][39m[32m, line 1[39m
+[32m----> [39m[32m1[39m [43mdf[49m[43m.[49m[43mgroupby[49m[43m([49m[43m[[49m[33;43m'[39;49m[33;43mstart_year[39;49m[33;43m'[39;49m[43m][49m[43m)[49m[[33m'[39m[33mchurned[39m[33m'[39m].value_counts()
 
-[31mValueError[39m: operands could not be broadcast together with shapes (450,) (1500,) 
+[36mFile [39m[32m/usr/local/lib/python3.11/site-packages/pandas/core/frame.py:9183[39m, in [36mDataFrame.groupby[39m[34m(self, by, axis, level, as_index, sort, group_keys, observed, dropna)[39m
+[32m   9180[39m [38;5;28;01mif[39;00m level [38;5;129;01mis[39;00m [38;5;28;01mNone[39;00m [38;5;129;01mand[39;00m by [38;5;129;01mis[39;00m [38;5;28;01mNone[39;00m:
+[32m   9181[39m     [38;5;28;01mraise[39;00m [38;5;167;01mTypeError[39;00m([33m"[39m[33mYou have to supply one of [39m[33m'[39m[33mby[39m[33m'[39m[33m and [39m[33m'[39m[33mlevel[39m[33m'[39m[33m"[39m)
+[32m-> [39m[32m9183[39m [38;5;28;01mreturn[39;00m [43mDataFrameGroupBy[49m[43m([49m
+[32m   9184[39m [43m    [49m[43mobj[49m[43m=[49m[38;5;28;43mself[39;49m[43m,[49m
+[32m   9185[39m [43m    [49m[43mkeys[49m[43m=[49m[43mby[49m[43m,[49m
+[32m   9186[39m [43m    [49m[43maxis[49m[43m=[49m[43maxis[49m[43m,[49m
+[32m   9187[39m [43m    [49m[43mlevel[49m[43m=[49m[43mlevel[49m[43m,[49m
+[32m   9188[39m [43m    [49m[43mas_index[49m[43m=[49m[43mas_index[49m[43m,[49m
+[32m   9189[39m [43m    [49m[43msort[49m[43m=[49m[43msort[49m[43m,[49m
+[32m   9190[39m [43m    [49m[43mgroup_keys[49m[43m=[49m[43mgroup_keys[49m[43m,[49m
+[32m   9191[39m [43m    [49m[43mobserved[49m[43m=[49m[43mobserved[49m[43m,[49m
+[32m   9192[39m [43m    [49m[43mdropna[49m[43m=[49m[43mdropna[49m[43m,[49m
+[32m   9193[39m [43m[49m[43m)[49m
+
+[36mFile [39m[32m/usr/local/lib/python3.11/site-packages/pandas/core/groupby/groupby.py:1329[39m, in [36mGroupBy.__init__[39m[34m(self, obj, keys, axis, level, grouper, exclusions, selection, as_index, sort, group_keys, observed, dropna)[39m
+[32m   1326[39m [38;5;28mself[39m.dropna = dropna
+[32m   1328[39m [38;5;28;01mif[39;00m grouper [38;5;129;01mis[39;00m [38;5;28;01mNone[39;00m:
+[32m-> [39m[32m1329[39m     grouper, exclusions, obj = [43mget_grouper[49m[43m([49m
+[32m   1330[39m [43m        [49m[43mobj[49m[43m,[49m
+[32m   1331[39m [43m        [49m[43mkeys[49m[43m,[49m
+[32m   1332[39m [43m        [49m[43maxis[49m[43m=[49m[43maxis[49m[43m,[49m
+[32m   1333[39m [43m        [49m[43mlevel[49m[43m=[49m[43mlevel[49m[43m,[49m
+[32m   1334[39m [43m        [49m[43msort[49m[43m=[49m[43msort[49m[43m,[49m
+[32m   1335[39m [43m        [49m[43mobserved[49m[43m=[49m[38;5;28;43;01mFalse[39;49;00m[43m [49m[38;5;28;43;01mif[39;49;00m[43m [49m[43mobserved[49m[43m [49m[38;5;129;43;01mis[39;49;00m[43m [49m[43mlib[49m[43m.[49m[43mno_default[49m[43m [49m[38;5;28;43;01melse[39;49;00m[43m [49m[43mobserved[49m[43m,[49m
+[32m   1336[39m [43m        [49m[43mdropna[49m[43m=[49m[38;5;28;43mself[39;49m[43m.[49m[43mdropna[49m[43m,[49m
+[32m   1337[39m [43m    [49m[43m)[49m
+[32m   1339[39m [38;5;28;01mif[39;00m observed [38;5;129;01mis[39;00m lib.no_default:
+[32m   1340[39m     [38;5;28;01mif[39;00m [38;5;28many[39m(ping._passed_categorical [38;5;28;01mfor[39;00m ping [38;5;129;01min[39;00m grouper.groupings):
+
+[36mFile [39m[32m/usr/local/lib/python3.11/site-packages/pandas/core/groupby/grouper.py:1043[39m, in [36mget_grouper[39m[34m(obj, key, axis, level, sort, observed, validate, dropna)[39m
+[32m   1041[39m         in_axis, level, gpr = [38;5;28;01mFalse[39;00m, gpr, [38;5;28;01mNone[39;00m
+[32m   1042[39m     [38;5;28;01melse[39;00m:
+[32m-> [39m[32m1043[39m         [38;5;28;01mraise[39;00m [38;5;167;01mKeyError[39;00m(gpr)
+[32m   1044[39m [38;5;28;01melif[39;00m [38;5;28misinstance[39m(gpr, Grouper) [38;5;129;01mand[39;00m gpr.key [38;5;129;01mis[39;00m [38;5;129;01mnot[39;00m [38;5;28;01mNone[39;00m:
+[32m   1045[39m     [38;5;66;03m# Add key to exclusions[39;00m
+[32m   1046[39m     exclusions.add(gpr.key)
+
+[31mKeyError[39m: 'start_year'
 

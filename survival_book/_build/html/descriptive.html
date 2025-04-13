@@ -186,10 +186,8 @@
 
 
 
-
-
-
 <li class="toctree-l1"><a class="reference internal" href="predictive.html">Predictive Survival Analysis</a></li>
+
 
 
 
@@ -399,24 +397,26 @@ document.write(`
 <li class="toc-h2 nav-item toc-entry"><a class="reference internal nav-link" href="#example-1-km-curve-with-no-censoring">Example 1: KM curve with no censoring</a></li>
 <li class="toc-h2 nav-item toc-entry"><a class="reference internal nav-link" href="#example-2-km-curve-with-censoring">Example 2: KM curve with censoring</a></li>
 <li class="toc-h2 nav-item toc-entry"><a class="reference internal nav-link" href="#example-3-comparing-survival-curves">Example 3: Comparing Survival Curves:</a><ul class="nav section-nav flex-column">
-<li class="toc-h3 nav-item toc-entry"><a class="reference internal nav-link" href="#data-criminals-return-to-prison">Data: Criminals return to prison</a></li>
+<li class="toc-h3 nav-item toc-entry"><a class="reference internal nav-link" href="#data">Data:</a></li>
 <li class="toc-h3 nav-item toc-entry"><a class="reference internal nav-link" href="#statistical-significance">Statistical Significance</a></li>
+<li class="toc-h3 nav-item toc-entry"><a class="reference internal nav-link" href="#best-practices-for-visualizing-km-plots">Best practices for visualizing KM plots</a></li>
 </ul>
 </li>
-<li class="toc-h2 nav-item toc-entry"><a class="reference internal nav-link" href="#example-4-identifying-data-drift">Example 4: Identifying Data Drift</a></li>
-<li class="toc-h2 nav-item toc-entry"><a class="reference internal nav-link" href="#example-4-feature-selection">Example 4: Feature Selection</a></li>
-<li class="toc-h2 nav-item toc-entry"><a class="reference internal nav-link" href="#example-5-detecting-data-bias">Example 5: Detecting Data Bias</a></li>
-<li class="toc-h2 nav-item toc-entry"><a class="reference internal nav-link" href="#example-6-hazard-function">Example 6: Hazard Function</a></li>
 </ul>
 </li>
-<li class="toc-h1 nav-item toc-entry"><a class="reference internal nav-link" href="#id1"></a></li>
-<li class="toc-h1 nav-item toc-entry"><a class="reference internal nav-link" href="#best-practices-for-visualising-kaplan-meier-plots">Best practices for visualising Kaplan-Meier plots</a></li>
-<li class="toc-h1 nav-item toc-entry"><a class="reference internal nav-link" href="#challenging-scenarios">Challenging Scenarios</a></li>
+<li class="toc-h1 nav-item toc-entry"><a class="reference internal nav-link" href="#exercises">Exercises</a><ul class="visible nav section-nav flex-column">
+<li class="toc-h2 nav-item toc-entry"><a class="reference internal nav-link" href="#exercise-1-what-is-the-objective-of-this-visualization">Exercise 1: What is the objective of this visualization?</a></li>
+<li class="toc-h2 nav-item toc-entry"><a class="reference internal nav-link" href="#exercise-2-what-is-strange-in-this-visualization">Exercise 2: What is strange in this visualization?</a></li>
+<li class="toc-h2 nav-item toc-entry"><a class="reference internal nav-link" href="#exercise-3-exploratory-data-analysis">Exercise 3: Exploratory Data Analysis</a><ul class="nav section-nav flex-column">
+<li class="toc-h3 nav-item toc-entry"><a class="reference internal nav-link" href="#id2">Data</a></li>
+<li class="toc-h3 nav-item toc-entry"><a class="reference internal nav-link" href="#exercise-2-1">Exercise 2.1:</a></li>
+<li class="toc-h3 nav-item toc-entry"><a class="reference internal nav-link" href="#exercse-2-2">Exercse 2.2:</a></li>
+<li class="toc-h3 nav-item toc-entry"><a class="reference internal nav-link" href="#exercise-2-3">Exercise 2.3:</a></li>
+</ul>
+</li>
+</ul>
+</li>
 <li class="toc-h1 nav-item toc-entry"><a class="reference internal nav-link" href="#summary-take-aways">Summary &amp; Take Aways</a></li>
-<li class="toc-h1 nav-item toc-entry"><a class="reference internal nav-link" href="#advanced-topics">Advanced Topics</a><ul class="visible nav section-nav flex-column">
-<li class="toc-h2 nav-item toc-entry"><a class="reference internal nav-link" href="#example-6-correcting-for-covariates">Example 6: Correcting for covariates</a></li>
-</ul>
-</li>
 </ul>
 
             </nav>
@@ -437,6 +437,18 @@ document.write(`
 <h1>Packages<a class="headerlink" href="#packages" title="Link to this heading">#</a></h1>
 <div class="cell docutils container">
 <div class="cell_input docutils container">
+<div class="highlight-ipython3 notranslate"><div class="highlight"><pre><span></span><span class="o">!</span><span class="w"> </span>pip<span class="w"> </span>install<span class="w"> </span>lifelines
+</pre></div>
+</div>
+</div>
+<div class="cell_output docutils container">
+<div class="output stream highlight-myst-ansi notranslate"><div class="highlight"><pre><span></span>zsh:1: /usr/local/bin/pip: bad interpreter: /usr/local/opt/python@3.9/bin/python3.9: no such file or directory
+</pre></div>
+</div>
+</div>
+</div>
+<div class="cell docutils container">
+<div class="cell_input docutils container">
 <div class="highlight-ipython3 notranslate"><div class="highlight"><pre><span></span><span class="kn">import</span><span class="w"> </span><span class="nn">pandas</span><span class="w"> </span><span class="k">as</span><span class="w"> </span><span class="nn">pd</span>
 <span class="kn">from</span><span class="w"> </span><span class="nn">lifelines</span><span class="w"> </span><span class="kn">import</span> <span class="n">KaplanMeierFitter</span>
 <span class="kn">from</span><span class="w"> </span><span class="nn">matplotlib</span><span class="w"> </span><span class="kn">import</span> <span class="n">pyplot</span> <span class="k">as</span> <span class="n">plt</span>
@@ -447,21 +459,21 @@ document.write(`
 </section>
 <section class="tex2jax_ignore mathjax_ignore" id="introduction">
 <h1>Introduction<a class="headerlink" href="#introduction" title="Link to this heading">#</a></h1>
-<p>In suvival analysis the outcome is made of two variables, time and event. Sometimes such problems are broken down to sub-optimal problems such as regression on time or classification on event.</p>
-<p>Since the outcome has two variables, plotting the outcome is either via survival or hazard functions.</p>
+<p>In survival analysis the outcome is made of two variables, time and event. Sometimes such problems are broken down to sub-optimal problems such as regression on time or classification on event. That is why survival analysis is also considered as the superset of classification and regression.</p>
+<p>Since the outcome has two variables, presentation of the outcome is either via survival or hazard functions.</p>
 <ul class="simple">
-<li><p>In descriptive analytics, we focus on visualising the outcome y(time, event)</p></li>
-<li><p>In predictive analytics, we predict the outcome y(time, evenet) given the features x.</p></li>
-<li><p>In prescriptive analytics, what shoudl we do</p></li>
+<li><p>In descriptive analytics, we focus on what has happened to the outcome y(time, event)</p></li>
+<li><p>In predictive analytics, we predict what will happen to the outcome y(time, event) given the features x.</p></li>
 </ul>
 </section>
 <section class="tex2jax_ignore mathjax_ignore" id="survival-function">
 <h1>Survival function<a class="headerlink" href="#survival-function" title="Link to this heading">#</a></h1>
-<p>The survival function <span class="math notranslate nohighlight">\(S(t)\)</span>, is defined as the probability that an event-of-interest occurs after a certain time <span class="math notranslate nohighlight">\(t\)</span>.
-$<span class="math notranslate nohighlight">\(
+<p>The survival function <span class="math notranslate nohighlight">\(S(t)\)</span>, is defined as the probability that an event-of-interest occurs after a certain time <span class="math notranslate nohighlight">\(t\)</span>.</p>
+<div class="math notranslate nohighlight">
+\[
 S(t) = P(T &gt; t)
-\)</span><span class="math notranslate nohighlight">\(
-where \)</span>T$ is the time at which the event occurs.</p>
+\]</div>
+<p>where <span class="math notranslate nohighlight">\(T\)</span> is the time at which the event occurs.</p>
 <p><strong>No Censoring</strong>: If there are no censored observations, the most natural estimator for survival is the empirical estimator</p>
 <div class="math notranslate nohighlight">
 \[
@@ -867,9 +879,9 @@ where \)</span>T$ is the time at which the event occurs.</p>
 </section>
 <section id="example-3-comparing-survival-curves">
 <h2>Example 3: Comparing Survival Curves:<a class="headerlink" href="#example-3-comparing-survival-curves" title="Link to this heading">#</a></h2>
-<section id="data-criminals-return-to-prison">
-<h3>Data: Criminals return to prison<a class="headerlink" href="#data-criminals-return-to-prison" title="Link to this heading">#</a></h3>
-<p>The <a class="reference external" href="https://gwern.net/doc/sociology/1980-rossi-moneyworkandcrime.pdf">study data</a> involved 432 Maryland convicts released in the 1970s, tracked for one year post-release. The experiment was designed to test the impact of financial assistance on post-release outcomes, with subjects randomly divided into two equal groups</p>
+<section id="data">
+<h3>Data:<a class="headerlink" href="#data" title="Link to this heading">#</a></h3>
+<p>The data is related to 432 convicts who were released from Maryland state prisons in the 1970s and who were followed up for one year after release. Half the released convicts were assigned at random to an experimental treatment in which they were given financial aid; half did not receive aid <span id="id1">[<a class="reference internal" href="biblio.html#id3" title="Peter H Rossi, Richard A Berk, and Kenneth J Lenihan. Money, work, and crime: experimental evidence. Elsevier, 2013.">RBL13</a>]</span>.</p>
 <div class="cell docutils container">
 <div class="cell_input docutils container">
 <div class="highlight-ipython3 notranslate"><div class="highlight"><pre><span></span><span class="kn">from</span><span class="w"> </span><span class="nn">lifelines.datasets</span><span class="w"> </span><span class="kn">import</span> <span class="n">load_rossi</span>
@@ -924,99 +936,54 @@ where \)</span>T$ is the time at which the event occurs.</p>
 </div>
 </div>
 </div>
-<div class="admonition-remarks admonition">
-<p class="admonition-title">Remarks:</p>
+<div class="admonition note">
+<p class="admonition-title">Note</p>
 <ul class="simple">
-<li><p>While <code class="docutils literal notranslate"><span class="pre">logrank_test</span></code> function is used for two KM curves, <code class="docutils literal notranslate"><span class="pre">multivariate_logrank_test</span></code> can be used for more than 2 KM curves.</p></li>
-<li><p>These methods provide weightings for hypothesis testing early vs late difference</p></li>
+<li><p>While <code class="docutils literal notranslate"><span class="pre">log-rank_test</span></code> function is used for two KM curves, <code class="docutils literal notranslate"><span class="pre">multivariate_logrank_test</span></code> can be used for more than 2 KM curves.</p></li>
+<li><p>These methods also provide weightings for early vs late difference hypothesis testing</p></li>
 </ul>
 </div>
 </section>
+<section id="best-practices-for-visualizing-km-plots">
+<h3>Best practices for visualizing KM plots<a class="headerlink" href="#best-practices-for-visualizing-km-plots" title="Link to this heading">#</a></h3>
+<p>In a recent survey from variety of stakeholders in healthcare, suggested that the addition of summary tables and confidence intervals greatly increased the effectiveness of Kaplan-Meier plots
+<a class="reference external" href="https://pubmed.ncbi.nlm.nih.gov/31575572/">article</a></p>
 </section>
-<section id="example-4-identifying-data-drift">
-<h2>Example 4: Identifying Data Drift<a class="headerlink" href="#example-4-identifying-data-drift" title="Link to this heading">#</a></h2>
+</section>
+</section>
+<section class="tex2jax_ignore mathjax_ignore" id="exercises">
+<h1>Exercises<a class="headerlink" href="#exercises" title="Link to this heading">#</a></h1>
+<section id="exercise-1-what-is-the-objective-of-this-visualization">
+<h2>Exercise 1: What is the objective of this visualization?<a class="headerlink" href="#exercise-1-what-is-the-objective-of-this-visualization" title="Link to this heading">#</a></h2>
+<p>This is a real-world example from ABN AMRO which will be shown in the presentation deck due to data sensitivity</p>
+</section>
+<section id="exercise-2-what-is-strange-in-this-visualization">
+<h2>Exercise 2: What is strange in this visualization?<a class="headerlink" href="#exercise-2-what-is-strange-in-this-visualization" title="Link to this heading">#</a></h2>
+<p>This is a real-world example from ABN AMRO which will be shown in the presentation deck due to data sensitivity</p>
+</section>
+<section id="exercise-3-exploratory-data-analysis">
+<h2>Exercise 3: Exploratory Data Analysis<a class="headerlink" href="#exercise-3-exploratory-data-analysis" title="Link to this heading">#</a></h2>
+<section id="id2">
+<h3>Data<a class="headerlink" href="#id2" title="Link to this heading">#</a></h3>
+<p>The data comes from German Breast Cancer Study Group, where in Randomized 2 x 2 clinical trial was aiming to evaluate hormonal treatment and the duration of chemotherapy in node-positive breast cancer patients <span id="id3">[<a class="reference internal" href="biblio.html#id5" title="M Schumacher, G Bastert, H Bojar, K Hübner, M Olschewski, W Sauerbrei, C Schmoor, C Beyerle, RL Neumann, and HF Rauschecker. Randomized 2 x 2 trial evaluating hormonal treatment and the duration of chemotherapy in node-positive breast cancer patients. german breast cancer study group. Journal of Clinical Oncology, 12(10):2086–2093, 1994.">SBB+94</a>]</span></p>
+<ul class="simple">
+<li><p>horTh: hormonal therapy, a factor at two levels no and yes.</p></li>
+<li><p>age: of the patients in years.</p></li>
+<li><p>menostat: 0 menopausal status, a factor at two levels pre (premenopausal) and post (postmenopausal).</p></li>
+<li><p>tsize: tumor size (in mm).</p></li>
+<li><p>tgrade: tumor grade, a ordered factor at levels I &lt; II &lt; III.</p></li>
+<li><p>pnodes: number of positive nodes.</p></li>
+<li><p>progrec: progesterone receptor (in fmol).</p></li>
+<li><p>estrec: estrogen receptor (in fmol).</p></li>
+<li><p>time: recurrence free survival time (in days).</p></li>
+<li><p>cens: censoring indicator (0- censored, 1- event).</p></li>
+</ul>
+<p><em>Recurrence Free Survival: defined as the length of time from the end of primary treatment (Surgery/chemotherapy) until there is evidence of cancer recurrence or until the death of the patient.</em></p>
 <div class="cell docutils container">
 <div class="cell_input docutils container">
-<div class="highlight-ipython3 notranslate"><div class="highlight"><pre><span></span><span class="kn">import</span><span class="w"> </span><span class="nn">numpy</span><span class="w"> </span><span class="k">as</span><span class="w"> </span><span class="nn">np</span>
-<span class="kn">import</span><span class="w"> </span><span class="nn">pandas</span><span class="w"> </span><span class="k">as</span><span class="w"> </span><span class="nn">pd</span>
-<span class="kn">from</span><span class="w"> </span><span class="nn">lifelines</span><span class="w"> </span><span class="kn">import</span> <span class="n">KaplanMeierFitter</span>
-<span class="kn">import</span><span class="w"> </span><span class="nn">matplotlib.pyplot</span><span class="w"> </span><span class="k">as</span><span class="w"> </span><span class="nn">plt</span>
-<span class="kn">from</span><span class="w"> </span><span class="nn">datetime</span><span class="w"> </span><span class="kn">import</span> <span class="n">datetime</span><span class="p">,</span> <span class="n">timedelta</span>
-
-<span class="c1"># Set random seed for reproducibility</span>
-<span class="n">np</span><span class="o">.</span><span class="n">random</span><span class="o">.</span><span class="n">seed</span><span class="p">(</span><span class="mi">42</span><span class="p">)</span>
-
-<span class="c1"># Generate synthetic data</span>
-<span class="n">n_clients</span> <span class="o">=</span> <span class="mi">1500</span>  <span class="c1"># 500 clients per start year</span>
-
-<span class="c1"># Define start years and generate dates</span>
-<span class="n">start_years</span> <span class="o">=</span> <span class="p">[</span><span class="mi">2020</span><span class="p">,</span> <span class="mi">2021</span><span class="p">,</span> <span class="mi">2022</span><span class="p">]</span>
-<span class="n">clients_per_year</span> <span class="o">=</span> <span class="n">n_clients</span> <span class="o">//</span> <span class="nb">len</span><span class="p">(</span><span class="n">start_years</span><span class="p">)</span>
-
-<span class="n">start_dates</span> <span class="o">=</span> <span class="p">[]</span>
-<span class="k">for</span> <span class="n">year</span> <span class="ow">in</span> <span class="n">start_years</span><span class="p">:</span>
-    <span class="c1"># Generate random dates within each year</span>
-    <span class="n">dates</span> <span class="o">=</span> <span class="p">[</span><span class="n">datetime</span><span class="p">(</span><span class="n">year</span><span class="p">,</span> <span class="mi">1</span><span class="p">,</span> <span class="mi">1</span><span class="p">)</span> <span class="o">+</span> <span class="n">timedelta</span><span class="p">(</span><span class="n">days</span><span class="o">=</span><span class="n">np</span><span class="o">.</span><span class="n">random</span><span class="o">.</span><span class="n">randint</span><span class="p">(</span><span class="mi">0</span><span class="p">,</span> <span class="mi">365</span><span class="p">))</span> 
-            <span class="k">for</span> <span class="n">_</span> <span class="ow">in</span> <span class="nb">range</span><span class="p">(</span><span class="n">clients_per_year</span><span class="p">)]</span>
-    <span class="n">start_dates</span><span class="o">.</span><span class="n">extend</span><span class="p">(</span><span class="n">dates</span><span class="p">)</span>
-
-<span class="c1"># Convert to numpy array</span>
-<span class="n">start_dates</span> <span class="o">=</span> <span class="n">np</span><span class="o">.</span><span class="n">array</span><span class="p">(</span><span class="n">start_dates</span><span class="p">)</span>
-
-<span class="c1"># Generate time to churn (in days)</span>
-<span class="c1"># More recent clients tend to churn faster</span>
-<span class="n">base_churn_time</span> <span class="o">=</span> <span class="n">np</span><span class="o">.</span><span class="n">random</span><span class="o">.</span><span class="n">exponential</span><span class="p">(</span><span class="n">scale</span><span class="o">=</span><span class="mi">70</span><span class="p">,</span> <span class="n">size</span><span class="o">=</span><span class="nb">int</span><span class="p">(</span><span class="n">n_clients</span> <span class="o">*</span> <span class="mf">0.3</span><span class="p">)</span> <span class="p">)</span>
-<span class="n">years_active</span> <span class="o">=</span> <span class="p">(</span><span class="n">datetime</span><span class="p">(</span><span class="mi">2025</span><span class="p">,</span> <span class="mi">3</span><span class="p">,</span> <span class="mi">16</span><span class="p">)</span> <span class="o">-</span> <span class="n">start_dates</span><span class="p">)</span><span class="o">.</span><span class="n">astype</span><span class="p">(</span><span class="s1">&#39;timedelta64[D]&#39;</span><span class="p">)</span><span class="o">.</span><span class="n">astype</span><span class="p">(</span><span class="nb">int</span><span class="p">)</span>
-<span class="n">time_to_churn</span> <span class="o">=</span> <span class="n">base_churn_time</span> <span class="o">*</span> <span class="p">(</span><span class="mi">1</span> <span class="o">+</span> <span class="n">years_active</span> <span class="o">*</span> <span class="mf">0.001</span><span class="p">)</span>
-
-<span class="c1"># Generate censoring indicator (1 = churned, 0 = still active)</span>
-<span class="c1"># Older clients are more likely to be censored (survived longer)</span>
-<span class="n">censoring_prob</span> <span class="o">=</span> <span class="mf">0.4</span> <span class="o">-</span> <span class="p">(</span><span class="n">years_active</span> <span class="o">*</span> <span class="mf">0.0002</span><span class="p">)</span>
-<span class="n">censored</span> <span class="o">=</span> <span class="n">np</span><span class="o">.</span><span class="n">random</span><span class="o">.</span><span class="n">binomial</span><span class="p">(</span><span class="n">n</span><span class="o">=</span><span class="mi">1</span><span class="p">,</span> <span class="n">p</span><span class="o">=</span><span class="n">censoring_prob</span><span class="p">,</span> <span class="n">size</span><span class="o">=</span><span class="n">n_clients</span><span class="p">)</span>
-
-<span class="c1"># Create DataFrame</span>
-<span class="n">df</span> <span class="o">=</span> <span class="n">pd</span><span class="o">.</span><span class="n">DataFrame</span><span class="p">({</span>
-    <span class="s1">&#39;start_date&#39;</span><span class="p">:</span> <span class="n">start_dates</span><span class="p">,</span>
-    <span class="s1">&#39;start_year&#39;</span><span class="p">:</span> <span class="p">[</span><span class="n">d</span><span class="o">.</span><span class="n">year</span> <span class="k">for</span> <span class="n">d</span> <span class="ow">in</span> <span class="n">start_dates</span><span class="p">],</span>
-    <span class="s1">&#39;time_to_churn&#39;</span><span class="p">:</span> <span class="n">time_to_churn</span><span class="p">,</span>
-    <span class="s1">&#39;churned&#39;</span><span class="p">:</span> <span class="n">censored</span><span class="p">,</span>
-    <span class="s1">&#39;years_active&#39;</span><span class="p">:</span> <span class="n">years_active</span> <span class="o">/</span> <span class="mi">365</span>
-<span class="p">})</span>
-</pre></div>
-</div>
-</div>
-<div class="cell_output docutils container">
-<div class="output traceback highlight-ipythontb notranslate"><div class="highlight"><pre><span></span><span class="gt">---------------------------------------------------------------------------</span>
-<span class="ne">ValueError</span><span class="g g-Whitespace">                                </span>Traceback (most recent call last)
-<span class="n">Cell</span> <span class="n">In</span><span class="p">[</span><span class="mi">10</span><span class="p">],</span> <span class="n">line</span> <span class="mi">31</span>
-<span class="g g-Whitespace">     </span><span class="mi">29</span> <span class="n">base_churn_time</span> <span class="o">=</span> <span class="n">np</span><span class="o">.</span><span class="n">random</span><span class="o">.</span><span class="n">exponential</span><span class="p">(</span><span class="n">scale</span><span class="o">=</span><span class="mi">70</span><span class="p">,</span> <span class="n">size</span><span class="o">=</span><span class="nb">int</span><span class="p">(</span><span class="n">n_clients</span> <span class="o">*</span> <span class="mf">0.3</span><span class="p">)</span> <span class="p">)</span>
-<span class="g g-Whitespace">     </span><span class="mi">30</span> <span class="n">years_active</span> <span class="o">=</span> <span class="p">(</span><span class="n">datetime</span><span class="p">(</span><span class="mi">2025</span><span class="p">,</span> <span class="mi">3</span><span class="p">,</span> <span class="mi">16</span><span class="p">)</span> <span class="o">-</span> <span class="n">start_dates</span><span class="p">)</span><span class="o">.</span><span class="n">astype</span><span class="p">(</span><span class="s1">&#39;timedelta64[D]&#39;</span><span class="p">)</span><span class="o">.</span><span class="n">astype</span><span class="p">(</span><span class="nb">int</span><span class="p">)</span>
-<span class="ne">---&gt; </span><span class="mi">31</span> <span class="n">time_to_churn</span> <span class="o">=</span> <span class="n">base_churn_time</span> <span class="o">*</span> <span class="p">(</span><span class="mi">1</span> <span class="o">+</span> <span class="n">years_active</span> <span class="o">*</span> <span class="mf">0.001</span><span class="p">)</span>
-<span class="g g-Whitespace">     </span><span class="mi">33</span> <span class="c1"># Generate censoring indicator (1 = churned, 0 = still active)</span>
-<span class="g g-Whitespace">     </span><span class="mi">34</span> <span class="c1"># Older clients are more likely to be censored (survived longer)</span>
-<span class="g g-Whitespace">     </span><span class="mi">35</span> <span class="n">censoring_prob</span> <span class="o">=</span> <span class="mf">0.4</span> <span class="o">-</span> <span class="p">(</span><span class="n">years_active</span> <span class="o">*</span> <span class="mf">0.0002</span><span class="p">)</span>
-
-<span class="ne">ValueError</span>: operands could not be broadcast together with shapes (450,) (1500,) 
-</pre></div>
-</div>
-</div>
-</div>
-<div class="cell docutils container">
-<div class="cell_input docutils container">
-<div class="highlight-ipython3 notranslate"><div class="highlight"><pre><span></span><span class="n">pd</span><span class="o">.</span><span class="n">DataFrame</span><span class="p">(</span><span class="n">base_churn_time</span><span class="p">)</span><span class="o">.</span><span class="n">hist</span><span class="p">()</span>
-</pre></div>
-</div>
-</div>
-<div class="cell_output docutils container">
-<div class="output text_plain highlight-myst-ansi notranslate"><div class="highlight"><pre><span></span>array([[&lt;Axes: title={&#39;center&#39;: &#39;0&#39;}&gt;]], dtype=object)
-</pre></div>
-</div>
-<img alt="_images/4031166e7c765ff94668e15581aefdc258da8c2c11596421cb5a309459797d3a.png" src="_images/4031166e7c765ff94668e15581aefdc258da8c2c11596421cb5a309459797d3a.png" />
-</div>
-</div>
-<div class="cell docutils container">
-<div class="cell_input docutils container">
-<div class="highlight-ipython3 notranslate"><div class="highlight"><pre><span></span><span class="n">df</span><span class="o">.</span><span class="n">query</span><span class="p">(</span><span class="s2">&quot;churned == 0&quot;</span><span class="p">)</span>
+<div class="highlight-ipython3 notranslate"><div class="highlight"><pre><span></span><span class="kn">from</span><span class="w"> </span><span class="nn">lifelines.datasets</span><span class="w"> </span><span class="kn">import</span> <span class="n">load_gbsg2</span>
+<span class="n">df</span> <span class="o">=</span> <span class="n">load_gbsg2</span><span class="p">()</span>
+<span class="n">df</span>
 </pre></div>
 </div>
 </div>
@@ -1039,53 +1006,83 @@ where \)</span>T$ is the time at which the event occurs.</p>
   <thead>
     <tr style="text-align: right;">
       <th></th>
-      <th>start_date</th>
-      <th>start_year</th>
-      <th>time_to_churn</th>
-      <th>churned</th>
-      <th>years_active</th>
+      <th>horTh</th>
+      <th>age</th>
+      <th>menostat</th>
+      <th>tsize</th>
+      <th>tgrade</th>
+      <th>pnodes</th>
+      <th>progrec</th>
+      <th>estrec</th>
+      <th>time</th>
+      <th>cens</th>
     </tr>
   </thead>
   <tbody>
     <tr>
       <th>0</th>
-      <td>2020-04-12</td>
-      <td>2020</td>
-      <td>67.798735</td>
-      <td>0</td>
-      <td>4.928767</td>
+      <td>no</td>
+      <td>70</td>
+      <td>Post</td>
+      <td>21</td>
+      <td>II</td>
+      <td>3</td>
+      <td>48</td>
+      <td>66</td>
+      <td>1814</td>
+      <td>1</td>
     </tr>
     <tr>
       <th>1</th>
-      <td>2020-12-14</td>
-      <td>2020</td>
-      <td>344.267016</td>
-      <td>0</td>
-      <td>4.254795</td>
+      <td>yes</td>
+      <td>56</td>
+      <td>Post</td>
+      <td>12</td>
+      <td>II</td>
+      <td>7</td>
+      <td>61</td>
+      <td>77</td>
+      <td>2018</td>
+      <td>1</td>
     </tr>
     <tr>
       <th>2</th>
-      <td>2020-09-27</td>
-      <td>2020</td>
-      <td>9.550877</td>
-      <td>0</td>
-      <td>4.468493</td>
+      <td>yes</td>
+      <td>58</td>
+      <td>Post</td>
+      <td>35</td>
+      <td>II</td>
+      <td>9</td>
+      <td>52</td>
+      <td>271</td>
+      <td>712</td>
+      <td>1</td>
     </tr>
     <tr>
       <th>3</th>
-      <td>2020-04-16</td>
-      <td>2020</td>
-      <td>1.331916</td>
-      <td>0</td>
-      <td>4.917808</td>
+      <td>yes</td>
+      <td>59</td>
+      <td>Post</td>
+      <td>17</td>
+      <td>II</td>
+      <td>4</td>
+      <td>60</td>
+      <td>29</td>
+      <td>1807</td>
+      <td>1</td>
     </tr>
     <tr>
       <th>4</th>
-      <td>2020-03-12</td>
-      <td>2020</td>
-      <td>7.658317</td>
-      <td>0</td>
-      <td>5.013699</td>
+      <td>no</td>
+      <td>73</td>
+      <td>Post</td>
+      <td>35</td>
+      <td>II</td>
+      <td>1</td>
+      <td>26</td>
+      <td>65</td>
+      <td>772</td>
+      <td>1</td>
     </tr>
     <tr>
       <th>...</th>
@@ -1094,222 +1091,104 @@ where \)</span>T$ is the time at which the event occurs.</p>
       <td>...</td>
       <td>...</td>
       <td>...</td>
+      <td>...</td>
+      <td>...</td>
+      <td>...</td>
+      <td>...</td>
+      <td>...</td>
     </tr>
     <tr>
-      <th>1495</th>
-      <td>2022-02-03</td>
-      <td>2022</td>
-      <td>35.150306</td>
+      <th>681</th>
+      <td>no</td>
+      <td>49</td>
+      <td>Pre</td>
+      <td>30</td>
+      <td>III</td>
+      <td>3</td>
+      <td>1</td>
+      <td>84</td>
+      <td>721</td>
       <td>0</td>
-      <td>3.115068</td>
     </tr>
     <tr>
-      <th>1496</th>
-      <td>2022-09-08</td>
-      <td>2022</td>
-      <td>111.633717</td>
+      <th>682</th>
+      <td>yes</td>
+      <td>53</td>
+      <td>Post</td>
+      <td>25</td>
+      <td>III</td>
+      <td>17</td>
       <td>0</td>
-      <td>2.520548</td>
+      <td>0</td>
+      <td>186</td>
+      <td>0</td>
     </tr>
     <tr>
-      <th>1497</th>
-      <td>2022-09-04</td>
-      <td>2022</td>
-      <td>2.386099</td>
+      <th>683</th>
+      <td>no</td>
+      <td>51</td>
+      <td>Pre</td>
+      <td>25</td>
+      <td>III</td>
+      <td>5</td>
+      <td>43</td>
       <td>0</td>
-      <td>2.531507</td>
+      <td>769</td>
+      <td>1</td>
     </tr>
     <tr>
-      <th>1498</th>
-      <td>2022-09-26</td>
-      <td>2022</td>
-      <td>34.757266</td>
-      <td>0</td>
-      <td>2.471233</td>
+      <th>684</th>
+      <td>no</td>
+      <td>52</td>
+      <td>Post</td>
+      <td>23</td>
+      <td>II</td>
+      <td>3</td>
+      <td>15</td>
+      <td>34</td>
+      <td>727</td>
+      <td>1</td>
     </tr>
     <tr>
-      <th>1499</th>
-      <td>2022-05-21</td>
-      <td>2022</td>
-      <td>80.852563</td>
-      <td>0</td>
-      <td>2.821918</td>
+      <th>685</th>
+      <td>no</td>
+      <td>55</td>
+      <td>Post</td>
+      <td>23</td>
+      <td>II</td>
+      <td>9</td>
+      <td>116</td>
+      <td>15</td>
+      <td>1701</td>
+      <td>1</td>
     </tr>
   </tbody>
 </table>
-<p>1316 rows × 5 columns</p>
+<p>686 rows × 10 columns</p>
 </div></div></div>
 </div>
-<div class="cell docutils container">
-<div class="cell_input docutils container">
-<div class="highlight-ipython3 notranslate"><div class="highlight"><pre><span></span><span class="n">df</span><span class="o">.</span><span class="n">groupby</span><span class="p">([</span><span class="s1">&#39;start_year&#39;</span><span class="p">])[</span><span class="s1">&#39;churned&#39;</span><span class="p">]</span><span class="o">.</span><span class="n">value_counts</span><span class="p">()</span>
-</pre></div>
-</div>
-</div>
-<div class="cell_output docutils container">
-<div class="output text_plain highlight-myst-ansi notranslate"><div class="highlight"><pre><span></span>start_year  churned
-2020        0          471
-            1           29
-2021        0          441
-            1           59
-2022        0          404
-            1           96
-Name: count, dtype: int64
-</pre></div>
-</div>
-</div>
-</div>
-<div class="cell docutils container">
-<div class="cell_input docutils container">
-<div class="highlight-ipython3 notranslate"><div class="highlight"><pre><span></span><span class="c1"># Plot Kaplan-Meier curves for different start years</span>
-
-<span class="n">kmf</span> <span class="o">=</span> <span class="n">KaplanMeierFitter</span><span class="p">()</span>
-<span class="n">plt</span><span class="o">.</span><span class="n">figure</span><span class="p">(</span><span class="n">figsize</span><span class="o">=</span><span class="p">(</span><span class="mi">8</span><span class="p">,</span> <span class="mi">6</span><span class="p">))</span>
-
-<span class="k">for</span> <span class="n">year</span> <span class="ow">in</span> <span class="n">start_years</span><span class="p">:</span>
-    <span class="n">mask</span> <span class="o">=</span> <span class="n">df</span><span class="p">[</span><span class="s1">&#39;start_year&#39;</span><span class="p">]</span> <span class="o">==</span> <span class="n">year</span>
-    <span class="n">kmf</span><span class="o">.</span><span class="n">fit</span><span class="p">(</span>
-        <span class="n">durations</span><span class="o">=</span><span class="n">df</span><span class="o">.</span><span class="n">loc</span><span class="p">[</span><span class="n">mask</span><span class="p">,</span> <span class="s1">&#39;time_to_churn&#39;</span><span class="p">],</span>
-        <span class="n">event_observed</span><span class="o">=</span><span class="n">df</span><span class="o">.</span><span class="n">loc</span><span class="p">[</span><span class="n">mask</span><span class="p">,</span> <span class="s1">&#39;churned&#39;</span><span class="p">],</span>
-        <span class="n">label</span><span class="o">=</span><span class="sa">f</span><span class="s1">&#39;Start year </span><span class="si">{</span><span class="n">year</span><span class="si">}</span><span class="s1">&#39;</span>
-    <span class="p">)</span>
-    <span class="n">kmf</span><span class="o">.</span><span class="n">plot</span><span class="p">()</span>
-
-<span class="n">plt</span><span class="o">.</span><span class="n">title</span><span class="p">(</span><span class="s1">&#39;Kaplan-Meier Survival Curves by Start Year&#39;</span><span class="p">)</span>
-<span class="n">plt</span><span class="o">.</span><span class="n">xlabel</span><span class="p">(</span><span class="s1">&#39;Time (days)&#39;</span><span class="p">)</span>
-<span class="n">plt</span><span class="o">.</span><span class="n">ylabel</span><span class="p">(</span><span class="s1">&#39;Survival probability&#39;</span><span class="p">)</span>
-<span class="n">plt</span><span class="o">.</span><span class="n">grid</span><span class="p">(</span><span class="kc">True</span><span class="p">)</span>
-<span class="n">plt</span><span class="o">.</span><span class="n">show</span><span class="p">()</span>
-</pre></div>
-</div>
-</div>
-<div class="cell_output docutils container">
-<img alt="_images/f372a8fe33abd9a80e093da5135562ed6c876ca491314f15d63eba297dbe1147.png" src="_images/f372a8fe33abd9a80e093da5135562ed6c876ca491314f15d63eba297dbe1147.png" />
-</div>
-</div>
 </section>
-<section id="example-4-feature-selection">
-<h2>Example 4: Feature Selection<a class="headerlink" href="#example-4-feature-selection" title="Link to this heading">#</a></h2>
+<section id="exercise-2-1">
+<h3>Exercise 2.1:<a class="headerlink" href="#exercise-2-1" title="Link to this heading">#</a></h3>
 <ul class="simple">
-<li><p>horTh: hormonal therapy, a factor at two levels no and yes.</p></li>
-<li><p>age: of the patients in years.</p></li>
-<li><p>menostat: 0 menopausal status, a factor at two levels pre (premenopausal) and post (postmenopausal).</p></li>
-<li><p>tsize: tumor size (in mm).</p></li>
-<li><p>tgrade: tumor grade, a ordered factor at levels I &lt; II &lt; III.</p></li>
-<li><p>pnodes: number of positive nodes.</p></li>
-<li><p>progrec: progesterone receptor (in fmol).</p></li>
-<li><p>estrec: estrogen receptor (in fmol).</p></li>
+<li><p>What is the impact of hormonal therapy on brest cancer survival? (Visualize KM survival curves for patients with and without therapy following best practices)</p></li>
+<li><p>Does hormonal therapy provide a significant impact? (guide: use log-rank test)</p></li>
 </ul>
-<p>time: recurrence free survival time (in days).</p>
-<p>cens: censoring indicator (0- censored, 1- event).</p>
-<p>Dataset from:</p>
-<p>V.J. Menon and D.C. Agrawal,  Renewal Rate of Filament Lamps:
-Theory and Experiment. Journal of Failure Analysis and Prevention.
-December 2007, p. 421, Table 2/
-DOI: 10.1007/s11668-007-9074-9</p>
-<p>Description:</p>
-<p>An assembly of 50 new Philips (India) lamps with the
-rating 40 W, 220 V (AC) was taken and installed in the horizontal
-orientation and uniformly distributed over a lab area 11 m by 7 m.</p>
-<p>The assembly was monitored at regular intervals of 12 h to
-look for failures. The instants of recorded failures were
-called t‘ and a total of 32 data points were obtained such
-that even the last bulb failed.</p>
-<p>Variables:</p>
-<p>i - observation number
-h - time in hours since experiment start
-f - number of failed lamps at particular time h
-K - number of surviving lamps  at particular time h</p>
-<div class="cell docutils container">
-<div class="cell_input docutils container">
-<div class="highlight-ipython3 notranslate"><div class="highlight"><pre><span></span><span class="kn">from</span><span class="w"> </span><span class="nn">lifelines.datasets</span><span class="w"> </span><span class="kn">import</span> <span class="n">load_kidney_transplant</span><span class="p">,</span> <span class="n">load_gbsg2</span>
-<span class="c1"># df = load_kidney_transplant()</span>
-<span class="n">df</span> <span class="o">=</span> <span class="n">load_gbsg2</span><span class="p">()</span>
-</pre></div>
-</div>
-</div>
-</div>
-<div class="cell docutils container">
-<div class="cell_input docutils container">
-<div class="highlight-ipython3 notranslate"><div class="highlight"><pre><span></span><span class="n">df</span><span class="p">[</span><span class="s1">&#39;tgrade&#39;</span><span class="p">]</span><span class="o">.</span><span class="n">value_counts</span><span class="p">()</span>
-</pre></div>
-</div>
-</div>
-<div class="cell_output docutils container">
-<div class="output text_plain highlight-myst-ansi notranslate"><div class="highlight"><pre><span></span>tgrade
-II     444
-III    161
-I       81
-Name: count, dtype: int64
-</pre></div>
-</div>
-</div>
-</div>
-<div class="cell docutils container">
-<div class="cell_input docutils container">
-<div class="highlight-ipython3 notranslate"><div class="highlight"><pre><span></span><span class="kn">from</span><span class="w"> </span><span class="nn">lifelines.datasets</span><span class="w"> </span><span class="kn">import</span> <span class="n">load_rossi</span>
-<span class="kn">import</span><span class="w"> </span><span class="nn">numpy</span><span class="w"> </span><span class="k">as</span><span class="w"> </span><span class="nn">np</span>
-
-<span class="c1"># loading data </span>
-<span class="n">data</span> <span class="o">=</span> <span class="n">load_rossi</span><span class="p">()</span>
-<span class="n">treat</span> <span class="o">=</span> <span class="n">data</span><span class="o">.</span><span class="n">query</span><span class="p">(</span><span class="s2">&quot;fin == 1&quot;</span><span class="p">)</span> 
-<span class="n">ctrl</span> <span class="o">=</span> <span class="n">data</span><span class="o">.</span><span class="n">query</span><span class="p">(</span><span class="s2">&quot;fin == 0&quot;</span><span class="p">)</span>
-
-<span class="c1"># init &amp; Fitting KM curves </span>
-<span class="n">ax</span> <span class="o">=</span> <span class="n">plt</span><span class="o">.</span><span class="n">subplot</span><span class="p">(</span><span class="mi">111</span><span class="p">)</span>
-<span class="n">t</span> <span class="o">=</span> <span class="n">np</span><span class="o">.</span><span class="n">linspace</span><span class="p">(</span><span class="mi">0</span><span class="p">,</span> <span class="mi">4000</span><span class="p">,</span> <span class="mi">4000</span><span class="p">)</span>
-<span class="n">kmf1</span> <span class="o">=</span> <span class="n">KaplanMeierFitter</span><span class="p">()</span>
-<span class="n">kmf2</span> <span class="o">=</span> <span class="n">KaplanMeierFitter</span><span class="p">()</span>
-<span class="n">kmf1</span><span class="o">.</span><span class="n">fit</span><span class="p">(</span><span class="n">df</span><span class="p">[</span><span class="s1">&#39;time&#39;</span><span class="p">],</span> <span class="n">df</span><span class="p">[</span><span class="s1">&#39;death&#39;</span><span class="p">],</span> <span class="n">timeline</span><span class="o">=</span><span class="n">t</span><span class="p">,</span> <span class="n">label</span><span class="o">=</span><span class="s2">&quot;fin. aid Yes&quot;</span><span class="p">)</span>
-
-
-<span class="c1"># # plotting the KM curves</span>
-<span class="n">kmf1</span><span class="o">.</span><span class="n">plot</span><span class="p">(</span><span class="n">ax</span><span class="o">=</span><span class="n">ax</span><span class="p">)</span>
-<span class="c1"># ax.set_title(&quot;Criminal Recidivism in 52-week After Release&quot;);</span>
-<span class="c1"># ax.set_ylabel(&quot;P(surviving from getting rearrested)&quot;);</span>
-<span class="c1"># # ax.set_ylabel(&quot;Prob. of getting rearrested&quot;);</span>
-<span class="c1"># ax.set_xlabel(&quot;time (week)&quot;);</span>
-</pre></div>
-</div>
-</div>
-<div class="cell_output docutils container">
-<div class="output text_plain highlight-myst-ansi notranslate"><div class="highlight"><pre><span></span>&lt;Axes: xlabel=&#39;timeline&#39;&gt;
-</pre></div>
-</div>
-<img alt="_images/ee184a780ecac57e61f56bff10c6ccb9ded633f5c57e44e255a9f2b28edf3bbc.png" src="_images/ee184a780ecac57e61f56bff10c6ccb9ded633f5c57e44e255a9f2b28edf3bbc.png" />
-</div>
-</div>
 </section>
-<section id="example-5-detecting-data-bias">
-<h2>Example 5: Detecting Data Bias<a class="headerlink" href="#example-5-detecting-data-bias" title="Link to this heading">#</a></h2>
-</section>
-<section id="example-6-hazard-function">
-<h2>Example 6: Hazard Function<a class="headerlink" href="#example-6-hazard-function" title="Link to this heading">#</a></h2>
-</section>
-</section>
-<section class="tex2jax_ignore mathjax_ignore" id="id1">
-<h1><a class="headerlink" href="#id1" title="Link to this heading">#</a></h1>
-</section>
-<section class="tex2jax_ignore mathjax_ignore" id="best-practices-for-visualising-kaplan-meier-plots">
-<h1>Best practices for visualising Kaplan-Meier plots<a class="headerlink" href="#best-practices-for-visualising-kaplan-meier-plots" title="Link to this heading">#</a></h1>
-<p>In a recent survey from variaty of stakeholders in healthcares, suggested that the addition of summary tables and confidence intervals  greatly increased the effectiveness of Kaplan Meier plots
-<a class="reference external" href="https://pubmed.ncbi.nlm.nih.gov/31575572/">article</a></p>
-</section>
-<section class="tex2jax_ignore mathjax_ignore" id="challenging-scenarios">
-<h1>Challenging Scenarios<a class="headerlink" href="#challenging-scenarios" title="Link to this heading">#</a></h1>
+<section id="exercse-2-2">
+<h3>Exercse 2.2:<a class="headerlink" href="#exercse-2-2" title="Link to this heading">#</a></h3>
 <ul class="simple">
-<li><p>Accounting for time-varying covariates</p>
-<ul>
-<li><p>Low-frequency time-varying variables for example age, sex:</p></li>
-<li><p>High-frequqncy time-varying variables for example stock price fluctuation</p></li>
+<li><p>What is the impact of number of positive nodes on patients survival without therapy? (guide: visualize KM curves for number of equally sized bins )</p></li>
 </ul>
-</li>
-<li><p>Controling for covariates:</p>
-<ul>
-<li><p>We already know that KM visualize the outcome. However, in causal inference scenarios we are interested in visualising the outcome between treatment and control groups where the distribution of the featues set are overlapping.</p></li>
+</section>
+<section id="exercise-2-3">
+<h3>Exercise 2.3:<a class="headerlink" href="#exercise-2-3" title="Link to this heading">#</a></h3>
+<ul class="simple">
+<li><p>What is the generic effect of tumor size grade (<code class="docutils literal notranslate"><span class="pre">tgrade</span></code>) on patient survival without therapy?</p></li>
+<li><p>Does the tumor size grade correlate significantly with patient survival? (log-rank test)</p></li>
 </ul>
-</li>
-</ul>
+</section>
+</section>
 </section>
 <section class="tex2jax_ignore mathjax_ignore" id="summary-take-aways">
 <h1>Summary &amp; Take Aways<a class="headerlink" href="#summary-take-aways" title="Link to this heading">#</a></h1>
@@ -1318,15 +1197,6 @@ Name: count, dtype: int64
 <li><p>If the data for any subjects are censored, the bottom point on the survival curve will not equal the fraction of subjects that survived. <a class="reference external" href="https://www.graphpad.com/support/faq/what-determines-how-low-a-kaplan-meier-survival-curve-ends-up-at-late-time-points/#:~:text=If%20there%20are%20no%20censored,the%20percent%20survival%20is%20zero.">link for further reading</a></p></li>
 <li><p>If the survival curve goes all the way down tozero, that does not mean that every subject in the study died and some could be probably censored.</p></li>
 </ul>
-</section>
-<section class="tex2jax_ignore mathjax_ignore" id="advanced-topics">
-<h1>Advanced Topics<a class="headerlink" href="#advanced-topics" title="Link to this heading">#</a></h1>
-<ul class="simple">
-<li><p>How to handle time-series data?</p></li>
-</ul>
-<section id="example-6-correcting-for-covariates">
-<h2>Example 6: Correcting for covariates<a class="headerlink" href="#example-6-correcting-for-covariates" title="Link to this heading">#</a></h2>
-</section>
 </section>
 
     <script type="text/x-thebe-config">
@@ -1401,24 +1271,26 @@ Name: count, dtype: int64
 <li class="toc-h2 nav-item toc-entry"><a class="reference internal nav-link" href="#example-1-km-curve-with-no-censoring">Example 1: KM curve with no censoring</a></li>
 <li class="toc-h2 nav-item toc-entry"><a class="reference internal nav-link" href="#example-2-km-curve-with-censoring">Example 2: KM curve with censoring</a></li>
 <li class="toc-h2 nav-item toc-entry"><a class="reference internal nav-link" href="#example-3-comparing-survival-curves">Example 3: Comparing Survival Curves:</a><ul class="nav section-nav flex-column">
-<li class="toc-h3 nav-item toc-entry"><a class="reference internal nav-link" href="#data-criminals-return-to-prison">Data: Criminals return to prison</a></li>
+<li class="toc-h3 nav-item toc-entry"><a class="reference internal nav-link" href="#data">Data:</a></li>
 <li class="toc-h3 nav-item toc-entry"><a class="reference internal nav-link" href="#statistical-significance">Statistical Significance</a></li>
+<li class="toc-h3 nav-item toc-entry"><a class="reference internal nav-link" href="#best-practices-for-visualizing-km-plots">Best practices for visualizing KM plots</a></li>
 </ul>
 </li>
-<li class="toc-h2 nav-item toc-entry"><a class="reference internal nav-link" href="#example-4-identifying-data-drift">Example 4: Identifying Data Drift</a></li>
-<li class="toc-h2 nav-item toc-entry"><a class="reference internal nav-link" href="#example-4-feature-selection">Example 4: Feature Selection</a></li>
-<li class="toc-h2 nav-item toc-entry"><a class="reference internal nav-link" href="#example-5-detecting-data-bias">Example 5: Detecting Data Bias</a></li>
-<li class="toc-h2 nav-item toc-entry"><a class="reference internal nav-link" href="#example-6-hazard-function">Example 6: Hazard Function</a></li>
 </ul>
 </li>
-<li class="toc-h1 nav-item toc-entry"><a class="reference internal nav-link" href="#id1"></a></li>
-<li class="toc-h1 nav-item toc-entry"><a class="reference internal nav-link" href="#best-practices-for-visualising-kaplan-meier-plots">Best practices for visualising Kaplan-Meier plots</a></li>
-<li class="toc-h1 nav-item toc-entry"><a class="reference internal nav-link" href="#challenging-scenarios">Challenging Scenarios</a></li>
+<li class="toc-h1 nav-item toc-entry"><a class="reference internal nav-link" href="#exercises">Exercises</a><ul class="visible nav section-nav flex-column">
+<li class="toc-h2 nav-item toc-entry"><a class="reference internal nav-link" href="#exercise-1-what-is-the-objective-of-this-visualization">Exercise 1: What is the objective of this visualization?</a></li>
+<li class="toc-h2 nav-item toc-entry"><a class="reference internal nav-link" href="#exercise-2-what-is-strange-in-this-visualization">Exercise 2: What is strange in this visualization?</a></li>
+<li class="toc-h2 nav-item toc-entry"><a class="reference internal nav-link" href="#exercise-3-exploratory-data-analysis">Exercise 3: Exploratory Data Analysis</a><ul class="nav section-nav flex-column">
+<li class="toc-h3 nav-item toc-entry"><a class="reference internal nav-link" href="#id2">Data</a></li>
+<li class="toc-h3 nav-item toc-entry"><a class="reference internal nav-link" href="#exercise-2-1">Exercise 2.1:</a></li>
+<li class="toc-h3 nav-item toc-entry"><a class="reference internal nav-link" href="#exercse-2-2">Exercse 2.2:</a></li>
+<li class="toc-h3 nav-item toc-entry"><a class="reference internal nav-link" href="#exercise-2-3">Exercise 2.3:</a></li>
+</ul>
+</li>
+</ul>
+</li>
 <li class="toc-h1 nav-item toc-entry"><a class="reference internal nav-link" href="#summary-take-aways">Summary &amp; Take Aways</a></li>
-<li class="toc-h1 nav-item toc-entry"><a class="reference internal nav-link" href="#advanced-topics">Advanced Topics</a><ul class="visible nav section-nav flex-column">
-<li class="toc-h2 nav-item toc-entry"><a class="reference internal nav-link" href="#example-6-correcting-for-covariates">Example 6: Correcting for covariates</a></li>
-</ul>
-</li>
 </ul>
 
   </nav></div>

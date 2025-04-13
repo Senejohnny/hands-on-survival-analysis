@@ -186,10 +186,8 @@
 
 
 
-
-
-
 <li class="toctree-l1 current active"><a class="current reference internal" href="#">Predictive Survival Analysis</a></li>
+
 
 
 
@@ -394,7 +392,7 @@ document.write(`
 <li class="toc-h1 nav-item toc-entry"><a class="reference internal nav-link" href="#">Predictive Survival Analysis</a></li>
 <li class="toc-h1 nav-item toc-entry"><a class="reference internal nav-link" href="#survival-regression">Survival Regression</a><ul class="visible nav section-nav flex-column">
 <li class="toc-h2 nav-item toc-entry"><a class="reference internal nav-link" href="#taxonomy-of-statistical-methods">Taxonomy of Statistical Methods</a></li>
-<li class="toc-h2 nav-item toc-entry"><a class="reference internal nav-link" href="#chp-model">CHP Model</a><ul class="nav section-nav flex-column">
+<li class="toc-h2 nav-item toc-entry"><a class="reference internal nav-link" href="#cph-model">CPH Model</a><ul class="nav section-nav flex-column">
 <li class="toc-h3 nav-item toc-entry"><a class="reference internal nav-link" href="#ph-assumption">PH Assumption</a></li>
 <li class="toc-h3 nav-item toc-entry"><a class="reference internal nav-link" href="#dataset">Dataset</a></li>
 <li class="toc-h3 nav-item toc-entry"><a class="reference internal nav-link" href="#fitting-cph">Fitting CPH</a></li>
@@ -405,23 +403,29 @@ document.write(`
 <li class="toc-h3 nav-item toc-entry"><a class="reference internal nav-link" href="#scores">Scores</a></li>
 </ul>
 </li>
-<li class="toc-h2 nav-item toc-entry"><a class="reference internal nav-link" href="#model-evaluation">Model Evaluation</a><ul class="nav section-nav flex-column">
-<li class="toc-h3 nav-item toc-entry"><a class="reference internal nav-link" href="#concordance-index-c-index">Concordance Index [C-index]</a></li>
 </ul>
 </li>
+<li class="toc-h1 nav-item toc-entry"><a class="reference internal nav-link" href="#model-evaluation">Model Evaluation</a><ul class="visible nav section-nav flex-column">
+<li class="toc-h2 nav-item toc-entry"><a class="reference internal nav-link" href="#concordance-index-c-index">Concordance Index [C-index]</a></li>
 </ul>
 </li>
-<li class="toc-h1 nav-item toc-entry"><a class="reference internal nav-link" href="#model-calibration">Model Calibration</a></li>
 <li class="toc-h1 nav-item toc-entry"><a class="reference internal nav-link" href="#model-prediction">Model Prediction</a><ul class="visible nav section-nav flex-column">
 <li class="toc-h2 nav-item toc-entry"><a class="reference internal nav-link" href="#data">Data</a></li>
 <li class="toc-h2 nav-item toc-entry"><a class="reference internal nav-link" href="#survival-cumulative-hazard-functions">Survival &amp; Cumulative Hazard functions</a></li>
 <li class="toc-h2 nav-item toc-entry"><a class="reference internal nav-link" href="#percentile">Percentile</a></li>
 <li class="toc-h2 nav-item toc-entry"><a class="reference internal nav-link" href="#expectation">Expectation</a></li>
 <li class="toc-h2 nav-item toc-entry"><a class="reference internal nav-link" href="#prediction-on-censored-subjects">Prediction on censored subjects</a></li>
-<li class="toc-h2 nav-item toc-entry"><a class="reference internal nav-link" href="#further-topics-taxonomy-of-ml-methods">Further topics: Taxonomy of ML methods</a></li>
 </ul>
 </li>
-<li class="toc-h1 nav-item toc-entry"><a class="reference internal nav-link" href="#exercise">Exercise</a></li>
+<li class="toc-h1 nav-item toc-entry"><a class="reference internal nav-link" href="#exercise">Exercise</a><ul class="visible nav section-nav flex-column">
+<li class="toc-h2 nav-item toc-entry"><a class="reference internal nav-link" href="#id2">Data</a></li>
+</ul>
+</li>
+<li class="toc-h1 nav-item toc-entry"><a class="reference internal nav-link" href="#further-topics">Further topics</a><ul class="visible nav section-nav flex-column">
+<li class="toc-h2 nav-item toc-entry"><a class="reference internal nav-link" href="#taxonomy-of-ml-methods">Taxonomy of ML methods</a></li>
+<li class="toc-h2 nav-item toc-entry"><a class="reference internal nav-link" href="#accounting-for-time-varying-covariate">Accounting for time-varying covariate</a></li>
+</ul>
+</li>
 </ul>
 
             </nav>
@@ -447,8 +451,8 @@ document.write(`
 <p><em>Taxonomy of predictive statistical survival methods.  ML for Survival Analysis: A Survey [2018]</em></p>
 <p>Among the many methods available, Cox proportional hazard (CPH) and accelerated failure models are popular with many implementation. These methods model hazard rate <span class="math notranslate nohighlight">\(h(t, x)\)</span>, as a function of time <span class="math notranslate nohighlight">\(t\)</span> and covariate <span class="math notranslate nohighlight">\(x\)</span></p>
 </section>
-<section id="chp-model">
-<h2>CHP Model<a class="headerlink" href="#chp-model" title="Link to this heading">#</a></h2>
+<section id="cph-model">
+<h2>CPH Model<a class="headerlink" href="#cph-model" title="Link to this heading">#</a></h2>
 <p>Traditional models, e.g., line linear regression, can not be used due to censoring. CPH model is based on the idea that log of the hazard is a linear function of covariates</p>
 <div class="math notranslate nohighlight">
 \[
@@ -576,7 +580,7 @@ the situation is different in prescriptive analytics.</p>
     </tr>
     <tr>
       <th>time fit was run</th>
-      <td>2025-04-11 19:17:17 UTC</td>
+      <td>2025-04-13 20:23:13 UTC</td>
     </tr>
   </tbody>
 </table>
@@ -733,6 +737,10 @@ the situation is different in prescriptive analytics.</p>
 </table>
 </div></div></div>
 </div>
+<div class="admonition note">
+<p class="admonition-title">Note</p>
+<p>For those interested in R formulas can use the argument <code class="docutils literal notranslate"><span class="pre">fromula</span></code>  to handel the right-hand-side of the linear model. In the above case, <code class="docutils literal notranslate"><span class="pre">fromula='fin</span> <span class="pre">+</span> <span class="pre">age</span> <span class="pre">+</span> <span class="pre">race</span> <span class="pre">+</span> <span class="pre">wexp</span> <span class="pre">+</span> <span class="pre">mar</span> <span class="pre">+</span> <span class="pre">paro</span> <span class="pre">+</span> <span class="pre">prio'</span> </code></p>
+</div>
 </section>
 </section>
 <section id="interpretation">
@@ -740,7 +748,7 @@ the situation is different in prescriptive analytics.</p>
 <section id="metrics">
 <h3>Metrics<a class="headerlink" href="#metrics" title="Link to this heading">#</a></h3>
 <ul class="simple">
-<li><p>partial log-likelihood is the cost function</p></li>
+<li><p>partial log-likelihood is the cost function. Iteratively find <span class="math notranslate nohighlight">\(\hat \beta\)</span> via maximum partial likelihood estimator (MPLE) with the numerical Newton-Raphson )</p></li>
 <li><p>breslow estimator is used to estimate <span class="math notranslate nohighlight">\(\hat H_0\)</span>. Then the baseline survival function can be calculated as <span class="math notranslate nohighlight">\(S_0(t) = e^{-H_0(t)}\)</span></p></li>
 <li><p>Concordance will be elaborated in evaluation section</p></li>
 </ul>
@@ -756,8 +764,9 @@ the situation is different in prescriptive analytics.</p>
 <p>Along the same line of reasoning, whether the subject had prior arrest or not, i.e., <code class="docutils literal notranslate"><span class="pre">prio</span></code>, increase the risk of subjects getting re-arrested by 9%, with hazard ratio of <span class="math notranslate nohighlight">\(e^{0.09} = 1.09\)</span></p>
 </section>
 </section>
-<section id="model-evaluation">
-<h2>Model Evaluation<a class="headerlink" href="#model-evaluation" title="Link to this heading">#</a></h2>
+</section>
+<section class="tex2jax_ignore mathjax_ignore" id="model-evaluation">
+<h1>Model Evaluation<a class="headerlink" href="#model-evaluation" title="Link to this heading">#</a></h1>
 <p>Due to censoring metrics like Root Mean Square (RMS) and <span class="math notranslate nohighlight">\(R^2\)</span> are not relevant to survival analysis. This is because the difference between a censored value and the predicted value could be due to poor prediction or due to censoring. Specialized evaluation metrics for survival analysis are</p>
 <ul class="simple">
 <li><p>c-index,</p></li>
@@ -765,7 +774,7 @@ the situation is different in prescriptive analytics.</p>
 <li><p>Mean Absolute Error (MAE),</p></li>
 </ul>
 <section id="concordance-index-c-index">
-<h3>Concordance Index [C-index]<a class="headerlink" href="#concordance-index-c-index" title="Link to this heading">#</a></h3>
+<h2>Concordance Index [C-index]<a class="headerlink" href="#concordance-index-c-index" title="Link to this heading">#</a></h2>
 <p>Definition of C-index:</p>
 <div class="math notranslate nohighlight">
 \[ C-index := \frac{\#  concordant \,\,\, pairs}{\# comparable \,\,\,  pairs} \]</div>
@@ -775,38 +784,6 @@ the situation is different in prescriptive analytics.</p>
 </ul>
 <p><img alt="imae" src="_images/c-index.jpg" /></p>
 </section>
-</section>
-</section>
-<section class="tex2jax_ignore mathjax_ignore" id="model-calibration">
-<h1>Model Calibration<a class="headerlink" href="#model-calibration" title="Link to this heading">#</a></h1>
-<div class="cell docutils container">
-<div class="cell_input docutils container">
-<div class="highlight-ipython3 notranslate"><div class="highlight"><pre><span></span><span class="kn">from</span><span class="w"> </span><span class="nn">lifelines</span><span class="w"> </span><span class="kn">import</span> <span class="n">CoxPHFitter</span>
-<span class="kn">from</span><span class="w"> </span><span class="nn">lifelines.datasets</span><span class="w"> </span><span class="kn">import</span> <span class="n">load_rossi</span>
-<span class="kn">from</span><span class="w"> </span><span class="nn">lifelines.calibration</span><span class="w"> </span><span class="kn">import</span> <span class="n">survival_probability_calibration</span>
-
-<span class="n">regression_dataset</span> <span class="o">=</span> <span class="n">load_rossi</span><span class="p">()</span>
-<span class="n">cph</span> <span class="o">=</span> <span class="n">CoxPHFitter</span><span class="p">(</span><span class="n">baseline_estimation_method</span><span class="o">=</span><span class="s2">&quot;spline&quot;</span><span class="p">,</span> <span class="n">n_baseline_knots</span><span class="o">=</span><span class="mi">3</span><span class="p">)</span>
-<span class="n">cph</span><span class="o">.</span><span class="n">fit</span><span class="p">(</span><span class="n">rossi</span><span class="p">,</span> <span class="s2">&quot;week&quot;</span><span class="p">,</span> <span class="s2">&quot;arrest&quot;</span><span class="p">)</span>
-
-<span class="n">survival_probability_calibration</span><span class="p">(</span><span class="n">cph</span><span class="p">,</span> <span class="n">rossi</span><span class="p">,</span> <span class="n">t0</span><span class="o">=</span><span class="mi">25</span><span class="p">);</span>
-</pre></div>
-</div>
-</div>
-<div class="cell_output docutils container">
-<div class="output traceback highlight-ipythontb notranslate"><div class="highlight"><pre><span></span><span class="gt">---------------------------------------------------------------------------</span>
-<span class="ne">NameError</span><span class="g g-Whitespace">                                 </span>Traceback (most recent call last)
-<span class="n">Cell</span> <span class="n">In</span><span class="p">[</span><span class="mi">3</span><span class="p">],</span> <span class="n">line</span> <span class="mi">7</span>
-<span class="g g-Whitespace">      </span><span class="mi">5</span> <span class="n">regression_dataset</span> <span class="o">=</span> <span class="n">load_rossi</span><span class="p">()</span>
-<span class="g g-Whitespace">      </span><span class="mi">6</span> <span class="n">cph</span> <span class="o">=</span> <span class="n">CoxPHFitter</span><span class="p">(</span><span class="n">baseline_estimation_method</span><span class="o">=</span><span class="s2">&quot;spline&quot;</span><span class="p">,</span> <span class="n">n_baseline_knots</span><span class="o">=</span><span class="mi">3</span><span class="p">)</span>
-<span class="ne">----&gt; </span><span class="mi">7</span> <span class="n">cph</span><span class="o">.</span><span class="n">fit</span><span class="p">(</span><span class="n">rossi</span><span class="p">,</span> <span class="s2">&quot;week&quot;</span><span class="p">,</span> <span class="s2">&quot;arrest&quot;</span><span class="p">)</span>
-<span class="g g-Whitespace">      </span><span class="mi">9</span> <span class="n">survival_probability_calibration</span><span class="p">(</span><span class="n">cph</span><span class="p">,</span> <span class="n">rossi</span><span class="p">,</span> <span class="n">t0</span><span class="o">=</span><span class="mi">25</span><span class="p">);</span>
-
-<span class="ne">NameError</span>: name &#39;rossi&#39; is not defined
-</pre></div>
-</div>
-</div>
-</div>
 </section>
 <section class="tex2jax_ignore mathjax_ignore" id="model-prediction">
 <h1>Model Prediction<a class="headerlink" href="#model-prediction" title="Link to this heading">#</a></h1>
@@ -927,17 +904,241 @@ S(T &gt; t | T &gt; \tau) =  \frac{S(T &gt; t \, \&amp; \,   T &gt; \tau)}{S(T &
 </div>
 </div>
 </section>
-<section id="further-topics-taxonomy-of-ml-methods">
-<h2>Further topics: Taxonomy of ML methods<a class="headerlink" href="#further-topics-taxonomy-of-ml-methods" title="Link to this heading">#</a></h2>
+</section>
+<section class="tex2jax_ignore mathjax_ignore" id="exercise">
+<h1>Exercise<a class="headerlink" href="#exercise" title="Link to this heading">#</a></h1>
+<p>Repeat the above steps &amp; sections with the German Brest Cancer data. Of course, feel free to split the data
+to train and test and explore your own ideas to fit a better model.</p>
+<ul class="simple">
+<li><p>Fit a CPH model</p></li>
+<li><p>Interpret</p></li>
+<li><p>Evaluate</p></li>
+<li><p>Predict</p></li>
+</ul>
+<section id="id2">
+<h2>Data<a class="headerlink" href="#id2" title="Link to this heading">#</a></h2>
+<p>The data comes from German Breast Cancer Study Group, where in Randomized 2 x 2 clinical trial was aiming to evaluate hormonal treatment and the duration of chemotherapy in node-positive breast cancer patients <span id="id3">[<a class="reference internal" href="biblio.html#id5" title="M Schumacher, G Bastert, H Bojar, K Hübner, M Olschewski, W Sauerbrei, C Schmoor, C Beyerle, RL Neumann, and HF Rauschecker. Randomized 2 x 2 trial evaluating hormonal treatment and the duration of chemotherapy in node-positive breast cancer patients. german breast cancer study group. Journal of Clinical Oncology, 12(10):2086–2093, 1994.">SBB+94</a>]</span></p>
+<ul class="simple">
+<li><p>horTh: hormonal therapy, a factor at two levels no and yes.</p></li>
+<li><p>age: of the patients in years.</p></li>
+<li><p>menostat: 0 menopausal status, a factor at two levels pre (premenopausal) and post (postmenopausal).</p></li>
+<li><p>tsize: tumor size (in mm).</p></li>
+<li><p>tgrade: tumor grade, a ordered factor at levels I &lt; II &lt; III.</p></li>
+<li><p>pnodes: number of positive nodes.</p></li>
+<li><p>progrec: progesterone receptor (in fmol).</p></li>
+<li><p>estrec: estrogen receptor (in fmol).</p></li>
+<li><p>time: recurrence free survival time (in days).</p></li>
+<li><p>cens: censoring indicator (0- censored, 1- event).</p></li>
+</ul>
+<p><em>Recurrence Free Survival: defined as the length of time from the end of primary treatment (Surgery/chemotherapy) until there is evidence of cancer recurrence or until the death of the patient.</em></p>
+<div class="cell docutils container">
+<div class="cell_input docutils container">
+<div class="highlight-ipython3 notranslate"><div class="highlight"><pre><span></span><span class="kn">from</span><span class="w"> </span><span class="nn">lifelines.datasets</span><span class="w"> </span><span class="kn">import</span> <span class="n">load_gbsg2</span>
+<span class="n">df</span> <span class="o">=</span> <span class="n">load_gbsg2</span><span class="p">()</span>
+<span class="n">df</span>
+</pre></div>
+</div>
+</div>
+<div class="cell_output docutils container">
+<div class="output text_html"><div>
+<style scoped>
+    .dataframe tbody tr th:only-of-type {
+        vertical-align: middle;
+    }
+
+    .dataframe tbody tr th {
+        vertical-align: top;
+    }
+
+    .dataframe thead th {
+        text-align: right;
+    }
+</style>
+<table border="1" class="dataframe">
+  <thead>
+    <tr style="text-align: right;">
+      <th></th>
+      <th>horTh</th>
+      <th>age</th>
+      <th>menostat</th>
+      <th>tsize</th>
+      <th>tgrade</th>
+      <th>pnodes</th>
+      <th>progrec</th>
+      <th>estrec</th>
+      <th>time</th>
+      <th>cens</th>
+    </tr>
+  </thead>
+  <tbody>
+    <tr>
+      <th>0</th>
+      <td>no</td>
+      <td>70</td>
+      <td>Post</td>
+      <td>21</td>
+      <td>II</td>
+      <td>3</td>
+      <td>48</td>
+      <td>66</td>
+      <td>1814</td>
+      <td>1</td>
+    </tr>
+    <tr>
+      <th>1</th>
+      <td>yes</td>
+      <td>56</td>
+      <td>Post</td>
+      <td>12</td>
+      <td>II</td>
+      <td>7</td>
+      <td>61</td>
+      <td>77</td>
+      <td>2018</td>
+      <td>1</td>
+    </tr>
+    <tr>
+      <th>2</th>
+      <td>yes</td>
+      <td>58</td>
+      <td>Post</td>
+      <td>35</td>
+      <td>II</td>
+      <td>9</td>
+      <td>52</td>
+      <td>271</td>
+      <td>712</td>
+      <td>1</td>
+    </tr>
+    <tr>
+      <th>3</th>
+      <td>yes</td>
+      <td>59</td>
+      <td>Post</td>
+      <td>17</td>
+      <td>II</td>
+      <td>4</td>
+      <td>60</td>
+      <td>29</td>
+      <td>1807</td>
+      <td>1</td>
+    </tr>
+    <tr>
+      <th>4</th>
+      <td>no</td>
+      <td>73</td>
+      <td>Post</td>
+      <td>35</td>
+      <td>II</td>
+      <td>1</td>
+      <td>26</td>
+      <td>65</td>
+      <td>772</td>
+      <td>1</td>
+    </tr>
+    <tr>
+      <th>...</th>
+      <td>...</td>
+      <td>...</td>
+      <td>...</td>
+      <td>...</td>
+      <td>...</td>
+      <td>...</td>
+      <td>...</td>
+      <td>...</td>
+      <td>...</td>
+      <td>...</td>
+    </tr>
+    <tr>
+      <th>681</th>
+      <td>no</td>
+      <td>49</td>
+      <td>Pre</td>
+      <td>30</td>
+      <td>III</td>
+      <td>3</td>
+      <td>1</td>
+      <td>84</td>
+      <td>721</td>
+      <td>0</td>
+    </tr>
+    <tr>
+      <th>682</th>
+      <td>yes</td>
+      <td>53</td>
+      <td>Post</td>
+      <td>25</td>
+      <td>III</td>
+      <td>17</td>
+      <td>0</td>
+      <td>0</td>
+      <td>186</td>
+      <td>0</td>
+    </tr>
+    <tr>
+      <th>683</th>
+      <td>no</td>
+      <td>51</td>
+      <td>Pre</td>
+      <td>25</td>
+      <td>III</td>
+      <td>5</td>
+      <td>43</td>
+      <td>0</td>
+      <td>769</td>
+      <td>1</td>
+    </tr>
+    <tr>
+      <th>684</th>
+      <td>no</td>
+      <td>52</td>
+      <td>Post</td>
+      <td>23</td>
+      <td>II</td>
+      <td>3</td>
+      <td>15</td>
+      <td>34</td>
+      <td>727</td>
+      <td>1</td>
+    </tr>
+    <tr>
+      <th>685</th>
+      <td>no</td>
+      <td>55</td>
+      <td>Post</td>
+      <td>23</td>
+      <td>II</td>
+      <td>9</td>
+      <td>116</td>
+      <td>15</td>
+      <td>1701</td>
+      <td>1</td>
+    </tr>
+  </tbody>
+</table>
+<p>686 rows × 10 columns</p>
+</div></div></div>
+</div>
+</section>
+</section>
+<section class="tex2jax_ignore mathjax_ignore" id="further-topics">
+<h1>Further topics<a class="headerlink" href="#further-topics" title="Link to this heading">#</a></h1>
+<section id="taxonomy-of-ml-methods">
+<h2>Taxonomy of ML methods<a class="headerlink" href="#taxonomy-of-ml-methods" title="Link to this heading">#</a></h2>
 <p><img alt="image.png" src="_images/taxonomy-ml.jpg" /></p>
 <div class="admonition seealso">
 <p class="admonition-title">See also</p>
 <p>The idea behind some of the machine learning models in the above toxonomy are presented in <a class="reference external" href="https://www.youtube.com/watch?v=I33h5-GmHSM">Survival Analysis: a deep dive | PyData Amsterdam 2023</a></p>
 </div>
 </section>
+<section id="accounting-for-time-varying-covariate">
+<h2>Accounting for time-varying covariate<a class="headerlink" href="#accounting-for-time-varying-covariate" title="Link to this heading">#</a></h2>
+<p>Accounting for time-varying covariate can be done by aggregation for low frequency variables and feature extraction for high-frequency variables.</p>
+<ul class="simple">
+<li><p>Low-frequency time-varying variables, i.e., age, can be aggregated to mean or other statistical functions</p></li>
+<li><p>High-frequency time-varying variables, i.e., stock price fluctuation, can undergo feature extraction algorithms like catch22 <span id="id4">[<a class="reference internal" href="biblio.html#id6" title="Carl H Lubba, Sarab S Sethi, Philip Knaute, Simon R Schultz, Ben D Fulcher, and Nick S Jones. Catch22: canonical time-series characteristics: selected through highly comparative time-series analysis. Data mining and knowledge discovery, 33(6):1821–1852, 2019.">LSK+19</a>]</span>.</p></li>
+</ul>
 </section>
-<section class="tex2jax_ignore mathjax_ignore" id="exercise">
-<h1>Exercise<a class="headerlink" href="#exercise" title="Link to this heading">#</a></h1>
 </section>
 
     <script type="text/x-thebe-config">
@@ -1007,7 +1208,7 @@ S(T &gt; t | T &gt; \tau) =  \frac{S(T &gt; t \, \&amp; \,   T &gt; \tau)}{S(T &
 <li class="toc-h1 nav-item toc-entry"><a class="reference internal nav-link" href="#">Predictive Survival Analysis</a></li>
 <li class="toc-h1 nav-item toc-entry"><a class="reference internal nav-link" href="#survival-regression">Survival Regression</a><ul class="visible nav section-nav flex-column">
 <li class="toc-h2 nav-item toc-entry"><a class="reference internal nav-link" href="#taxonomy-of-statistical-methods">Taxonomy of Statistical Methods</a></li>
-<li class="toc-h2 nav-item toc-entry"><a class="reference internal nav-link" href="#chp-model">CHP Model</a><ul class="nav section-nav flex-column">
+<li class="toc-h2 nav-item toc-entry"><a class="reference internal nav-link" href="#cph-model">CPH Model</a><ul class="nav section-nav flex-column">
 <li class="toc-h3 nav-item toc-entry"><a class="reference internal nav-link" href="#ph-assumption">PH Assumption</a></li>
 <li class="toc-h3 nav-item toc-entry"><a class="reference internal nav-link" href="#dataset">Dataset</a></li>
 <li class="toc-h3 nav-item toc-entry"><a class="reference internal nav-link" href="#fitting-cph">Fitting CPH</a></li>
@@ -1018,23 +1219,29 @@ S(T &gt; t | T &gt; \tau) =  \frac{S(T &gt; t \, \&amp; \,   T &gt; \tau)}{S(T &
 <li class="toc-h3 nav-item toc-entry"><a class="reference internal nav-link" href="#scores">Scores</a></li>
 </ul>
 </li>
-<li class="toc-h2 nav-item toc-entry"><a class="reference internal nav-link" href="#model-evaluation">Model Evaluation</a><ul class="nav section-nav flex-column">
-<li class="toc-h3 nav-item toc-entry"><a class="reference internal nav-link" href="#concordance-index-c-index">Concordance Index [C-index]</a></li>
 </ul>
 </li>
+<li class="toc-h1 nav-item toc-entry"><a class="reference internal nav-link" href="#model-evaluation">Model Evaluation</a><ul class="visible nav section-nav flex-column">
+<li class="toc-h2 nav-item toc-entry"><a class="reference internal nav-link" href="#concordance-index-c-index">Concordance Index [C-index]</a></li>
 </ul>
 </li>
-<li class="toc-h1 nav-item toc-entry"><a class="reference internal nav-link" href="#model-calibration">Model Calibration</a></li>
 <li class="toc-h1 nav-item toc-entry"><a class="reference internal nav-link" href="#model-prediction">Model Prediction</a><ul class="visible nav section-nav flex-column">
 <li class="toc-h2 nav-item toc-entry"><a class="reference internal nav-link" href="#data">Data</a></li>
 <li class="toc-h2 nav-item toc-entry"><a class="reference internal nav-link" href="#survival-cumulative-hazard-functions">Survival &amp; Cumulative Hazard functions</a></li>
 <li class="toc-h2 nav-item toc-entry"><a class="reference internal nav-link" href="#percentile">Percentile</a></li>
 <li class="toc-h2 nav-item toc-entry"><a class="reference internal nav-link" href="#expectation">Expectation</a></li>
 <li class="toc-h2 nav-item toc-entry"><a class="reference internal nav-link" href="#prediction-on-censored-subjects">Prediction on censored subjects</a></li>
-<li class="toc-h2 nav-item toc-entry"><a class="reference internal nav-link" href="#further-topics-taxonomy-of-ml-methods">Further topics: Taxonomy of ML methods</a></li>
 </ul>
 </li>
-<li class="toc-h1 nav-item toc-entry"><a class="reference internal nav-link" href="#exercise">Exercise</a></li>
+<li class="toc-h1 nav-item toc-entry"><a class="reference internal nav-link" href="#exercise">Exercise</a><ul class="visible nav section-nav flex-column">
+<li class="toc-h2 nav-item toc-entry"><a class="reference internal nav-link" href="#id2">Data</a></li>
+</ul>
+</li>
+<li class="toc-h1 nav-item toc-entry"><a class="reference internal nav-link" href="#further-topics">Further topics</a><ul class="visible nav section-nav flex-column">
+<li class="toc-h2 nav-item toc-entry"><a class="reference internal nav-link" href="#taxonomy-of-ml-methods">Taxonomy of ML methods</a></li>
+<li class="toc-h2 nav-item toc-entry"><a class="reference internal nav-link" href="#accounting-for-time-varying-covariate">Accounting for time-varying covariate</a></li>
+</ul>
+</li>
 </ul>
 
   </nav></div>
