@@ -1,4 +1,5 @@
-#  Outline 
+# Outline
+---
 
 - Some of the introductory material will be given as [.ppt]() file [to be uploaded]
 
@@ -6,7 +7,7 @@
 
 
 ## Notebook 1: Descriptive Survival Analysis
-
+---
 
 - External users: notebook available in [Colab](https://colab.research.google.com/github/senejohnny/PyData_London_2025/blob/main/survival_book/descriptive.ipynb)
 
@@ -14,7 +15,7 @@
 
 <!-- [![Open In Colab](https://colab.research.google.com/assets/colab-badge.svg)](https://colab.research.google.com/github/USERNAME/REPOSITORY/blob/main/notebook.ipynb) -->
 ## Notebook 2: Predictive Survival Analysis
-
+---
 
 - External users: notebook available in [Colab](https://colab.research.google.com/github/senejohnny/PyData_London_2025/blob/main/survival_book/descriptive.ipynb)
 
@@ -22,6 +23,7 @@
 
 
 ## Prescriptive Survival Analysis
+---
 
 
 ```{note}
