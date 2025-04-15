@@ -1,4 +1,5 @@
 # Prescriptive Survival Analysis
+---
 
 This type of analytics answer the question "what should be done?"
 
@@ -7,6 +8,8 @@ This chapter is out of the scope of this tutorial. However, for interested reade
 ```
 
 ## Introduction to Causal Inference (CI)
+---
+
 There are two schools of thought in Causal Inference. 
 
 1. Potential Outcome
@@ -24,6 +27,7 @@ The Causal Inference school of thoughts are extensively covered in below talks
 
 
 ## Applying CI tools to Survival Analysis
+---
 
 1. Potential Outcome: 
 
@@ -46,7 +50,8 @@ the situation is different in prescriptive analytics.
 - In prescriptive analytics, the focus is on inference & correlation and to understand the influence of individual variables on the survival duration & event.
 ```
 
-## Checking & Ensuring Proportional Hazard Assumption  
+## Checking & Ensuring Proportional Hazard Assumption 
+--- 
 
 Under preparation
 
