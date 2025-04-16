@@ -11,7 +11,7 @@
 
 - External users: notebook available in [Colab](https://colab.research.google.com/github/senejohnny/PyData_London_2025/blob/main/survival_book/descriptive.ipynb)
 
-- ABN AMRO employees: notebook available in [Databrick](https://accounts.cloud.databricks.com/workspaces)
+- ABN AMRO employees: notebook available in [Databrick](https://adb-3525439790433556.16.azuredatabricks.net/editor/notebooks/305144187364179?o=3525439790433556#command/305144187364181)
 
 <!-- [![Open In Colab](https://colab.research.google.com/assets/colab-badge.svg)](https://colab.research.google.com/github/USERNAME/REPOSITORY/blob/main/notebook.ipynb) -->
 ## Notebook 2: Predictive Survival Analysis
@@ -19,7 +19,7 @@
 
 - External users: notebook available in [Colab](https://colab.research.google.com/github/senejohnny/PyData_London_2025/blob/main/survival_book/descriptive.ipynb)
 
-- ABN AMRO employees: notebook available in [Databrick](https://adb-3525439790433556.16.azuredatabricks.net/editor/notebooks/3306436335752026?o=3525439790433556#command/3306436335752027)
+- ABN AMRO employees: notebook available in [Databrick](https://adb-3525439790433556.16.azuredatabricks.net/editor/notebooks/305144187364180?o=3525439790433556#command/305144187364251)
 
 
 ## Prescriptive Survival Analysis
