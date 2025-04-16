@@ -9,7 +9,7 @@
 ## Notebook 1: Descriptive Survival Analysis
 ---
 
-- External users: notebook available in [Colab](https://colab.research.google.com/github/senejohnny/PyData_London_2025/blob/main/survival_book/descriptive.ipynb)
+- External users: notebook available in [Colab](https://github.com/Senejohnny/hands-on-survival-analysis/blob/main/survival_book/descriptive.ipynb)
 
 - ABN AMRO employees: notebook available in [Databrick](https://adb-3525439790433556.16.azuredatabricks.net/editor/notebooks/305144187364179?o=3525439790433556#command/305144187364181)
 
@@ -17,7 +17,7 @@
 ## Notebook 2: Predictive Survival Analysis
 ---
 
-- External users: notebook available in [Colab](https://colab.research.google.com/github/senejohnny/PyData_London_2025/blob/main/survival_book/descriptive.ipynb)
+- External users: notebook available in [Colab](https://github.com/Senejohnny/hands-on-survival-analysis/blob/main/survival_book/predictive.ipynb)
 
 - ABN AMRO employees: notebook available in [Databrick](https://adb-3525439790433556.16.azuredatabricks.net/editor/notebooks/305144187364180?o=3525439790433556#command/305144187364251)
 
