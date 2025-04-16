@@ -4,8 +4,7 @@
 - Some of the introductory material will be given as [.ppt]() file [to be uploaded]
 
 - This tutorial uses lifelines python library {cite}`Davidson-Pilon2019`
-
-
+- Could you please fill the evaluation [form](https://forms.office.com/9e/S8gAqyN4iy?origin=lprLink) after the tutorial? 
 ## Notebook 1: Descriptive Survival Analysis
 ---
 
