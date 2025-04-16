@@ -192,6 +192,7 @@
 
 
 
+
 <li class="toctree-l1"><a class="reference internal" href="prescriptive.html">Prescriptive Survival Analysis</a></li>
 <li class="toctree-l1"><a class="reference internal" href="biblio.html">References</a></li>
 
@@ -417,7 +418,7 @@ document.write(`
 </li>
 </ul>
 </li>
-<li class="toc-h1 nav-item toc-entry"><a class="reference internal nav-link" href="#summary-take-aways">Summary &amp; Take Aways</a></li>
+<li class="toc-h1 nav-item toc-entry"><a class="reference internal nav-link" href="#summary-takeaways">Summary &amp; Takeaways</a></li>
 </ul>
 
             </nav>
@@ -438,12 +439,7 @@ document.write(`
 <h1>Packages<a class="headerlink" href="#packages" title="Link to this heading">#</a></h1>
 <div class="cell docutils container">
 <div class="cell_input docutils container">
-<div class="highlight-ipython3 notranslate"><div class="highlight"><pre><span></span><span class="o">!</span><span class="w"> </span>pip<span class="w"> </span>install<span class="w"> </span>lifelines
-</pre></div>
-</div>
-</div>
-<div class="cell_output docutils container">
-<div class="output stream highlight-myst-ansi notranslate"><div class="highlight"><pre><span></span>zsh:1: /usr/local/bin/pip: bad interpreter: /usr/local/opt/python@3.9/bin/python3.9: no such file or directory
+<div class="highlight-ipython3 notranslate"><div class="highlight"><pre><span></span><span class="c1"># ! pip install lifelines</span>
 </pre></div>
 </div>
 </div>
@@ -894,7 +890,7 @@ S(t) = P(T &gt; t)
 <span class="n">ctrl</span> <span class="o">=</span> <span class="n">data</span><span class="o">.</span><span class="n">query</span><span class="p">(</span><span class="s2">&quot;fin == 0&quot;</span><span class="p">)</span>
 
 <span class="c1"># init &amp; Fitting KM curves </span>
-<span class="n">ax</span> <span class="o">=</span> <span class="n">plt</span><span class="o">.</span><span class="n">subplot</span><span class="p">(</span><span class="mi">111</span><span class="p">)</span>
+<span class="n">ax</span> <span class="o">=</span> <span class="n">plt</span><span class="o">.</span><span class="n">subplot</span><span class="p">()</span>
 <span class="n">t</span> <span class="o">=</span> <span class="n">np</span><span class="o">.</span><span class="n">linspace</span><span class="p">(</span><span class="mi">0</span><span class="p">,</span> <span class="mi">55</span><span class="p">,</span> <span class="mi">55</span><span class="p">)</span>
 <span class="n">kmf1</span> <span class="o">=</span> <span class="n">KaplanMeierFitter</span><span class="p">()</span>
 <span class="n">kmf2</span> <span class="o">=</span> <span class="n">KaplanMeierFitter</span><span class="p">()</span>
@@ -905,7 +901,6 @@ S(t) = P(T &gt; t)
 <span class="n">kmf1</span><span class="o">.</span><span class="n">plot</span><span class="p">(</span><span class="n">ax</span><span class="o">=</span><span class="n">ax</span><span class="p">),</span> <span class="n">kmf2</span><span class="o">.</span><span class="n">plot</span><span class="p">(</span><span class="n">ax</span><span class="o">=</span><span class="n">ax</span><span class="p">)</span>
 <span class="n">ax</span><span class="o">.</span><span class="n">set_title</span><span class="p">(</span><span class="s2">&quot;Criminal Recidivism in 52-week After Release&quot;</span><span class="p">);</span>
 <span class="n">ax</span><span class="o">.</span><span class="n">set_ylabel</span><span class="p">(</span><span class="s2">&quot;P(surviving from getting rearrested)&quot;</span><span class="p">);</span>
-<span class="c1"># ax.set_ylabel(&quot;Prob. of getting rearrested&quot;);</span>
 <span class="n">ax</span><span class="o">.</span><span class="n">set_xlabel</span><span class="p">(</span><span class="s2">&quot;time (week)&quot;</span><span class="p">);</span>
 </pre></div>
 </div>
@@ -947,8 +942,39 @@ S(t) = P(T &gt; t)
 </section>
 <section id="best-practices-for-visualizing-km-plots">
 <h3>Best practices for visualizing KM plots<a class="headerlink" href="#best-practices-for-visualizing-km-plots" title="Link to this heading">#</a></h3>
-<p>In a recent survey from variety of stakeholders in healthcare, suggested that the addition of summary tables and confidence intervals greatly increased the effectiveness of Kaplan-Meier plots
-<a class="reference external" href="https://pubmed.ncbi.nlm.nih.gov/31575572/">article</a></p>
+<p>In a recent survey from variety of stakeholders in healthcare, suggested that the addition of summary tables and confidence intervals greatly increased the effectiveness of Kaplan-Meier plots<a class="reference external" href="https://pubmed.ncbi.nlm.nih.gov/31575572/">article</a></p>
+<p>The data is related to the life-span of political leaders in office. Event is triggered if leader is observed to have left office. Censoring happens when the leaders  died in office or were in office by 2008 (study finish time).</p>
+<div class="cell docutils container">
+<div class="cell_input docutils container">
+<div class="highlight-ipython3 notranslate"><div class="highlight"><pre><span></span><span class="kn">from</span><span class="w"> </span><span class="nn">lifelines.datasets</span><span class="w"> </span><span class="kn">import</span> <span class="n">load_dd</span>
+<span class="kn">from</span><span class="w"> </span><span class="nn">lifelines.plotting</span><span class="w"> </span><span class="kn">import</span> <span class="n">add_at_risk_counts</span>
+
+<span class="n">data</span> <span class="o">=</span> <span class="n">load_dd</span><span class="p">()</span>
+<span class="n">kmf1</span><span class="p">,</span> <span class="n">kmf2</span> <span class="o">=</span> <span class="n">KaplanMeierFitter</span><span class="p">(),</span> <span class="n">KaplanMeierFitter</span><span class="p">()</span>
+<span class="n">fig</span><span class="p">,</span> <span class="n">ax</span> <span class="o">=</span> <span class="n">plt</span><span class="o">.</span><span class="n">subplots</span><span class="p">(</span><span class="mi">1</span><span class="p">,</span> <span class="mi">1</span><span class="p">,</span> <span class="n">figsize</span><span class="o">=</span><span class="p">(</span><span class="mi">6</span><span class="p">,</span> <span class="mi">5</span><span class="p">))</span>
+<span class="n">t</span> <span class="o">=</span> <span class="n">np</span><span class="o">.</span><span class="n">linspace</span><span class="p">(</span><span class="mi">0</span><span class="p">,</span> <span class="mi">50</span><span class="p">,</span> <span class="mi">51</span><span class="p">)</span>
+
+<span class="n">democracy</span> <span class="o">=</span> <span class="n">data</span><span class="o">.</span><span class="n">query</span><span class="p">(</span><span class="s2">&quot;democracy == &#39;Democracy&#39; &quot;</span><span class="p">)</span>
+<span class="n">no_democracy</span> <span class="o">=</span> <span class="n">data</span><span class="o">.</span><span class="n">query</span><span class="p">(</span><span class="s2">&quot;democracy == &#39;Non-democracy&#39; &quot;</span><span class="p">)</span>
+
+<span class="n">kmf1</span><span class="o">.</span><span class="n">fit</span><span class="p">(</span><span class="n">democracy</span><span class="p">[</span><span class="s1">&#39;duration&#39;</span><span class="p">],</span> <span class="n">democracy</span><span class="p">[</span><span class="s1">&#39;observed&#39;</span><span class="p">],</span> <span class="n">timeline</span><span class="o">=</span><span class="n">t</span><span class="p">,</span> <span class="n">label</span><span class="o">=</span><span class="s2">&quot;Democratic&quot;</span><span class="p">)</span>
+<span class="n">kmf2</span><span class="o">.</span><span class="n">fit</span><span class="p">(</span><span class="n">no_democracy</span><span class="p">[</span><span class="s1">&#39;duration&#39;</span><span class="p">],</span> <span class="n">no_democracy</span><span class="p">[</span><span class="s1">&#39;observed&#39;</span><span class="p">],</span> <span class="n">timeline</span><span class="o">=</span><span class="n">t</span><span class="p">,</span> <span class="n">label</span><span class="o">=</span><span class="s2">&quot;Non-democratic&quot;</span><span class="p">)</span>
+
+<span class="c1"># Confidence Intervals </span>
+<span class="n">kmf1</span><span class="o">.</span><span class="n">plot</span><span class="p">(</span><span class="n">ci_show</span><span class="o">=</span><span class="kc">True</span><span class="p">,</span> <span class="n">ax</span><span class="o">=</span><span class="n">ax</span><span class="p">),</span> <span class="n">kmf2</span><span class="o">.</span><span class="n">plot</span><span class="p">(</span><span class="n">ci_show</span><span class="o">=</span><span class="kc">True</span><span class="p">,</span> <span class="n">ax</span><span class="o">=</span><span class="n">ax</span><span class="p">)</span>
+<span class="c1"># Summary Tables </span>
+<span class="n">add_at_risk_counts</span><span class="p">(</span><span class="n">kmf1</span><span class="p">,</span> <span class="n">kmf2</span><span class="p">,</span> <span class="n">ax</span><span class="o">=</span><span class="n">ax</span><span class="p">,</span> <span class="n">fontsize</span><span class="o">=</span><span class="mi">10</span><span class="p">,</span> <span class="n">rows_to_show</span><span class="o">=</span><span class="p">[</span><span class="s2">&quot;At risk&quot;</span><span class="p">,</span> <span class="s2">&quot;Censored&quot;</span><span class="p">,</span> <span class="s2">&quot;Events&quot;</span><span class="p">])</span>
+
+<span class="n">ax</span><span class="o">.</span><span class="n">set_title</span><span class="p">(</span><span class="s2">&quot;Lifespans of different global regimes&quot;</span><span class="p">);</span>
+<span class="n">ax</span><span class="o">.</span><span class="n">set_xlabel</span><span class="p">(</span><span class="s2">&quot;Time (year)&quot;</span><span class="p">);</span>
+<span class="n">ax</span><span class="o">.</span><span class="n">set_ylabel</span><span class="p">(</span><span class="s2">&quot;P(leader is in office)&quot;</span><span class="p">);</span>
+</pre></div>
+</div>
+</div>
+<div class="cell_output docutils container">
+<img alt="_images/8f4c250f0b75f10926a6d4984f6bdf68e7baf15ef2fd6989256be0b6464938e4.png" src="_images/8f4c250f0b75f10926a6d4984f6bdf68e7baf15ef2fd6989256be0b6464938e4.png" />
+</div>
+</div>
 </section>
 </section>
 <section id="example-4-what-is-the-objective-of-this-visualization">
@@ -1191,12 +1217,12 @@ S(t) = P(T &gt; t)
 </section>
 </section>
 </section>
-<section class="tex2jax_ignore mathjax_ignore" id="summary-take-aways">
-<h1>Summary &amp; Take Aways<a class="headerlink" href="#summary-take-aways" title="Link to this heading">#</a></h1>
+<section class="tex2jax_ignore mathjax_ignore" id="summary-takeaways">
+<h1>Summary &amp; Takeaways<a class="headerlink" href="#summary-takeaways" title="Link to this heading">#</a></h1>
 <ul class="simple">
-<li><p>If there are no censored observations and all subjects die KM-curve reaces zero, otherwise to the fraction of subjects that survived.</p></li>
-<li><p>If the data for any subjects are censored, the bottom point on the survival curve will not equal the fraction of subjects that survived. <a class="reference external" href="https://www.graphpad.com/support/faq/what-determines-how-low-a-kaplan-meier-survival-curve-ends-up-at-late-time-points/#:~:text=If%20there%20are%20no%20censored,the%20percent%20survival%20is%20zero.">link for further reading</a></p></li>
-<li><p>If the survival curve goes all the way down tozero, that does not mean that every subject in the study died and some could be probably censored.</p></li>
+<li><p>If there are no censored observations and all subjects die KM-curve reaches zero, otherwise to the fraction of subjects that survived.</p></li>
+<li><p>If the data for any subjetake acts are censored, the bottom point on the survival curve will not equal the fraction of subjects that survived. <a class="reference external" href="https://www.graphpad.com/support/faq/what-determines-how-low-a-kaplan-meier-survival-curve-ends-up-at-late-time-points/#:~:text=If%20there%20are%20no%20censored,the%20percent%20survival%20is%20zero.">link for further reading</a></p></li>
+<li><p>If the survival curve goes all the way down to zero, that does not mean that every subject in the study died and some could be probably censored.</p></li>
 </ul>
 </section>
 
@@ -1291,7 +1317,7 @@ S(t) = P(T &gt; t)
 </li>
 </ul>
 </li>
-<li class="toc-h1 nav-item toc-entry"><a class="reference internal nav-link" href="#summary-take-aways">Summary &amp; Take Aways</a></li>
+<li class="toc-h1 nav-item toc-entry"><a class="reference internal nav-link" href="#summary-takeaways">Summary &amp; Takeaways</a></li>
 </ul>
 
   </nav></div>
